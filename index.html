@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AHA Automobiles - Smart Car Upgrade Funnel</title>
+    <meta name="description" content="AHA Automobiles smart car upgrades, cruise mode experience, compatibility checks, callback requests, and WhatsApp support." />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script>
+      (function () {
+        const saved = localStorage.getItem("aha-theme");
+        document.documentElement.dataset.theme = saved || "dark";
+      })();
+    </script>
+    <!-- Meta Pixel Code: current live pixel. Retarget PageView, Lead, Purchase, Used_Tool, and custom funnel events in src/tracking.js. -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '2687561291629470');
+      fbq('track', 'PageView');
+    </script>
+    <!-- Google Analytics placeholder: add GA4 gtag script here when the measurement ID is available. -->
+  </head>
+  <body>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2687561291629470&ev=PageView&noscript=1" /></noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
