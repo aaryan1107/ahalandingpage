@@ -48,7 +48,7 @@ export default function CompatibilityChecker({ brands, selectedBrand, models, on
   }
 
   return (
-    <section className="section deep-section" id="compatibility">
+    <section className="section deep-section" id="compatibility" style={{ "--brand-accent": selectedBrand.accent }}>
       <div className="container compatibility-grid">
         <div data-reveal>
           <p className="eyebrow">5-second compatibility check</p>

@@ -1,51 +1,77 @@
+const iconBase = "https://cdn.simpleicons.org";
+
 export const carBrands = [
   {
     name: "Tata",
     initials: "TA",
-    models: ["Nexon", "Harrier", "Safari", "Punch", "Altroz"],
-    copy: "NexCruise checks for Tata highway favourites with plug-and-play fitment guidance."
+    logo: `${iconBase}/tata/111318`,
+    accent: "#6f9ee8",
+    models: ["Nexon", "Harrier", "Safari", "Punch", "Altroz", "Tiago", "Tigor"],
+    fleet: "SUVs, hatchbacks, EV-ready city cars",
+    copy: "NexCruise checks Tata highway favourites for plug-and-play fitment, clean throttle control, and long-drive comfort."
   },
   {
     name: "Mahindra",
     initials: "MA",
-    models: ["XUV700", "Scorpio N", "Thar", "XUV300", "Bolero Neo"],
-    copy: "Built for long-distance Indian SUVs that deserve steadier throttle control."
+    logo: `${iconBase}/mahindra/111318`,
+    accent: "#b91f2d",
+    models: ["XUV700", "Scorpio N", "Thar", "XUV300", "Bolero Neo", "Marazzo"],
+    fleet: "Indian SUVs and touring machines",
+    copy: "Built for long-distance Mahindra SUVs that need steadier cruise behaviour without cutting wires."
   },
   {
     name: "Hyundai",
     initials: "HY",
-    models: ["Creta", "Venue", "i20", "Verna", "Grand i10 Nios"],
-    copy: "Check Hyundai models for cruise comfort, city drive modes, and highway fatigue relief."
+    logo: `${iconBase}/hyundai/111318`,
+    accent: "#2454a6",
+    models: ["Creta", "Venue", "i20", "Verna", "Grand i10 Nios", "Aura", "Alcazar"],
+    fleet: "City cars, sedans, and compact SUVs",
+    copy: "Check Hyundai models for cruise comfort, city drive modes, and lower highway fatigue."
   },
   {
     name: "Kia",
     initials: "KI",
-    models: ["Seltos", "Sonet", "Carens"],
-    copy: "Compatibility guidance for Kia owners who want a cleaner, calmer long-drive routine."
+    logo: `${iconBase}/kia/111318`,
+    accent: "#6e7480",
+    models: ["Seltos", "Sonet", "Carens", "Carnival"],
+    fleet: "Connected SUVs and family movers",
+    copy: "Compatibility guidance for Kia owners who want a calmer long-drive routine and smart mode control."
   },
   {
     name: "Maruti Suzuki",
     initials: "MS",
-    models: ["Swift", "Baleno", "Dzire", "Ertiga", "Brezza", "Ciaz"],
-    copy: "Popular Maruti models can move from regular highway driving to a more premium cruise feel."
+    logo: `${iconBase}/suzuki/111318`,
+    accent: "#1f5bbd",
+    models: ["Swift", "Baleno", "Dzire", "Ertiga", "Brezza", "Ciaz", "Fronx", "XL6"],
+    fleet: "Daily drivers and family highway cars",
+    copy: "Popular Maruti Suzuki models can move from regular highway driving to a more premium cruise feel."
   },
   {
     name: "Toyota",
     initials: "TO",
-    models: ["Innova", "Fortuner", "Glanza", "Urban Cruiser"],
-    copy: "Explore Toyota fitment options for comfort-focused owners and family highway trips."
+    logo: `${iconBase}/toyota/111318`,
+    accent: "#d7202f",
+    models: ["Innova", "Fortuner", "Glanza", "Urban Cruiser", "Hyryder", "Camry"],
+    fleet: "Comfort-first MPVs, SUVs, and sedans",
+    copy: "Explore Toyota fitment options for comfort-focused owners, family trips, and touring routes."
   },
   {
     name: "Honda",
     initials: "HO",
-    models: ["City", "Amaze", "Elevate", "Jazz"],
-    copy: "Check your Honda for lower-fatigue cruise control and smoother throttle response."
+    logo: `${iconBase}/honda/111318`,
+    accent: "#1f3f86",
+    models: ["City", "Amaze", "Elevate", "Jazz", "WR-V"],
+    fleet: "Sedans, compact SUVs, and refined commuters",
+    copy: "Check Honda models for lower-fatigue cruise control and smoother throttle response."
   },
   {
     name: "MG",
     initials: "MG",
-    models: ["Hector", "Astor", "ZS EV", "Gloster"],
-    copy: "Compatibility guidance for connected, tech-forward MG owners who expect smarter controls."
+    logo: `${iconBase}/mg/111318`,
+    accent: "#9f8a54",
+    models: ["Hector", "Astor", "ZS EV", "Gloster", "Comet EV"],
+    fleet: "Tech-forward SUVs and connected cars",
+    copy: "Compatibility guidance for connected MG owners who expect smarter controls and modern interfaces."
   }
 ];
 
@@ -53,7 +79,7 @@ export const proofStats = [
   ["4,000+", "drives transformed"],
   ["30 min", "plug-and-play install"],
   ["50+", "installer cities"],
-  ["₹19,990", "starting price"]
+  ["Rs 19,990", "starting price"]
 ];
 
 export const featureCards = [

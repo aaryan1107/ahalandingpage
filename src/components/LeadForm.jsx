@@ -5,7 +5,7 @@ const blank = {
   name: "",
   phone: "",
   brand: "Tata",
-  model: "",
+  model: "Nexon",
   city: "",
   time: "Anytime",
   message: ""
@@ -16,8 +16,16 @@ export default function LeadForm({ brands, onWhatsApp }) {
   const [success, setSuccess] = useState(false);
 
   function setField(field, value) {
-    setForm((current) => ({ ...current, [field]: value }));
+    setForm((current) => {
+      if (field === "brand") {
+        const brand = brands.find((item) => item.name === value);
+        return { ...current, brand: value, model: brand?.models[0] || "" };
+      }
+      return { ...current, [field]: value };
+    });
   }
+
+  const selectedModels = brands.find((brand) => brand.name === form.brand)?.models || [];
 
   function submit(event) {
     event.preventDefault();
@@ -52,7 +60,7 @@ export default function LeadForm({ brands, onWhatsApp }) {
             <label>Full name<input required value={form.name} onChange={(event) => setField("name", event.target.value)} /></label>
             <label>Phone number<input required value={form.phone} onChange={(event) => setField("phone", event.target.value)} /></label>
             <label>Car brand<select value={form.brand} onChange={(event) => setField("brand", event.target.value)}>{brands.map((brand) => <option key={brand.name}>{brand.name}</option>)}</select></label>
-            <label>Car model<input value={form.model} onChange={(event) => setField("model", event.target.value)} /></label>
+            <label>Car model<select value={form.model} onChange={(event) => setField("model", event.target.value)}>{selectedModels.map((model) => <option key={model}>{model}</option>)}</select></label>
             <label>City<input required value={form.city} onChange={(event) => setField("city", event.target.value)} /></label>
             <label>Preferred contact time<select value={form.time} onChange={(event) => setField("time", event.target.value)}><option>Anytime</option><option>Morning</option><option>Afternoon</option><option>Evening</option></select></label>
             <label className="full-span">Message<textarea value={form.message} onChange={(event) => setField("message", event.target.value)} /></label>
