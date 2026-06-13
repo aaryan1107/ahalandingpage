@@ -69,7 +69,7 @@ export default function App() {
     <>
       <Header theme={theme} onThemeToggle={handleThemeToggle} onWhatsApp={handleWhatsApp} />
       <main>
-        <Hero heroImage={heroImage} stats={proofStats} onWhatsApp={handleWhatsApp} />
+        <Hero heroImage={heroImage} stats={proofStats} selectedBrand={selectedBrand} onWhatsApp={handleWhatsApp} />
         <BrandSelector selectedBrand={selectedBrand} brands={carBrands} onSelect={handleBrandSelect} />
         <CompatibilityChecker
           brands={carBrands}

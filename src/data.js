@@ -5,8 +5,8 @@ export const carBrands = [
     name: "Tata",
     initials: "TA",
     logo: `${iconBase}/tata/111318`,
-    accent: "#6f9ee8",
-    models: ["Nexon", "Harrier", "Safari", "Punch", "Altroz", "Tiago", "Tigor"],
+    accent: "#2f6fed",
+    models: ["Nexon", "Nexon EV", "Harrier", "Safari", "Punch", "Altroz", "Tiago", "Tigor", "Curvv", "Hexa"],
     fleet: "SUVs, hatchbacks, EV-ready city cars",
     copy: "NexCruise checks Tata highway favourites for plug-and-play fitment, clean throttle control, and long-drive comfort."
   },
@@ -14,8 +14,8 @@ export const carBrands = [
     name: "Mahindra",
     initials: "MA",
     logo: `${iconBase}/mahindra/111318`,
-    accent: "#b91f2d",
-    models: ["XUV700", "Scorpio N", "Thar", "XUV300", "Bolero Neo", "Marazzo"],
+    accent: "#c51f32",
+    models: ["XUV700", "Scorpio N", "Thar", "XUV300", "XUV3XO", "Bolero Neo", "Marazzo", "XUV500"],
     fleet: "Indian SUVs and touring machines",
     copy: "Built for long-distance Mahindra SUVs that need steadier cruise behaviour without cutting wires."
   },
@@ -23,8 +23,8 @@ export const carBrands = [
     name: "Hyundai",
     initials: "HY",
     logo: `${iconBase}/hyundai/111318`,
-    accent: "#2454a6",
-    models: ["Creta", "Venue", "i20", "Verna", "Grand i10 Nios", "Aura", "Alcazar"],
+    accent: "#1f5fbf",
+    models: ["Creta", "Venue", "i20", "Verna", "Grand i10 Nios", "Aura", "Alcazar", "Tucson", "Exter"],
     fleet: "City cars, sedans, and compact SUVs",
     copy: "Check Hyundai models for cruise comfort, city drive modes, and lower highway fatigue."
   },
@@ -32,8 +32,8 @@ export const carBrands = [
     name: "Kia",
     initials: "KI",
     logo: `${iconBase}/kia/111318`,
-    accent: "#6e7480",
-    models: ["Seltos", "Sonet", "Carens", "Carnival"],
+    accent: "#3c4658",
+    models: ["Seltos", "Sonet", "Carens", "Carnival", "EV6", "Syros"],
     fleet: "Connected SUVs and family movers",
     copy: "Compatibility guidance for Kia owners who want a calmer long-drive routine and smart mode control."
   },
@@ -41,8 +41,8 @@ export const carBrands = [
     name: "Maruti Suzuki",
     initials: "MS",
     logo: `${iconBase}/suzuki/111318`,
-    accent: "#1f5bbd",
-    models: ["Swift", "Baleno", "Dzire", "Ertiga", "Brezza", "Ciaz", "Fronx", "XL6"],
+    accent: "#1d67d2",
+    models: ["Swift", "Baleno", "Dzire", "Ertiga", "Brezza", "Ciaz", "Fronx", "XL6", "Grand Vitara", "WagonR", "Ignis"],
     fleet: "Daily drivers and family highway cars",
     copy: "Popular Maruti Suzuki models can move from regular highway driving to a more premium cruise feel."
   },
@@ -50,8 +50,8 @@ export const carBrands = [
     name: "Toyota",
     initials: "TO",
     logo: `${iconBase}/toyota/111318`,
-    accent: "#d7202f",
-    models: ["Innova", "Fortuner", "Glanza", "Urban Cruiser", "Hyryder", "Camry"],
+    accent: "#d21f32",
+    models: ["Innova Crysta", "Innova Hycross", "Fortuner", "Glanza", "Urban Cruiser", "Hyryder", "Camry", "Rumion"],
     fleet: "Comfort-first MPVs, SUVs, and sedans",
     copy: "Explore Toyota fitment options for comfort-focused owners, family trips, and touring routes."
   },
@@ -59,8 +59,8 @@ export const carBrands = [
     name: "Honda",
     initials: "HO",
     logo: `${iconBase}/honda/111318`,
-    accent: "#1f3f86",
-    models: ["City", "Amaze", "Elevate", "Jazz", "WR-V"],
+    accent: "#2452a4",
+    models: ["City", "Amaze", "Elevate", "Jazz", "WR-V", "Civic", "BR-V"],
     fleet: "Sedans, compact SUVs, and refined commuters",
     copy: "Check Honda models for lower-fatigue cruise control and smoother throttle response."
   },
@@ -68,8 +68,8 @@ export const carBrands = [
     name: "MG",
     initials: "MG",
     logo: `${iconBase}/mg/111318`,
-    accent: "#9f8a54",
-    models: ["Hector", "Astor", "ZS EV", "Gloster", "Comet EV"],
+    accent: "#8f7b55",
+    models: ["Hector", "Hector Plus", "Astor", "ZS EV", "Gloster", "Comet EV", "Windsor EV"],
     fleet: "Tech-forward SUVs and connected cars",
     copy: "Compatibility guidance for connected MG owners who expect smarter controls and modern interfaces."
   }
