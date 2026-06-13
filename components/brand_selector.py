@@ -9,8 +9,8 @@ def render_brand_selector():
         """
         <div class="aha-section-title">
           <div class="aha-kicker">Brand-specific experience</div>
-          <h2>Select your vehicle family</h2>
-          <p>The active brand changes model choices, accent tone, assistant copy, and compatibility scoring.</p>
+          <h2>AHA stays constant. The garage adapts to your car.</h2>
+          <p>Select a brand to update logos, models, fit confidence, fleet copy, and the compatibility path.</p>
         </div>
         """,
         unsafe_allow_html=True,
@@ -23,9 +23,9 @@ def render_brand_selector():
             st.markdown(
                 f"""
                 <div class="aha-brand-card {'aha-brand-card-active' if active else ''}" style="--brand-accent:{data['accent']}">
-                  <div class="aha-brand-mark" style="background:{data['accent']}">{name[:2].upper()}</div>
+                  <div class="aha-brand-mark" style="--brand-accent:{data['accent']}"><img src="{data['logo']}" alt="{name} logo" /></div>
                   <strong>{name}</strong>
-                  <p style="font-size:12px;margin:6px 0">{data['tone']}</p>
+                  <p style="font-size:12px;margin:6px 0">{data['fleet']}</p>
                   <span class="aha-chip">{data['metrics']['confidence']} confidence</span>
                 </div>
                 """,

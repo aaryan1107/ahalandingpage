@@ -5,20 +5,20 @@ from data.vehicles import BRANDS, COMPATIBILITY_RULES
 
 def init_state():
     defaults = {
-        "selected_brand": "Volvo",
-        "selected_model": "EX30",
+        "selected_brand": "Tata",
+        "selected_model": "Nexon",
         "compatibility_checked": False,
         "compatibility_score": 0,
         "compatibility_status": "Awaiting scan",
-        "assistant_messages": ["I am ready to review your selected vehicle profile."],
-        "selected_use_case": "Daily commute",
-        "selected_budget": "Rs 20k - 35k",
+        "assistant_messages": ["Select a brand and run the NexCruise compatibility scan."],
+        "selected_use_case": "Highway touring",
+        "selected_budget": "Smart Rs 27,490+",
         "selected_region": "Delhi NCR",
         "game_started": False,
         "game_score": 0,
         "game_energy": 72,
-        "game_route_choice": "Awaiting route",
-        "game_feedback": "Start the simulation and choose a route strategy.",
+        "game_route_choice": "Awaiting cruise lock",
+        "game_feedback": "Start NexCruise and stop inside the AHA zone.",
         "lead_name": "",
         "lead_phone": "",
     }
@@ -46,13 +46,13 @@ def run_compatibility_check():
 
     if score >= 85:
         status = "Excellent Fit"
-        message = "Excellent fit detected. I recommend booking an installer slot and confirming variant year."
+        message = "Excellent NexCruise fit signal. Book a callback to confirm variant year, fuel type, and installer slot."
     elif score >= 60:
         status = "Needs Review"
-        message = "This profile is workable, but install routing and module match should be reviewed."
+        message = "This profile looks workable, but AHA should review coupler routing and module match before installation."
     else:
         status = "Limited Fit"
-        message = "Limited fit. Keep this as an assisted review rather than an instant booking."
+        message = "Limited fit signal. Keep this as a manual AHA review instead of instant booking."
 
     st.session_state.compatibility_checked = True
     st.session_state.compatibility_score = score
@@ -64,25 +64,25 @@ def reset_game():
     st.session_state.game_started = False
     st.session_state.game_score = 0
     st.session_state.game_energy = 72
-    st.session_state.game_route_choice = "Awaiting route"
-    st.session_state.game_feedback = "Start the simulation and choose a route strategy."
+    st.session_state.game_route_choice = "Awaiting cruise lock"
+    st.session_state.game_feedback = "Start NexCruise and stop inside the AHA zone."
 
 
 def update_game_score(route):
     if not st.session_state.game_started:
         st.session_state.game_started = True
 
-    if route == "Eco Route":
+    if route == "Eco Mode":
         st.session_state.game_energy = min(100, st.session_state.game_energy + 10)
         st.session_state.game_score += 8
-        st.session_state.game_feedback = "Stable and efficient. Battery recovery improved route confidence."
-    elif route == "Fast Route":
+        st.session_state.game_feedback = "Eco mode held the route cleanly. Comfort and efficiency improved."
+    elif route == "Sport Mode":
         st.session_state.game_energy = max(0, st.session_state.game_energy - 15)
         st.session_state.game_score += 12
-        st.session_state.game_feedback = "Fast sector complete. Efficiency dipped, but arrival time improved."
+        st.session_state.game_feedback = "Sport mode responded sharply. Great control, but energy dipped."
     else:
         st.session_state.game_energy = max(0, st.session_state.game_energy - 5)
         st.session_state.game_score += 18
-        st.session_state.game_feedback = "Optimal AI-assisted decision. Best balance of speed and energy."
+        st.session_state.game_feedback = "Perfect AHA moment. Cruise locked into the comfort zone."
 
     st.session_state.game_route_choice = route

@@ -13,7 +13,7 @@ from utils.state import init_state
 
 st.set_page_config(
     page_title="AHA NexCruise Compatibility OS",
-    page_icon="🚘",
+    page_icon="AHA",
     layout="wide",
     initial_sidebar_state="collapsed",
 )

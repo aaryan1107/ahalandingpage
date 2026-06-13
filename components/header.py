@@ -8,14 +8,14 @@ def render_header():
           <div class="aha-logo">
             <div class="aha-logo-mark">AHA</div>
             <div>
-              <div>AHA NexCruise</div>
-              <small style="color:var(--text-muted);font-weight:800">Compatibility OS</small>
+              <div>AHA Automobiles</div>
+              <small style="color:var(--text-muted);font-weight:800">NexCruise compatibility OS</small>
             </div>
           </div>
           <div class="aha-nav-links">
-            <span>Dashboard</span><span>Compatibility</span><span>Intelligence</span><span>Game</span><span>Contact</span>
+            <span>Brands</span><span>Compatibility</span><span>Features</span><span>Challenge</span><span>Callback</span>
           </div>
-          <div class="aha-status-pill">● Live Compatibility Engine</div>
+          <div class="aha-status-pill">Live AHA fitment funnel</div>
         </nav>
         """,
         unsafe_allow_html=True,

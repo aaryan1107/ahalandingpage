@@ -3,7 +3,7 @@ import streamlit as st
 from components.assistant_panel import render_assistant_panel
 from components.insight_cards import render_reason_card, render_recommendation_chip, render_score_ring
 from components.vehicle_showcase import render_vehicle_showcase
-from data.vehicles import BRANDS, BUDGET_BANDS, REGIONS, USE_CASES
+from data.vehicles import BRANDS, BUDGET_BANDS, FAQS, PRODUCT_FEATURES, REGIONS, USE_CASES
 from utils.state import reset_compatibility, run_compatibility_check
 
 
@@ -16,8 +16,8 @@ def render_compatibility_workspace():
         """
         <div id="compatibility" class="aha-section-title">
           <div class="aha-kicker">Compatibility workspace</div>
-          <h2>AI-powered vehicle fit analysis</h2>
-          <p>A premium workspace for model selection, fit confidence, assistant review, and next-step recommendations.</p>
+          <h2>Check if your car can get the AHA drive.</h2>
+          <p>Model selection, installer confidence, drive-mode fitment, and callback readiness in one funnel workspace.</p>
         </div>
         """,
         unsafe_allow_html=True,
@@ -41,14 +41,14 @@ def render_compatibility_workspace():
             st.session_state.selected_model = model
             reset_compatibility()
 
-        st.markdown('<div class="aha-control-label">Use case</div>', unsafe_allow_html=True)
+        st.markdown('<div class="aha-control-label">Primary use</div>', unsafe_allow_html=True)
         st.session_state.selected_use_case = st.selectbox("Use case", USE_CASES, label_visibility="collapsed")
-        st.markdown('<div class="aha-control-label">Budget</div>', unsafe_allow_html=True)
-        st.session_state.selected_budget = st.selectbox("Budget", BUDGET_BANDS, label_visibility="collapsed")
-        st.markdown('<div class="aha-control-label">Region</div>', unsafe_allow_html=True)
+        st.markdown('<div class="aha-control-label">Variant interest</div>', unsafe_allow_html=True)
+        st.session_state.selected_budget = st.selectbox("Variant", BUDGET_BANDS, label_visibility="collapsed")
+        st.markdown('<div class="aha-control-label">City / region</div>', unsafe_allow_html=True)
         st.session_state.selected_region = st.selectbox("Region", REGIONS, label_visibility="collapsed")
 
-        if st.button("Run compatibility scan", key="run_scan"):
+        if st.button("Run NexCruise scan", key="run_scan"):
             run_compatibility_check()
         st.markdown("</div>", unsafe_allow_html=True)
 
@@ -59,12 +59,12 @@ def render_compatibility_workspace():
         st.markdown(f"<h3>{status}</h3><p>{brand_data['notes']}</p>", unsafe_allow_html=True)
         c1, c2 = st.columns([0.42, 0.58])
         with c1:
-            render_score_ring(score, "Compatibility score")
+            render_score_ring(score, "AHA fit score")
         with c2:
             st.markdown('<div class="aha-reason-grid">', unsafe_allow_html=True)
-            render_reason_card("Vehicle electronics", "Module handshake and accessory routing reviewed.", status_tone)
-            render_reason_card("Charging profile", "Daily route and charge behaviour considered.", "info")
-            render_reason_card("Install complexity", "Dashboard access and steering dial placement estimated.", status_tone)
+            render_reason_card("Pedal coupler", "Accelerator coupler compatibility and clean routing reviewed.", status_tone)
+            render_reason_card("Cruise behaviour", "Brake override, resume, and highway use case considered.", "info")
+            render_reason_card("Install complexity", "OBD access and steering dial placement estimated.", status_tone)
             render_reason_card("Region support", f"{st.session_state.selected_region} installer path checked.", "positive")
             st.markdown("</div>", unsafe_allow_html=True)
         st.markdown("</div>", unsafe_allow_html=True)
@@ -76,3 +76,39 @@ def render_compatibility_workspace():
             render_recommendation_chip(chip)
 
     st.markdown("</div>", unsafe_allow_html=True)
+
+    st.markdown(
+        """
+        <div class="aha-section-title">
+          <div class="aha-kicker">NexCruise feature stack</div>
+          <h2>What changes after the upgrade.</h2>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+    feature_cols = st.columns(3)
+    for index, (title, body) in enumerate(PRODUCT_FEATURES):
+        with feature_cols[index % 3]:
+            st.markdown(
+                f"""
+                <div class="aha-feature-card">
+                  <span>{index + 1:02d}</span>
+                  <strong>{title}</strong>
+                  <p>{body}</p>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+    st.markdown(
+        """
+        <div class="aha-section-title">
+          <div class="aha-kicker">FAQ</div>
+          <h2>Questions drivers ask before they upgrade.</h2>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+    for question, answer in FAQS:
+        with st.expander(question):
+            st.write(answer)
