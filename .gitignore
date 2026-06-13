@@ -20,3 +20,6 @@ preview-*.png
 
 .env
 .env.*
+
+__pycache__/
+*.pyc
