@@ -23,7 +23,15 @@
       s.parentNode.insertBefore(t,s)}(window, document,'script',
       'https://connect.facebook.net/en_US/fbevents.js');
       fbq('init', '2687561291629470');
-      fbq('track', 'PageView');
+      (function () {
+        const params = new URLSearchParams(window.location.search);
+        const urlTestCode = params.get('test_event_code');
+        if (urlTestCode) {
+          localStorage.setItem('meta_test_event_code', urlTestCode);
+        }
+        const testEventCode = urlTestCode || localStorage.getItem('meta_test_event_code') || 'TEST40117';
+        fbq('track', 'PageView', { test_event_code: testEventCode });
+      })();
     </script>
     <!-- Google Analytics placeholder: add GA4 gtag script here when the measurement ID is available. -->
   </head>
