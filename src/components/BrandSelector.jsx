@@ -1,7 +1,14 @@
 function BrandLogo({ brand, className = "" }) {
   return (
     <span className={`brand-logo ${className}`} style={{ "--brand-accent": brand.accent }}>
-      <img src={brand.logo} alt={`${brand.name} logo`} onError={(event) => { event.currentTarget.style.display = "none"; }} />
+      <img
+        src={brand.logo}
+        alt={`${brand.name} logo`}
+        onError={(event) => {
+          event.currentTarget.style.display = "none";
+          event.currentTarget.closest(".brand-logo")?.classList.add("logo-failed");
+        }}
+      />
       <b>{brand.initials}</b>
     </span>
   );
