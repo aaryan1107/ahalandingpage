@@ -315,6 +315,16 @@ def inject_global_styles():
           color: rgba(255,255,255,.68);
           font-size: 12px;
         }
+        .aha-utm-note {
+          width: fit-content;
+          margin: 16px auto 0;
+          padding: 9px 13px;
+          border: 1px solid rgba(255,255,255,.16);
+          border-radius: var(--radius-pill);
+          background: rgba(255,255,255,.08);
+          color: rgba(255,255,255,.82);
+          font: 800 12px 'IBM Plex Mono';
+        }
         .aha-footer { margin-top: 46px; padding: 24px 0 8px; color: var(--text-muted); text-align: center; font-size: 13px; }
 
         .stTextInput input, .stTextArea textarea, .stSelectbox [data-baseweb="select"] {

@@ -2,13 +2,20 @@ import streamlit as st
 
 
 def render_dashboard_hero():
+    utm = st.session_state.get("utm_context", {})
+    headline = utm.get("headline", "Your next highway drive. No leg pain. No fatigue stops.")
+    subcopy = utm.get(
+        "subcopy",
+        "Plug-and-play cruise control, Eco/Sport/City drive modes, and speed governor support for compatible Indian cars.",
+    )
+    cta = utm.get("cta", "Direct visitor")
     st.markdown(
-        """
+        f"""
         <section class="aha-hero">
           <div class="aha-hero-copy">
-            <div class="aha-kicker">NexCruise by AHA Automobiles</div>
-            <h1>Your next highway drive. No leg pain. No fatigue stops.</h1>
-            <p>Plug-and-play cruise control, Eco/Sport/City drive modes, and speed governor support for compatible Indian cars.</p>
+            <div class="aha-kicker">NexCruise by AHA Automobiles - {cta}</div>
+            <h1>{headline}</h1>
+            <p>{subcopy}</p>
             <p class="aha-punchline">When cruise mode sets in... AHA.</p>
             <a class="aha-primary-btn" href="#compatibility">Check Compatibility</a>
             <a class="aha-secondary-btn" href="https://wa.me/91XXXXXXXXXX" target="_blank">WhatsApp AHA</a>
