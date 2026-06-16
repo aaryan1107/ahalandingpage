@@ -93,9 +93,9 @@ def inject_global_styles():
           border: 1px solid rgba(255,255,255,0.92);
           border-radius: 42px;
           background:
-            linear-gradient(90deg, rgba(255,255,255,0.90) 0 39%, rgba(255,255,255,0.46) 39% 100%),
-            radial-gradient(circle at 76% 38%, rgba(29,99,255,0.18), transparent 35%),
-            radial-gradient(circle at 52% 10%, rgba(255,64,93,0.11), transparent 25%),
+            radial-gradient(circle at 12% 6%, rgba(255,64,93,0.13), transparent 30%),
+            radial-gradient(circle at 78% 34%, rgba(29,99,255,0.24), transparent 38%),
+            linear-gradient(90deg, rgba(255,255,255,0.88) 0 39%, rgba(232,239,249,0.52) 39% 100%),
             linear-gradient(145deg, rgba(249,251,253,0.96), rgba(218,229,241,0.92));
           box-shadow: var(--shadow-float);
           overflow: hidden;
@@ -113,7 +113,9 @@ def inject_global_styles():
         .aha-hero::after {
           content: "";
           position: absolute; inset: 0;
-          background: linear-gradient(90deg, transparent 0 48%, rgba(47,111,237,0.12) 48% 50%, transparent 50%);
+          background:
+            linear-gradient(110deg, transparent 0 47%, rgba(255,255,255,0.18) 47% 62%, transparent 62%),
+            radial-gradient(circle at 72% 54%, color-mix(in srgb, var(--brand-accent, #1d63ff) 13%, transparent), transparent 34%);
           pointer-events: none;
         }
         .aha-hero-copy { position: relative; z-index: 2; max-width: 470px; padding-top: 22px; }
@@ -143,25 +145,178 @@ def inject_global_styles():
           border: 1px solid rgba(255,255,255,0.78);
           border-radius: 34px;
           background:
-            radial-gradient(circle at 42% 34%, rgba(255,255,255,0.95), transparent 30%),
-            radial-gradient(circle at 76% 18%, rgba(255,64,93,0.16), transparent 24%),
-            linear-gradient(150deg, rgba(220,230,242,0.82), rgba(247,249,252,0.78) 48%, rgba(200,215,235,0.86));
+            linear-gradient(90deg, rgba(255,255,255,.12) 1px, transparent 1px) 0 0 / 84px 84px,
+            linear-gradient(180deg, rgba(255,255,255,.10) 1px, transparent 1px) 0 0 / 84px 84px,
+            radial-gradient(circle at 34% 30%, color-mix(in srgb, var(--brand-accent) 20%, white), transparent 30%),
+            radial-gradient(circle at 74% 16%, rgba(255,64,93,0.18), transparent 24%),
+            linear-gradient(150deg, rgba(223,232,244,0.78), rgba(245,248,252,0.66) 48%, rgba(192,211,237,0.82));
           box-shadow: var(--shadow-float);
           overflow: hidden;
           backdrop-filter: blur(18px) saturate(150%);
         }
+        .aha-hero-road {
+          position: absolute;
+          left: 6%;
+          right: 6%;
+          bottom: 74px;
+          height: 132px;
+          transform: perspective(680px) rotateX(62deg);
+          transform-origin: bottom center;
+          border-radius: 44px;
+          background:
+            linear-gradient(90deg, transparent 0 47%, rgba(255,255,255,.44) 47% 48%, transparent 48% 52%, rgba(255,255,255,.44) 52% 53%, transparent 53%),
+            linear-gradient(180deg, rgba(10,15,24,.40), rgba(10,15,24,.10));
+          box-shadow: 0 36px 70px rgba(15,23,42,.16);
+          opacity: .72;
+        }
+        .aha-hero-road span {
+          position: absolute;
+          left: 10%;
+          right: 10%;
+          height: 1px;
+          background: rgba(255,255,255,.32);
+        }
+        .aha-hero-road span:nth-child(1) { top: 25%; }
+        .aha-hero-road span:nth-child(2) { top: 52%; }
+        .aha-hero-road span:nth-child(3) { top: 78%; }
         .aha-vehicle-stage {
-          position: absolute; left: 9%; top: 24%; width: 78%; height: 35%;
-          border-radius: 100px 120px 46px 46px;
-          background: linear-gradient(180deg, #fcfdff, #aebacc);
-          box-shadow: inset 0 -24px 40px rgba(15,23,42,.18), 0 32px 70px rgba(15,23,42,.16);
+          position: absolute;
+          left: 8%;
+          top: 29%;
+          width: 72%;
+          height: 210px;
+          perspective: 900px;
+          z-index: 2;
         }
-        .aha-vehicle-stage::before, .aha-vehicle-stage::after {
-          content: ""; position: absolute; bottom: -24px; width: 78px; height: 78px; border-radius: 50%;
-          background: radial-gradient(circle, #111827 0 36%, #e5e7eb 37% 54%, #111827 55%);
+        .aha-car-shadow {
+          position: absolute;
+          left: 10%;
+          right: 0;
+          bottom: 3px;
+          height: 42px;
+          border-radius: 50%;
+          background: radial-gradient(ellipse, rgba(6,10,18,.32), transparent 68%);
+          filter: blur(4px);
         }
-        .aha-vehicle-stage::before { left: 12%; }
-        .aha-vehicle-stage::after { right: 12%; }
+        .aha-car-body {
+          position: absolute;
+          left: 3%;
+          right: 3%;
+          bottom: 28px;
+          height: 122px;
+          transform: rotateX(2deg) rotateY(-14deg) rotateZ(-1deg);
+          transform-style: preserve-3d;
+          border-radius: 56px 84px 34px 42px;
+          background:
+            linear-gradient(115deg, rgba(255,255,255,.65), transparent 32%),
+            linear-gradient(180deg, color-mix(in srgb, var(--brand-accent) 36%, #ffffff) 0%, color-mix(in srgb, var(--brand-accent) 72%, #111827) 100%);
+          box-shadow:
+            inset 0 18px 26px rgba(255,255,255,.42),
+            inset 0 -24px 36px rgba(5,10,20,.20),
+            0 34px 70px rgba(15,23,42,.24);
+        }
+        .aha-car-body::after {
+          content: "";
+          position: absolute;
+          left: 10%;
+          right: 11%;
+          top: 58%;
+          height: 3px;
+          border-radius: 99px;
+          background: rgba(255,255,255,.38);
+        }
+        .aha-car-nose {
+          position: absolute;
+          right: -28px;
+          bottom: 10px;
+          width: 86px;
+          height: 76px;
+          border-radius: 18px 58px 36px 10px;
+          background: linear-gradient(145deg, color-mix(in srgb, var(--brand-accent) 54%, #ffffff), color-mix(in srgb, var(--brand-accent) 78%, #111827));
+          box-shadow: inset -20px -12px 24px rgba(5,10,20,.16);
+        }
+        .aha-car-cabin {
+          position: absolute;
+          left: 28%;
+          top: -72px;
+          width: 38%;
+          height: 100px;
+          border-radius: 74px 82px 20px 20px;
+          background:
+            linear-gradient(135deg, rgba(255,255,255,.86), rgba(193,214,241,.42) 45%, rgba(15,23,42,.22)),
+            linear-gradient(180deg, color-mix(in srgb, var(--brand-accent) 20%, #eef6ff), rgba(255,255,255,.2));
+          box-shadow: inset 0 18px 26px rgba(255,255,255,.54), 0 16px 30px rgba(15,23,42,.12);
+        }
+        .aha-car-window {
+          position: absolute;
+          top: 22px;
+          height: 42px;
+          background: linear-gradient(140deg, rgba(255,255,255,.82), rgba(122,156,202,.38));
+          border: 1px solid rgba(255,255,255,.78);
+          box-shadow: inset 0 -10px 14px rgba(29,99,255,.10);
+        }
+        .aha-window-front { right: 15%; width: 34%; border-radius: 10px 42px 10px 10px; }
+        .aha-window-rear { left: 15%; width: 31%; border-radius: 42px 10px 10px 10px; }
+        .aha-car-hood {
+          position: absolute;
+          right: 8%;
+          top: 20px;
+          width: 30%;
+          height: 34px;
+          border-radius: 40px 90px 12px 18px;
+          background: linear-gradient(110deg, rgba(255,255,255,.44), rgba(255,255,255,.08));
+        }
+        .aha-car-light {
+          position: absolute;
+          bottom: 42px;
+          width: 42px;
+          height: 16px;
+          border-radius: 999px;
+          filter: drop-shadow(0 0 16px currentColor);
+        }
+        .aha-light-front { right: -18px; color: #f8fbff; background: #f8fbff; }
+        .aha-light-rear { left: 12px; color: #ff405d; background: #ff405d; }
+        .aha-car-wheel {
+          position: absolute;
+          bottom: -24px;
+          width: 78px;
+          height: 78px;
+          border-radius: 50%;
+          display: grid;
+          place-items: center;
+          background: radial-gradient(circle, #0b111d 0 38%, #e8eef6 39% 53%, #0b111d 54% 100%);
+          box-shadow: 0 12px 28px rgba(5,10,20,.30);
+        }
+        .aha-car-wheel span {
+          width: 28px;
+          height: 28px;
+          border-radius: 50%;
+          border: 6px solid rgba(255,255,255,.82);
+          background: color-mix(in srgb, var(--brand-accent) 65%, #111827);
+        }
+        .aha-wheel-front { right: 14%; }
+        .aha-wheel-rear { left: 13%; }
+        .aha-car-nameplate {
+          position: absolute;
+          left: 7%;
+          bottom: -34px;
+          padding: 8px 12px;
+          border: 1px solid rgba(255,255,255,.72);
+          border-radius: 999px;
+          background: rgba(255,255,255,.58);
+          backdrop-filter: blur(14px);
+          color: #111827;
+          font: 800 12px 'IBM Plex Mono';
+          letter-spacing: .06em;
+          text-transform: uppercase;
+          box-shadow: 0 12px 30px rgba(23,34,52,.10);
+        }
+        .aha-vehicle-sedan .aha-car-body { height: 104px; border-radius: 44px 92px 28px 38px; }
+        .aha-vehicle-sedan .aha-car-cabin { left: 34%; top: -64px; width: 33%; height: 86px; }
+        .aha-vehicle-hatch .aha-car-body { height: 112px; border-radius: 66px 72px 32px 42px; }
+        .aha-vehicle-hatch .aha-car-cabin { left: 23%; top: -68px; width: 42%; }
+        .aha-vehicle-mpv .aha-car-body { height: 132px; border-radius: 74px 80px 34px 42px; }
+        .aha-vehicle-mpv .aha-car-cabin { left: 24%; top: -74px; width: 46%; }
         .aha-floating-card {
           position: absolute; right: 28px; top: 28px; width: 236px; padding: 18px;
           border: 1px solid rgba(255,255,255,.84); border-radius: 24px;
