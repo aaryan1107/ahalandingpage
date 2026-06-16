@@ -32,8 +32,6 @@ def inject_global_styles():
         .stDeployButton, [data-testid="stToolbar"] { display: none !important; }
         [data-testid="stAppViewContainer"] {
           background:
-            linear-gradient(90deg, rgba(255,255,255,0.52) 1px, transparent 1px) 0 0 / 132px 132px,
-            linear-gradient(180deg, rgba(8,11,16,0.04) 1px, transparent 1px) 0 0 / 132px 132px,
             radial-gradient(circle at 10% 0%, rgba(255,64,93,0.12), transparent 30%),
             radial-gradient(circle at 78% 8%, rgba(29,99,255,0.18), transparent 35%),
             linear-gradient(135deg, #eef3f8 0%, #fbfdff 48%, #dfe8f2 100%);
@@ -111,12 +109,7 @@ def inject_global_styles():
           letter-spacing: -0.08em;
         }
         .aha-hero::after {
-          content: "";
-          position: absolute; inset: 0;
-          background:
-            linear-gradient(110deg, transparent 0 47%, rgba(255,255,255,0.18) 47% 62%, transparent 62%),
-            radial-gradient(circle at 72% 54%, color-mix(in srgb, var(--brand-accent, #1d63ff) 13%, transparent), transparent 34%);
-          pointer-events: none;
+          display: none;
         }
         .aha-hero-copy { position: relative; z-index: 2; max-width: 470px; padding-top: 22px; }
         .aha-kicker { color: var(--accent-blue); text-transform: uppercase; font: 800 12px 'IBM Plex Mono'; letter-spacing: .14em; }
@@ -145,8 +138,6 @@ def inject_global_styles():
           border: 1px solid rgba(255,255,255,0.78);
           border-radius: 34px;
           background:
-            linear-gradient(90deg, rgba(255,255,255,.12) 1px, transparent 1px) 0 0 / 84px 84px,
-            linear-gradient(180deg, rgba(255,255,255,.10) 1px, transparent 1px) 0 0 / 84px 84px,
             radial-gradient(circle at 34% 30%, color-mix(in srgb, var(--brand-accent) 20%, white), transparent 30%),
             radial-gradient(circle at 74% 16%, rgba(255,64,93,0.18), transparent 24%),
             linear-gradient(150deg, rgba(223,232,244,0.78), rgba(245,248,252,0.66) 48%, rgba(192,211,237,0.82));
@@ -164,7 +155,6 @@ def inject_global_styles():
           transform-origin: bottom center;
           border-radius: 44px;
           background:
-            linear-gradient(90deg, transparent 0 47%, rgba(255,255,255,.44) 47% 48%, transparent 48% 52%, rgba(255,255,255,.44) 52% 53%, transparent 53%),
             linear-gradient(180deg, rgba(10,15,24,.40), rgba(10,15,24,.10));
           box-shadow: 0 36px 70px rgba(15,23,42,.16);
           opacity: .72;
