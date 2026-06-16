@@ -8,21 +8,23 @@ def inject_global_styles():
         @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');
 
         :root {
-          --bg-main: #eef3f8;
-          --bg-panel: #ffffff;
-          --bg-panel-soft: #f6f8fb;
-          --bg-glass: rgba(255,255,255,0.58);
-          --text-main: #080b10;
-          --text-muted: #68717f;
-          --text-soft: #9aa3af;
-          --accent-blue: #1d63ff;
-          --accent-silver: #d8dee8;
-          --accent-ink: #090c12;
-          --accent-ember: #ff405d;
-          --border-soft: rgba(8,11,16,0.10);
-          --glass-border: rgba(255,255,255,0.72);
-          --shadow-soft: 0 14px 38px rgba(23,34,52,0.10);
-          --shadow-float: 0 32px 92px rgba(23,34,52,0.18);
+          --bg-main: #05070d;
+          --bg-panel: #0b101a;
+          --bg-panel-soft: #111827;
+          --bg-glass: rgba(11,16,26,0.64);
+          --text-main: #f6f8ff;
+          --text-muted: #a7b1c4;
+          --text-soft: #6e7b91;
+          --accent-blue: #4f8cff;
+          --accent-cyan: #36d6ff;
+          --accent-silver: #d8e3f4;
+          --accent-ink: #05070d;
+          --accent-ember: #ff3f6e;
+          --accent-gold: #f4c96b;
+          --border-soft: rgba(255,255,255,0.12);
+          --glass-border: rgba(255,255,255,0.18);
+          --shadow-soft: 0 16px 42px rgba(0,0,0,0.34);
+          --shadow-float: 0 34px 110px rgba(0,0,0,0.48);
           --radius-lg: 22px;
           --radius-xl: 34px;
           --radius-pill: 999px;
@@ -32,9 +34,10 @@ def inject_global_styles():
         .stDeployButton, [data-testid="stToolbar"] { display: none !important; }
         [data-testid="stAppViewContainer"] {
           background:
-            radial-gradient(circle at 10% 0%, rgba(255,64,93,0.12), transparent 30%),
-            radial-gradient(circle at 78% 8%, rgba(29,99,255,0.18), transparent 35%),
-            linear-gradient(135deg, #eef3f8 0%, #fbfdff 48%, #dfe8f2 100%);
+            radial-gradient(circle at 8% 0%, rgba(255,63,110,0.18), transparent 30%),
+            radial-gradient(circle at 82% 8%, rgba(54,214,255,0.16), transparent 34%),
+            radial-gradient(circle at 62% 66%, rgba(79,140,255,0.11), transparent 38%),
+            linear-gradient(135deg, #03050a 0%, #08111f 44%, #03050a 100%);
           color: var(--text-main);
           font-family: Inter, sans-serif;
         }
@@ -47,6 +50,9 @@ def inject_global_styles():
           letter-spacing: -0.035em;
         }
         p { color: var(--text-muted); }
+        label, .stMarkdown, [data-testid="stWidgetLabel"], .stSelectbox label, .stTextInput label, .stTextArea label {
+          color: var(--text-muted) !important;
+        }
         div[data-testid="stVerticalBlock"] { gap: 1rem; }
 
         .aha-nav {
@@ -59,25 +65,29 @@ def inject_global_styles():
           gap: 24px;
           margin-bottom: 24px;
           padding: 14px 18px;
-          border: 1px solid rgba(255,255,255,0.86);
+          border: 1px solid rgba(255,255,255,0.14);
           border-radius: var(--radius-pill);
-          background: rgba(255,255,255,0.74);
-          box-shadow: 0 16px 46px rgba(23,34,52,0.08);
+          background:
+            linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.035)),
+            rgba(7,11,19,0.72);
+          box-shadow: 0 20px 60px rgba(0,0,0,0.34);
           backdrop-filter: blur(22px) saturate(160%);
         }
         .aha-logo { display: flex; align-items: center; gap: 12px; font-weight: 900; }
         .aha-logo-mark {
           width: 42px; height: 42px; display: grid; place-items: center;
-          border-radius: 50%; color: white; background: #090c12;
+          border-radius: 50%; color: white;
+          background: radial-gradient(circle at 30% 20%, #6ee7ff, #246bff 40%, #060914 72%);
+          box-shadow: 0 0 32px rgba(79,140,255,.36);
           font: 800 12px 'IBM Plex Mono', monospace; letter-spacing: .03em;
         }
         .aha-nav-links { display: flex; gap: 24px; color: var(--text-muted); font-size: 13px; font-weight: 800; }
         .aha-status-pill, .aha-chip {
           display: inline-flex; align-items: center; gap: 8px;
-          border: 1px solid rgba(47,111,237,0.16);
+          border: 1px solid rgba(79,140,255,0.34);
           border-radius: var(--radius-pill);
-          background: rgba(47,111,237,0.08);
-          color: #245ec8;
+          background: rgba(79,140,255,0.13);
+          color: #cfe1ff;
           padding: 8px 13px;
           font-size: 12px;
           font-weight: 850;
@@ -88,13 +98,13 @@ def inject_global_styles():
           position: relative;
           min-height: 650px;
           padding: 46px;
-          border: 1px solid rgba(255,255,255,0.92);
+          border: 1px solid rgba(255,255,255,0.15);
           border-radius: 42px;
           background:
-            radial-gradient(circle at 12% 6%, rgba(255,64,93,0.13), transparent 30%),
-            radial-gradient(circle at 78% 34%, rgba(29,99,255,0.24), transparent 38%),
-            linear-gradient(90deg, rgba(255,255,255,0.88) 0 39%, rgba(232,239,249,0.52) 39% 100%),
-            linear-gradient(145deg, rgba(249,251,253,0.96), rgba(218,229,241,0.92));
+            radial-gradient(circle at 11% 10%, rgba(255,63,110,0.24), transparent 31%),
+            radial-gradient(circle at 82% 32%, rgba(54,214,255,0.22), transparent 36%),
+            linear-gradient(90deg, rgba(9,13,22,0.96) 0 39%, rgba(9,16,29,0.80) 39% 100%),
+            linear-gradient(145deg, #070a12, #111b2f);
           box-shadow: var(--shadow-float);
           overflow: hidden;
           backdrop-filter: blur(24px) saturate(160%);
@@ -104,23 +114,23 @@ def inject_global_styles():
           position: absolute;
           right: -24px;
           top: 38px;
-          color: rgba(8,11,16,0.045);
+          color: rgba(255,255,255,0.035);
           font: 900 clamp(74px, 12vw, 170px) 'Plus Jakarta Sans';
           letter-spacing: -0.08em;
         }
         .aha-hero::after {
           display: none;
         }
-        .aha-hero-copy { position: relative; z-index: 2; max-width: 470px; padding-top: 22px; }
+        .aha-hero-copy { position: relative; z-index: 2; max-width: 500px; padding-top: 22px; }
         .aha-kicker { color: var(--accent-blue); text-transform: uppercase; font: 800 12px 'IBM Plex Mono'; letter-spacing: .14em; }
-        .aha-hero h1 { margin: 14px 0 16px; color: var(--text-main); font-size: clamp(54px, 6.2vw, 92px); line-height: .92; }
+        .aha-hero h1 { margin: 14px 0 16px; color: var(--text-main); font-size: clamp(50px, 5.8vw, 84px); line-height: .94; }
         .aha-hero p { font-size: 16px; line-height: 1.7; }
         .aha-punchline {
           width: fit-content;
           padding: 9px 13px;
-          border: 1px solid var(--border-soft);
+          border: 1px solid rgba(255,255,255,0.15);
           border-radius: var(--radius-pill);
-          background: rgba(255,255,255,0.78);
+          background: rgba(255,255,255,0.07);
           font-weight: 850;
           color: var(--text-main) !important;
         }
@@ -131,16 +141,20 @@ def inject_global_styles():
         }
         .aha-primary-btn, .aha-primary-btn:visited, .aha-primary-btn:hover { color: white !important; }
         .aha-secondary-btn, .aha-secondary-btn:visited, .aha-secondary-btn:hover { color: var(--text-main) !important; }
-        .aha-primary-btn { background: var(--accent-ink); box-shadow: 0 18px 34px rgba(8,11,16,.18); }
-        .aha-secondary-btn { border: 1px solid var(--border-soft); background: white; }
+        .aha-primary-btn {
+          background: linear-gradient(135deg, #f7faff, #8db7ff 45%, #285bff);
+          color: #05070d !important;
+          box-shadow: 0 18px 44px rgba(79,140,255,.34);
+        }
+        .aha-secondary-btn { border: 1px solid rgba(255,255,255,0.16); background: rgba(255,255,255,.07); }
         .aha-dashboard-canvas {
           position: absolute; right: 34px; top: 88px; width: 58%; height: 470px;
-          border: 1px solid rgba(255,255,255,0.78);
+          border: 1px solid rgba(255,255,255,0.14);
           border-radius: 34px;
           background:
-            radial-gradient(circle at 34% 30%, color-mix(in srgb, var(--brand-accent) 20%, white), transparent 30%),
-            radial-gradient(circle at 74% 16%, rgba(255,64,93,0.18), transparent 24%),
-            linear-gradient(150deg, rgba(223,232,244,0.78), rgba(245,248,252,0.66) 48%, rgba(192,211,237,0.82));
+            radial-gradient(circle at 34% 30%, color-mix(in srgb, var(--brand-accent) 32%, transparent), transparent 33%),
+            radial-gradient(circle at 74% 16%, rgba(255,63,110,0.20), transparent 24%),
+            linear-gradient(150deg, rgba(20,31,51,0.78), rgba(10,15,26,0.76) 48%, rgba(13,25,45,0.88));
           box-shadow: var(--shadow-float);
           overflow: hidden;
           backdrop-filter: blur(18px) saturate(150%);
@@ -155,9 +169,9 @@ def inject_global_styles():
           transform-origin: bottom center;
           border-radius: 44px;
           background:
-            linear-gradient(180deg, rgba(10,15,24,.40), rgba(10,15,24,.10));
-          box-shadow: 0 36px 70px rgba(15,23,42,.16);
-          opacity: .72;
+            linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.03));
+          box-shadow: 0 36px 70px rgba(0,0,0,.28);
+          opacity: .82;
         }
         .aha-hero-road span {
           position: absolute;
@@ -198,12 +212,12 @@ def inject_global_styles():
           transform-style: preserve-3d;
           border-radius: 56px 84px 34px 42px;
           background:
-            linear-gradient(115deg, rgba(255,255,255,.65), transparent 32%),
-            linear-gradient(180deg, color-mix(in srgb, var(--brand-accent) 36%, #ffffff) 0%, color-mix(in srgb, var(--brand-accent) 72%, #111827) 100%);
+            linear-gradient(115deg, rgba(255,255,255,.38), transparent 32%),
+            linear-gradient(180deg, color-mix(in srgb, var(--brand-accent) 62%, #eaf3ff) 0%, color-mix(in srgb, var(--brand-accent) 78%, #05070d) 100%);
           box-shadow:
-            inset 0 18px 26px rgba(255,255,255,.42),
-            inset 0 -24px 36px rgba(5,10,20,.20),
-            0 34px 70px rgba(15,23,42,.24);
+            inset 0 18px 26px rgba(255,255,255,.26),
+            inset 0 -24px 36px rgba(5,10,20,.42),
+            0 34px 70px rgba(0,0,0,.36);
         }
         .aha-car-body::after {
           content: "";
@@ -291,11 +305,11 @@ def inject_global_styles():
           left: 7%;
           bottom: -34px;
           padding: 8px 12px;
-          border: 1px solid rgba(255,255,255,.72);
+          border: 1px solid rgba(255,255,255,.18);
           border-radius: 999px;
-          background: rgba(255,255,255,.58);
+          background: rgba(8,13,22,.76);
           backdrop-filter: blur(14px);
-          color: #111827;
+          color: #f8fbff;
           font: 800 12px 'IBM Plex Mono';
           letter-spacing: .06em;
           text-transform: uppercase;
@@ -309,13 +323,15 @@ def inject_global_styles():
         .aha-vehicle-mpv .aha-car-cabin { left: 24%; top: -74px; width: 46%; }
         .aha-floating-card {
           position: absolute; right: 28px; top: 28px; width: 236px; padding: 18px;
-          border: 1px solid rgba(255,255,255,.84); border-radius: 24px;
-          background: rgba(255,255,255,.80); box-shadow: var(--shadow-soft); backdrop-filter: blur(16px);
+          border: 1px solid rgba(255,255,255,.14); border-radius: 24px;
+          background: rgba(8,13,22,.78); box-shadow: var(--shadow-soft); backdrop-filter: blur(16px);
+          color: var(--text-main);
         }
         .aha-stat-grid { position: absolute; left: 41%; right: 44px; bottom: 34px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; z-index: 2; }
         .aha-stat-card {
-          padding: 17px; border: 1px solid rgba(255,255,255,.84); border-radius: 20px;
-          background: rgba(255,255,255,.76); box-shadow: var(--shadow-soft);
+          padding: 17px; border: 1px solid rgba(255,255,255,.13); border-radius: 20px;
+          background: linear-gradient(145deg, rgba(255,255,255,.10), rgba(255,255,255,.04)); box-shadow: var(--shadow-soft);
+          backdrop-filter: blur(16px);
         }
         .aha-stat-value { font: 700 24px 'IBM Plex Mono'; color: var(--text-main); }
         .aha-stat-label { color: var(--text-muted); font-size: 10px; font-weight: 900; text-transform: uppercase; }
@@ -323,8 +339,8 @@ def inject_global_styles():
         .aha-section-title { margin: 56px 0 18px; }
         .aha-section-title h2 { font-size: clamp(36px, 4.8vw, 62px); line-height: .98; margin: 5px 0; }
         .aha-brand-card {
-          min-height: 148px; padding: 18px; border: 1px solid var(--border-soft); border-radius: 26px;
-          background: linear-gradient(145deg, rgba(255,255,255,.70), rgba(255,255,255,.42));
+          min-height: 148px; padding: 18px; border: 1px solid rgba(255,255,255,.12); border-radius: 26px;
+          background: linear-gradient(145deg, rgba(255,255,255,.09), rgba(255,255,255,.035));
           box-shadow: var(--shadow-soft);
           backdrop-filter: blur(18px) saturate(155%);
           transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
@@ -333,44 +349,48 @@ def inject_global_styles():
           border-color: var(--brand-accent);
           box-shadow: 0 22px 54px color-mix(in srgb, var(--brand-accent) 18%, transparent);
           transform: translateY(-2px);
-          background: linear-gradient(140deg, color-mix(in srgb, var(--brand-accent) 10%, white), white 72%);
+          background: linear-gradient(140deg, color-mix(in srgb, var(--brand-accent) 18%, rgba(255,255,255,.08)), rgba(255,255,255,.07) 72%);
         }
         .aha-brand-mark {
           width: 48px; height: 48px; border-radius: 17px; display: grid; place-items: center;
           margin-bottom: 12px;
-          border: 1px solid var(--border-soft);
-          background: color-mix(in srgb, var(--brand-accent) 10%, #ffffff);
+          border: 1px solid rgba(255,255,255,.12);
+          background: color-mix(in srgb, var(--brand-accent) 18%, rgba(255,255,255,.06));
         }
         .aha-brand-mark img {
           width: 30px;
           max-height: 28px;
           object-fit: contain;
-          filter: saturate(.25) contrast(1.1);
+          filter: invert(1) saturate(.15) brightness(1.7);
         }
         .stButton > button {
           width: 100%;
           border-radius: var(--radius-pill) !important;
-          border: 1px solid rgba(8,11,16,.11) !important;
-          background: rgba(255,255,255,0.82) !important;
+          border: 1px solid rgba(255,255,255,.13) !important;
+          background: linear-gradient(135deg, rgba(255,255,255,.10), rgba(255,255,255,.04)) !important;
           color: var(--text-main) !important;
           font-weight: 900 !important;
           min-height: 44px;
-          box-shadow: 0 10px 22px rgba(23,34,52,.06);
+          box-shadow: 0 12px 28px rgba(0,0,0,.22);
         }
-        .stButton > button:hover { border-color: var(--accent-blue) !important; color: var(--accent-blue) !important; }
+        .stButton > button:hover {
+          border-color: rgba(79,140,255,.58) !important;
+          color: #dbe8ff !important;
+          box-shadow: 0 0 28px rgba(79,140,255,.20);
+        }
 
         .aha-compat-shell {
-          padding: 24px; border: 1px solid rgba(255,255,255,0.82); border-radius: 36px;
+          padding: 24px; border: 1px solid rgba(255,255,255,0.12); border-radius: 36px;
           background:
-            radial-gradient(circle at 16% 0%, rgba(255,64,93,.08), transparent 28%),
-            radial-gradient(circle at 84% 10%, rgba(29,99,255,.13), transparent 30%),
-            rgba(255,255,255,.52);
+            radial-gradient(circle at 16% 0%, rgba(255,63,110,.12), transparent 28%),
+            radial-gradient(circle at 84% 10%, rgba(54,214,255,.12), transparent 30%),
+            rgba(7,11,19,.72);
           box-shadow: var(--shadow-float);
           backdrop-filter: blur(24px) saturate(165%);
         }
         .aha-compat-left, .aha-compat-center, .aha-compat-right, .aha-assistant-panel {
           border: 1px solid var(--glass-border); border-radius: 28px;
-          background: linear-gradient(145deg, rgba(255,255,255,.70), rgba(255,255,255,.42));
+          background: linear-gradient(145deg, rgba(255,255,255,.095), rgba(255,255,255,.035));
           padding: 21px;
           box-shadow: 0 14px 36px rgba(23,34,52,.07);
           backdrop-filter: blur(20px) saturate(150%);
@@ -379,10 +399,10 @@ def inject_global_styles():
         .aha-showcase {
           position: relative; min-height: 360px; border-radius: 28px; overflow: hidden;
           background:
-            linear-gradient(90deg, rgba(8,11,16,0.05) 1px, transparent 1px) 0 0 / 70px 70px,
-            linear-gradient(180deg, #f4f8fc, #d3deeb);
+            radial-gradient(circle at 50% 22%, color-mix(in srgb, var(--brand-accent) 20%, transparent), transparent 32%),
+            linear-gradient(180deg, #111b2e, #070b13);
         }
-        .aha-road { position: absolute; inset: 0 42%; background: linear-gradient(#dbe6f5, #b8c7d9); }
+        .aha-road { position: absolute; inset: 0 42%; background: linear-gradient(rgba(255,255,255,.12), rgba(255,255,255,.03)); }
         .aha-road::before { content: ""; position: absolute; left: calc(50% - 3px); top: 0; width: 6px; height: 100%; background: linear-gradient(var(--brand-accent), #111827); border-radius: 99px; }
         .aha-car-top {
           position: absolute; left: 34%; top: 18%; width: 32%; height: 64%;
@@ -392,41 +412,41 @@ def inject_global_styles():
         }
         .aha-model-strip {
           position: absolute; left: 18px; right: 18px; top: 18px;
-          color: rgba(8,11,16,.44);
+          color: rgba(255,255,255,.58);
           font: 800 11px 'IBM Plex Mono';
           text-transform: uppercase;
           letter-spacing: .08em;
         }
         .aha-score-ring {
           width: 118px; height: 118px; border-radius: 50%; display: grid; place-items: center;
-          background: conic-gradient(var(--accent-blue) calc(var(--score) * 1%), #e5e7eb 0);
+          background: conic-gradient(var(--accent-blue) calc(var(--score) * 1%), rgba(255,255,255,.10) 0);
           margin: 0 auto 14px;
         }
         .aha-score-ring-inner {
-          width: 88px; height: 88px; border-radius: 50%; background: white; display: grid; place-items: center;
+          width: 88px; height: 88px; border-radius: 50%; background: #090f19; display: grid; place-items: center;
           font: 700 24px 'IBM Plex Mono'; color: var(--text-main);
         }
         .aha-reason-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 14px; }
         .aha-reason-card {
-          padding: 13px; border: 1px solid var(--border-soft); border-radius: 18px; background: white;
+          padding: 13px; border: 1px solid rgba(255,255,255,.10); border-radius: 18px; background: rgba(255,255,255,.055);
           font-size: 13px;
         }
         .aha-action-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 14px 0; }
-        .aha-action-tile { padding: 13px; border-radius: 16px; background: var(--bg-panel-soft); border: 1px solid var(--border-soft); font-weight: 900; font-size: 12px; }
-        .aha-chat-input { border-radius: 20px; background: var(--bg-panel-soft); padding: 13px 14px; font-size: 13px; color: var(--text-muted); }
+        .aha-action-tile { padding: 13px; border-radius: 16px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.10); font-weight: 900; font-size: 12px; }
+        .aha-chat-input { border-radius: 20px; background: rgba(255,255,255,.06); padding: 13px 14px; font-size: 13px; color: var(--text-muted); }
         .aha-feature-card {
           min-height: 170px;
           margin-bottom: 16px;
           padding: 22px;
-          border: 1px solid var(--border-soft);
+          border: 1px solid rgba(255,255,255,.12);
           border-radius: 26px;
-          background: linear-gradient(145deg, rgba(255,255,255,.74), rgba(255,255,255,.44));
+          background: linear-gradient(145deg, rgba(255,255,255,.09), rgba(255,255,255,.035));
           box-shadow: var(--shadow-soft);
           backdrop-filter: blur(18px) saturate(150%);
         }
         .aha-feature-card span {
           display: inline-grid; place-items: center; min-width: 40px; height: 32px; margin-bottom: 14px;
-          border: 1px solid var(--border-soft); border-radius: var(--radius-pill);
+          border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius-pill);
           font: 800 12px 'IBM Plex Mono'; color: var(--text-muted);
         }
         .aha-feature-card strong { display: block; margin-bottom: 8px; font-size: 18px; }
@@ -466,7 +486,7 @@ def inject_global_styles():
             linear-gradient(180deg, rgba(255,255,255,.05) 1px, transparent 1px) 0 0 / 86px 86px,
             radial-gradient(circle at 18% 20%, rgba(29,99,255,.24), transparent 32%),
             radial-gradient(circle at 76% 12%, rgba(255,64,93,.17), transparent 26%),
-            linear-gradient(145deg, #070a12, #111827);
+            linear-gradient(145deg, #05070d, #121d33);
           color: white; box-shadow: var(--shadow-float);
         }
         .aha-lead-panel h2 { color: white; font-size: clamp(34px, 4vw, 58px); line-height: 1; }
@@ -494,15 +514,16 @@ def inject_global_styles():
 
         .stTextInput input, .stTextArea textarea, .stSelectbox [data-baseweb="select"] {
           border-radius: 16px !important;
-          border: 1px solid rgba(8,11,16,.10) !important;
-          background: rgba(255,255,255,.72) !important;
-          box-shadow: 0 10px 24px rgba(23,34,52,.05) !important;
+          border: 1px solid rgba(255,255,255,.12) !important;
+          background: rgba(255,255,255,.08) !important;
+          color: var(--text-main) !important;
+          box-shadow: 0 10px 24px rgba(0,0,0,.20) !important;
         }
         details {
-          border: 1px solid var(--border-soft) !important;
+          border: 1px solid rgba(255,255,255,.12) !important;
           border-radius: 20px !important;
-          background: rgba(255,255,255,.75) !important;
-          box-shadow: 0 10px 24px rgba(23,34,52,.05);
+          background: rgba(255,255,255,.06) !important;
+          box-shadow: 0 10px 24px rgba(0,0,0,.22);
         }
 
         @media (max-width: 960px) {
