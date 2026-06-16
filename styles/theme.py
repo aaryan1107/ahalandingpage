@@ -8,20 +8,21 @@ def inject_global_styles():
         @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');
 
         :root {
-          --bg-main: #edf1f5;
+          --bg-main: #eef3f8;
           --bg-panel: #ffffff;
           --bg-panel-soft: #f6f8fb;
-          --bg-glass: rgba(255,255,255,0.72);
+          --bg-glass: rgba(255,255,255,0.58);
           --text-main: #080b10;
           --text-muted: #68717f;
           --text-soft: #9aa3af;
-          --accent-blue: #2f6fed;
+          --accent-blue: #1d63ff;
           --accent-silver: #d8dee8;
           --accent-ink: #090c12;
-          --accent-ember: #ff5a1f;
+          --accent-ember: #ff405d;
           --border-soft: rgba(8,11,16,0.10);
-          --shadow-soft: 0 12px 34px rgba(23,34,52,0.10);
-          --shadow-float: 0 30px 90px rgba(23,34,52,0.16);
+          --glass-border: rgba(255,255,255,0.72);
+          --shadow-soft: 0 14px 38px rgba(23,34,52,0.10);
+          --shadow-float: 0 32px 92px rgba(23,34,52,0.18);
           --radius-lg: 22px;
           --radius-xl: 34px;
           --radius-pill: 999px;
@@ -31,10 +32,11 @@ def inject_global_styles():
         .stDeployButton, [data-testid="stToolbar"] { display: none !important; }
         [data-testid="stAppViewContainer"] {
           background:
-            linear-gradient(90deg, rgba(8,11,16,0.045) 1px, transparent 1px) 0 0 / 128px 128px,
-            linear-gradient(180deg, rgba(8,11,16,0.035) 1px, transparent 1px) 0 0 / 128px 128px,
-            radial-gradient(circle at 74% 10%, rgba(47,111,237,0.14), transparent 32%),
-            linear-gradient(135deg, #eef2f6 0%, #fbfcfe 48%, #e4ebf4 100%);
+            linear-gradient(90deg, rgba(255,255,255,0.52) 1px, transparent 1px) 0 0 / 132px 132px,
+            linear-gradient(180deg, rgba(8,11,16,0.04) 1px, transparent 1px) 0 0 / 132px 132px,
+            radial-gradient(circle at 10% 0%, rgba(255,64,93,0.12), transparent 30%),
+            radial-gradient(circle at 78% 8%, rgba(29,99,255,0.18), transparent 35%),
+            linear-gradient(135deg, #eef3f8 0%, #fbfdff 48%, #dfe8f2 100%);
           color: var(--text-main);
           font-family: Inter, sans-serif;
         }
@@ -91,11 +93,13 @@ def inject_global_styles():
           border: 1px solid rgba(255,255,255,0.92);
           border-radius: 42px;
           background:
-            linear-gradient(90deg, rgba(255,255,255,0.98) 0 40%, rgba(255,255,255,0.64) 40% 100%),
-            radial-gradient(circle at 76% 40%, rgba(47,111,237,0.20), transparent 34%),
-            linear-gradient(145deg, #f9fbfd, #dfe8f4);
+            linear-gradient(90deg, rgba(255,255,255,0.90) 0 39%, rgba(255,255,255,0.46) 39% 100%),
+            radial-gradient(circle at 76% 38%, rgba(29,99,255,0.18), transparent 35%),
+            radial-gradient(circle at 52% 10%, rgba(255,64,93,0.11), transparent 25%),
+            linear-gradient(145deg, rgba(249,251,253,0.96), rgba(218,229,241,0.92));
           box-shadow: var(--shadow-float);
           overflow: hidden;
+          backdrop-filter: blur(24px) saturate(160%);
         }
         .aha-hero::before {
           content: "NEXCRUISE";
@@ -139,10 +143,12 @@ def inject_global_styles():
           border: 1px solid rgba(255,255,255,0.78);
           border-radius: 34px;
           background:
-            radial-gradient(circle at 42% 34%, rgba(255,255,255,0.96), transparent 30%),
-            linear-gradient(150deg, #dce6f2, #f7f9fc 48%, #c8d7eb);
+            radial-gradient(circle at 42% 34%, rgba(255,255,255,0.95), transparent 30%),
+            radial-gradient(circle at 76% 18%, rgba(255,64,93,0.16), transparent 24%),
+            linear-gradient(150deg, rgba(220,230,242,0.82), rgba(247,249,252,0.78) 48%, rgba(200,215,235,0.86));
           box-shadow: var(--shadow-float);
           overflow: hidden;
+          backdrop-filter: blur(18px) saturate(150%);
         }
         .aha-vehicle-stage {
           position: absolute; left: 9%; top: 24%; width: 78%; height: 35%;
@@ -173,7 +179,9 @@ def inject_global_styles():
         .aha-section-title h2 { font-size: clamp(36px, 4.8vw, 62px); line-height: .98; margin: 5px 0; }
         .aha-brand-card {
           min-height: 148px; padding: 18px; border: 1px solid var(--border-soft); border-radius: 26px;
-          background: rgba(255,255,255,.76); box-shadow: var(--shadow-soft);
+          background: linear-gradient(145deg, rgba(255,255,255,.70), rgba(255,255,255,.42));
+          box-shadow: var(--shadow-soft);
+          backdrop-filter: blur(18px) saturate(155%);
           transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
         }
         .aha-brand-card-active {
@@ -198,7 +206,7 @@ def inject_global_styles():
           width: 100%;
           border-radius: var(--radius-pill) !important;
           border: 1px solid rgba(8,11,16,.11) !important;
-          background: white !important;
+          background: rgba(255,255,255,0.82) !important;
           color: var(--text-main) !important;
           font-weight: 900 !important;
           min-height: 44px;
@@ -208,11 +216,19 @@ def inject_global_styles():
 
         .aha-compat-shell {
           padding: 24px; border: 1px solid rgba(255,255,255,0.82); border-radius: 36px;
-          background: rgba(255,255,255,.72); box-shadow: var(--shadow-float);
+          background:
+            radial-gradient(circle at 16% 0%, rgba(255,64,93,.08), transparent 28%),
+            radial-gradient(circle at 84% 10%, rgba(29,99,255,.13), transparent 30%),
+            rgba(255,255,255,.52);
+          box-shadow: var(--shadow-float);
+          backdrop-filter: blur(24px) saturate(165%);
         }
         .aha-compat-left, .aha-compat-center, .aha-compat-right, .aha-assistant-panel {
-          border: 1px solid var(--border-soft); border-radius: 28px; background: rgba(255,255,255,.82); padding: 21px;
+          border: 1px solid var(--glass-border); border-radius: 28px;
+          background: linear-gradient(145deg, rgba(255,255,255,.70), rgba(255,255,255,.42));
+          padding: 21px;
           box-shadow: 0 14px 36px rgba(23,34,52,.07);
+          backdrop-filter: blur(20px) saturate(150%);
         }
         .aha-control-label { font-size: 11px; color: var(--text-muted); font-weight: 900; text-transform: uppercase; margin: 14px 0 4px; }
         .aha-showcase {
@@ -259,8 +275,9 @@ def inject_global_styles():
           padding: 22px;
           border: 1px solid var(--border-soft);
           border-radius: 26px;
-          background: rgba(255,255,255,.78);
+          background: linear-gradient(145deg, rgba(255,255,255,.74), rgba(255,255,255,.44));
           box-shadow: var(--shadow-soft);
+          backdrop-filter: blur(18px) saturate(150%);
         }
         .aha-feature-card span {
           display: inline-grid; place-items: center; min-width: 40px; height: 32px; margin-bottom: 14px;
@@ -300,8 +317,11 @@ def inject_global_styles():
           max-width: 960px; margin: 56px auto 0; padding: 36px; text-align: center;
           border: 1px solid rgba(255,255,255,.12); border-radius: 36px;
           background:
-            radial-gradient(circle at 18% 20%, rgba(47,111,237,.20), transparent 32%),
-            linear-gradient(145deg, #061020, #0a1628);
+            linear-gradient(90deg, rgba(255,255,255,.07) 1px, transparent 1px) 0 0 / 86px 86px,
+            linear-gradient(180deg, rgba(255,255,255,.05) 1px, transparent 1px) 0 0 / 86px 86px,
+            radial-gradient(circle at 18% 20%, rgba(29,99,255,.24), transparent 32%),
+            radial-gradient(circle at 76% 12%, rgba(255,64,93,.17), transparent 26%),
+            linear-gradient(145deg, #070a12, #111827);
           color: white; box-shadow: var(--shadow-float);
         }
         .aha-lead-panel h2 { color: white; font-size: clamp(34px, 4vw, 58px); line-height: 1; }
@@ -329,6 +349,9 @@ def inject_global_styles():
 
         .stTextInput input, .stTextArea textarea, .stSelectbox [data-baseweb="select"] {
           border-radius: 16px !important;
+          border: 1px solid rgba(8,11,16,.10) !important;
+          background: rgba(255,255,255,.72) !important;
+          box-shadow: 0 10px 24px rgba(23,34,52,.05) !important;
         }
         details {
           border: 1px solid var(--border-soft) !important;

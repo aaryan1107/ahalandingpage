@@ -1,3 +1,5 @@
+import uuid
+
 import streamlit as st
 
 from data.vehicles import BRANDS, COMPATIBILITY_RULES
@@ -81,6 +83,7 @@ def init_state():
     }
     for key, value in defaults.items():
         st.session_state.setdefault(key, value)
+    st.session_state.setdefault("session_id", f"aha-{uuid.uuid4()}")
 
     apply_utm_context()
 
