@@ -194,7 +194,10 @@ def inject_global_styles():
         }
         .aha-model-stage {
           position: absolute;
-          inset: 44px 26px 42px 26px;
+          left: 8%;
+          right: 8%;
+          top: 86px;
+          height: 265px;
           z-index: 3;
           display: grid;
           place-items: center;
@@ -202,7 +205,7 @@ def inject_global_styles():
         .aha-model-iframe {
           width: 100%;
           height: 100%;
-          min-height: 330px;
+          min-height: 250px;
           border: 0;
           background: transparent;
         }
@@ -210,6 +213,10 @@ def inject_global_styles():
           left: 13%;
           bottom: 14px;
           z-index: 4;
+        }
+        .aha-compat-model-plate {
+          left: 18px;
+          bottom: -22px;
         }
         .aha-car-shadow {
           position: absolute;
@@ -420,6 +427,30 @@ def inject_global_styles():
           background:
             radial-gradient(circle at 50% 22%, color-mix(in srgb, var(--brand-accent) 20%, transparent), transparent 32%),
             linear-gradient(180deg, #111b2e, #070b13);
+        }
+        .aha-showcase .aha-model-stage {
+          left: 4%;
+          right: 4%;
+          top: 72px;
+          height: 210px;
+        }
+        .aha-showcase .aha-vehicle-stage {
+          left: 9%;
+          top: 35%;
+          width: 72%;
+          height: 190px;
+        }
+        .aha-showcase-road {
+          position: absolute;
+          left: 8%;
+          right: 8%;
+          bottom: 46px;
+          height: 86px;
+          transform: perspective(580px) rotateX(62deg);
+          transform-origin: bottom center;
+          border-radius: 38px;
+          background: linear-gradient(180deg, rgba(255,255,255,.11), rgba(255,255,255,.025));
+          box-shadow: 0 26px 56px rgba(0,0,0,.28);
         }
         .aha-road { position: absolute; inset: 0 42%; background: linear-gradient(rgba(255,255,255,.12), rgba(255,255,255,.03)); }
         .aha-road::before { content: ""; position: absolute; left: calc(50% - 3px); top: 0; width: 6px; height: 100%; background: linear-gradient(var(--brand-accent), #111827); border-radius: 99px; }

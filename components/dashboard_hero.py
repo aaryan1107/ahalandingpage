@@ -34,9 +34,17 @@ def _model_url(brand, model):
     return f"/app/static/models/{filename}"
 
 
-def _render_vehicle_visual(selected_brand, selected_model, brand, vehicle_class):
+def _render_vehicle_visual(selected_brand, selected_model, brand, vehicle_class, surface="hero"):
     model_src = _model_url(selected_brand, selected_model)
     if model_src:
+        if surface == "compatibility":
+            camera_orbit = "76deg 68deg 112%"
+            field_of_view = "28deg"
+            plate_class = "aha-real-model-plate aha-compat-model-plate"
+        else:
+            camera_orbit = "90deg 78deg 118%"
+            field_of_view = "26deg"
+            plate_class = "aha-real-model-plate"
         iframe_doc = html.escape(
             f"""
             <!doctype html>
@@ -65,15 +73,13 @@ def _render_vehicle_visual(selected_brand, selected_model, brand, vehicle_class)
               <body>
                 <model-viewer
                   src="{model_src}"
-                  camera-controls
-                  auto-rotate
-                  auto-rotate-delay="900"
-                  rotation-per-second="18deg"
-                  exposure="1.05"
+                  exposure="1.12"
                   shadow-intensity="0.85"
-                  camera-orbit="-35deg 68deg 105%"
-                  field-of-view="30deg"
-                  ar
+                  camera-orbit="{camera_orbit}"
+                  field-of-view="{field_of_view}"
+                  interaction-prompt="none"
+                  disable-pan
+                  disable-zoom
                 ></model-viewer>
               </body>
             </html>
@@ -83,7 +89,7 @@ def _render_vehicle_visual(selected_brand, selected_model, brand, vehicle_class)
         return textwrap.dedent(f"""
             <div class="aha-model-stage">
               <iframe class="aha-model-iframe" title="{selected_brand} {selected_model} 3D model" srcdoc="{iframe_doc}"></iframe>
-              <div class="aha-car-nameplate aha-real-model-plate">{selected_brand} {selected_model}</div>
+              <div class="aha-car-nameplate {plate_class}">{selected_brand} {selected_model}</div>
             </div>
         """).strip()
     return textwrap.dedent(f"""
@@ -104,6 +110,16 @@ def _render_vehicle_visual(selected_brand, selected_model, brand, vehicle_class)
               <div class="aha-car-nameplate">{selected_brand} {selected_model}</div>
             </div>
     """).strip()
+
+
+def render_dynamic_vehicle(selected_brand, selected_model, brand, surface="hero"):
+    return _render_vehicle_visual(
+        selected_brand,
+        selected_model,
+        brand,
+        _vehicle_class(selected_model),
+        surface=surface,
+    )
 
 
 def render_dashboard_hero():

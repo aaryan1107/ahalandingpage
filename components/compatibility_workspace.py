@@ -54,7 +54,7 @@ def render_compatibility_workspace():
 
     with center:
         st.markdown('<div class="aha-compat-center">', unsafe_allow_html=True)
-        render_vehicle_showcase(brand_data, st.session_state.selected_model)
+        render_vehicle_showcase(st.session_state.selected_brand, brand_data, st.session_state.selected_model)
         status_tone = "positive" if score >= 85 else "warning" if score >= 60 else "negative"
         st.markdown(f"<h3>{status}</h3><p>{brand_data['notes']}</p>", unsafe_allow_html=True)
         c1, c2 = st.columns([0.42, 0.58])
