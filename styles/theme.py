@@ -158,6 +158,7 @@ def inject_global_styles():
           box-shadow: var(--shadow-float);
           overflow: hidden;
           backdrop-filter: blur(18px) saturate(150%);
+          animation: ahaLiftIn .7s ease both;
         }
         .aha-hero-road {
           position: absolute;
@@ -194,18 +195,20 @@ def inject_global_styles():
         }
         .aha-model-stage {
           position: absolute;
-          left: 0;
-          right: 0;
-          top: 28px;
-          height: 378px;
+          left: 2%;
+          right: 2%;
+          top: 10px;
+          height: 440px;
           z-index: 3;
           display: grid;
           place-items: center;
+          animation: ahaCarReveal .9s ease both;
+          pointer-events: none;
         }
         .aha-model-iframe {
           width: 100%;
           height: 100%;
-          min-height: 360px;
+          min-height: 100%;
           border: 0;
           background: transparent !important;
           background-color: transparent !important;
@@ -213,12 +216,12 @@ def inject_global_styles():
         }
         .aha-real-model-plate {
           left: 13%;
-          bottom: 26px;
+          bottom: 14px;
           z-index: 4;
         }
         .aha-compat-model-plate {
           left: 18px;
-          bottom: -22px;
+          bottom: 14px;
         }
         .aha-car-shadow {
           position: absolute;
@@ -349,13 +352,6 @@ def inject_global_styles():
         .aha-vehicle-hatch .aha-car-cabin { left: 23%; top: -68px; width: 42%; }
         .aha-vehicle-mpv .aha-car-body { height: 132px; border-radius: 74px 80px 34px 42px; }
         .aha-vehicle-mpv .aha-car-cabin { left: 24%; top: -74px; width: 46%; }
-        .aha-floating-card {
-          position: absolute; right: 28px; top: 28px; width: 236px; padding: 18px;
-          border: 1px solid rgba(255,255,255,.14); border-radius: 24px;
-          background: rgba(8,13,22,.78); box-shadow: var(--shadow-soft); backdrop-filter: blur(16px);
-          color: var(--text-main);
-          z-index: 6;
-        }
         .aha-stat-grid { position: absolute; left: 41%; right: 44px; bottom: 34px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; z-index: 2; }
         .aha-stat-card {
           padding: 17px; border: 1px solid rgba(255,255,255,.13); border-radius: 20px;
@@ -368,7 +364,7 @@ def inject_global_styles():
         .aha-section-title { margin: 56px 0 18px; }
         .aha-section-title h2 { font-size: clamp(36px, 4.8vw, 62px); line-height: .98; margin: 5px 0; }
         .aha-brand-card {
-          min-height: 148px; padding: 18px; border: 1px solid rgba(255,255,255,.12); border-radius: 26px;
+          min-height: 158px; padding: 20px; margin-bottom: 18px; border: 1px solid rgba(255,255,255,.12); border-radius: 26px;
           background: linear-gradient(145deg, rgba(255,255,255,.09), rgba(255,255,255,.035));
           box-shadow: var(--shadow-soft);
           backdrop-filter: blur(18px) saturate(155%);
@@ -420,7 +416,7 @@ def inject_global_styles():
           box-shadow: 0 0 28px rgba(79,140,255,.20);
         }
 
-        .aha-compat-left, .aha-compat-center, .aha-compat-right, .aha-assistant-panel {
+        .aha-assistant-panel {
           border: 1px solid var(--glass-border); border-radius: 28px;
           background: linear-gradient(145deg, rgba(255,255,255,.095), rgba(255,255,255,.035));
           padding: 21px;
@@ -433,12 +429,13 @@ def inject_global_styles():
           background:
             radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--brand-accent) 16%, transparent), transparent 34%),
             linear-gradient(180deg, rgba(17,27,46,.68), rgba(7,11,19,.55));
+          animation: ahaLiftIn .7s ease both;
         }
         .aha-showcase .aha-model-stage {
-          left: 7%;
-          right: 26%;
-          top: 92px;
-          height: 160px;
+          left: 0;
+          right: 22%;
+          top: 34px;
+          height: 295px;
           z-index: 2;
         }
         .aha-showcase .aha-vehicle-stage {
@@ -449,8 +446,8 @@ def inject_global_styles():
         }
         .aha-showcase-metrics {
           position: absolute;
-          left: 18px;
-          bottom: 18px;
+          left: 22px;
+          bottom: 20px;
           display: flex;
           gap: 10px;
           flex-wrap: wrap;
@@ -458,32 +455,26 @@ def inject_global_styles():
         }
         .aha-showcase-road {
           position: absolute;
-          left: 10%;
-          right: 10%;
-          bottom: 48px;
-          height: 96px;
-          transform: perspective(580px) rotateX(62deg);
+          left: 9%;
+          right: 22%;
+          bottom: 58px;
+          height: 108px;
+          transform: perspective(620px) rotateX(64deg);
           transform-origin: bottom center;
           border-radius: 38px;
-          background: linear-gradient(180deg, rgba(255,255,255,.11), rgba(255,255,255,.025));
+          background:
+            linear-gradient(90deg, transparent 48%, rgba(255,255,255,.22) 49% 51%, transparent 52%),
+            linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.028));
           box-shadow: 0 26px 56px rgba(0,0,0,.28);
           z-index: 1;
         }
-        .aha-road { position: absolute; inset: 0 42%; background: linear-gradient(rgba(255,255,255,.12), rgba(255,255,255,.03)); }
-        .aha-road::before { content: ""; position: absolute; left: calc(50% - 3px); top: 0; width: 6px; height: 100%; background: linear-gradient(var(--brand-accent), #111827); border-radius: 99px; }
-        .aha-car-top {
-          position: absolute; left: 34%; top: 18%; width: 32%; height: 64%;
-          border-radius: 46% 46% 30% 30%;
-          background: linear-gradient(90deg, #e5e7eb, #ffffff 40%, #aeb9c7);
-          box-shadow: 0 24px 50px rgba(15,23,42,.18);
+        @keyframes ahaLiftIn {
+          from { opacity: 0; transform: translateY(18px); }
+          to { opacity: 1; transform: translateY(0); }
         }
-        .aha-model-strip {
-          position: absolute; left: 18px; right: 18px; top: 18px;
-          z-index: 5;
-          color: rgba(255,255,255,.58);
-          font: 800 11px 'IBM Plex Mono';
-          text-transform: uppercase;
-          letter-spacing: .08em;
+        @keyframes ahaCarReveal {
+          from { opacity: 0; transform: translateY(18px) scale(.98); }
+          to { opacity: 1; transform: translateY(0) scale(1); }
         }
         .aha-score-ring {
           width: 118px; height: 118px; border-radius: 50%; display: grid; place-items: center;
@@ -586,6 +577,55 @@ def inject_global_styles():
           background: rgba(255,255,255,.08) !important;
           color: var(--text-main) !important;
           box-shadow: 0 10px 24px rgba(0,0,0,.20) !important;
+        }
+        .stSelectbox [data-baseweb="select"] > div,
+        .stSelectbox [data-baseweb="select"] div,
+        .stSelectbox [data-baseweb="select"] span,
+        .stSelectbox [data-baseweb="select"] svg,
+        .stTextInput input,
+        .stTextArea textarea {
+          background: transparent !important;
+          color: var(--text-main) !important;
+          fill: var(--text-main) !important;
+        }
+        .stSelectbox [data-baseweb="select"] > div[class],
+        [data-testid="stSelectbox"] [data-baseweb="select"] > div[class] {
+          background: transparent !important;
+          background-color: transparent !important;
+          background-image: none !important;
+          color: var(--text-main) !important;
+        }
+        .stSelectbox.stSelectbox.stSelectbox [data-baseweb="select"][data-baseweb="select"][data-baseweb="select"] > div[class][class][class][class][class],
+        [data-testid="stSelectbox"][data-testid="stSelectbox"][data-testid="stSelectbox"] [data-baseweb="select"][data-baseweb="select"][data-baseweb="select"] > div[class][class][class][class][class] {
+          background: transparent !important;
+          background-color: transparent !important;
+          background-image: none !important;
+          color: var(--text-main) !important;
+        }
+        .stSelectbox [data-baseweb="select"] input {
+          color: transparent !important;
+          caret-color: var(--text-main) !important;
+        }
+        .stSelectbox div[data-baseweb="select"] {
+          min-height: 50px;
+          background:
+            linear-gradient(135deg, rgba(255,255,255,.10), rgba(255,255,255,.045)) !important;
+          backdrop-filter: blur(18px) saturate(145%);
+        }
+        div[data-baseweb="popover"] div[role="listbox"] {
+          border: 1px solid rgba(255,255,255,.14) !important;
+          border-radius: 16px !important;
+          background: #101827 !important;
+          color: var(--text-main) !important;
+          box-shadow: 0 22px 52px rgba(0,0,0,.42) !important;
+        }
+        div[data-baseweb="popover"] li,
+        div[data-baseweb="popover"] [role="option"] {
+          background: #101827 !important;
+          color: var(--text-main) !important;
+        }
+        div[data-baseweb="popover"] [role="option"]:hover {
+          background: rgba(79,140,255,.18) !important;
         }
         details {
           border: 1px solid rgba(255,255,255,.12) !important;

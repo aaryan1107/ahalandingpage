@@ -9,6 +9,8 @@ from utils.state import reset_compatibility, run_compatibility_check
 
 def render_compatibility_workspace():
     brand_data = BRANDS[st.session_state.selected_brand]
+    if st.session_state.selected_model not in brand_data["models"]:
+        st.session_state.selected_model = brand_data["models"][0]
     score = st.session_state.compatibility_score or brand_data["base_score"]
     status = st.session_state.compatibility_status
 
@@ -26,18 +28,18 @@ def render_compatibility_workspace():
     left, center, right = st.columns([0.8, 1.25, 1])
 
     with left:
-        st.markdown('<div class="aha-compat-left">', unsafe_allow_html=True)
         st.markdown('<div class="aha-control-label">Selected model</div>', unsafe_allow_html=True)
-        model = st.selectbox(
+        previous_model = st.session_state.selected_model
+        st.selectbox(
             "Model",
             brand_data["models"],
             index=brand_data["models"].index(st.session_state.selected_model)
             if st.session_state.selected_model in brand_data["models"]
             else 0,
             label_visibility="collapsed",
+            key="selected_model",
         )
-        if model != st.session_state.selected_model:
-            st.session_state.selected_model = model
+        if previous_model != st.session_state.selected_model:
             reset_compatibility()
 
         st.markdown('<div class="aha-control-label">Primary use</div>', unsafe_allow_html=True)
@@ -49,10 +51,8 @@ def render_compatibility_workspace():
 
         if st.button("Run NexCruise scan", key="run_scan"):
             run_compatibility_check()
-        st.markdown("</div>", unsafe_allow_html=True)
 
     with center:
-        st.markdown('<div class="aha-compat-center">', unsafe_allow_html=True)
         render_vehicle_showcase(st.session_state.selected_brand, brand_data, st.session_state.selected_model)
         status_tone = "positive" if score >= 85 else "warning" if score >= 60 else "negative"
         st.markdown(f"<h3>{status}</h3><p>{brand_data['notes']}</p>", unsafe_allow_html=True)
@@ -66,7 +66,6 @@ def render_compatibility_workspace():
             render_reason_card("Install complexity", "OBD access and steering dial placement estimated.", status_tone)
             render_reason_card("Region support", f"{st.session_state.selected_region} installer path checked.", "positive")
             st.markdown("</div>", unsafe_allow_html=True)
-        st.markdown("</div>", unsafe_allow_html=True)
 
     with right:
         render_assistant_panel(brand_data, st.session_state.selected_model)

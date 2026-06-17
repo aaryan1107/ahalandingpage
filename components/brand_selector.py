@@ -26,7 +26,7 @@ def render_brand_selector():
             href = f"?{urlencode(params, doseq=True)}#compatibility"
             st.markdown(
                 f"""
-                <a class="aha-brand-card aha-brand-button {'aha-brand-card-active' if active else ''}" href="{href}" style="--brand-accent:{data['accent']}">
+                <a class="aha-brand-card aha-brand-button {'aha-brand-card-active' if active else ''}" href="{href}" target="_self" style="--brand-accent:{data['accent']}">
                   <div class="aha-brand-mark" style="--brand-accent:{data['accent']}"><img src="{data['logo']}" alt="{name} logo" /></div>
                   <strong>{name}</strong>
                   <p style="font-size:12px;margin:6px 0">{data['fleet']}</p>

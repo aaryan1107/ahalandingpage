@@ -10,6 +10,7 @@ from data.vehicles import BRANDS
 MODEL_FILES = {
     ("Tata", "Nexon"): "tata-nexon.glb",
     ("Tata", "Punch"): "tata_punch.glb",
+    ("Tata", "Safari"): "tata-safari.glb",
 }
 
 
@@ -38,12 +39,12 @@ def _render_vehicle_visual(selected_brand, selected_model, brand, vehicle_class,
     model_src = _model_url(selected_brand, selected_model)
     if model_src:
         if surface == "compatibility":
-            camera_orbit = "0deg 7deg 145%"
-            field_of_view = "30deg"
+            camera_orbit = "0deg 9deg 122%"
+            field_of_view = "32deg"
             plate_class = "aha-real-model-plate aha-compat-model-plate"
         else:
-            camera_orbit = "90deg 82deg 78%"
-            field_of_view = "20deg"
+            camera_orbit = "90deg 83deg 86%"
+            field_of_view = "22deg"
             plate_class = "aha-real-model-plate"
         iframe_doc = html.escape(
             f"""
@@ -67,7 +68,7 @@ def _render_vehicle_visual(selected_brand, selected_model, brand, vehicle_class,
                   model-viewer {{
                     width: 100%;
                     height: 100%;
-                    min-height: 360px;
+                    min-height: 100%;
                     --poster-color: transparent;
                     background: rgba(0,0,0,0) !important;
                     background-color: rgba(0,0,0,0) !important;
@@ -159,10 +160,6 @@ def render_dashboard_hero():
               <span></span><span></span><span></span>
             </div>
             {vehicle_visual}
-            <div class="aha-floating-card">
-              <strong>NexCruise Smart</strong>
-              <p style="margin:8px 0 0">Configured for {selected_brand} {selected_model}: cruise control, drive modes, resume after braking, and speed governor.</p>
-            </div>
           </div>
           <div class="aha-stat-grid">
             <div class="aha-stat-card"><div class="aha-stat-value">4K+</div><div class="aha-stat-label">Drives transformed</div></div>
