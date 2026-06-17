@@ -207,7 +207,9 @@ def inject_global_styles():
           height: 100%;
           min-height: 360px;
           border: 0;
-          background: transparent;
+          background: transparent !important;
+          background-color: transparent !important;
+          color-scheme: dark;
         }
         .aha-real-model-plate {
           left: 13%;
@@ -418,15 +420,6 @@ def inject_global_styles():
           box-shadow: 0 0 28px rgba(79,140,255,.20);
         }
 
-        .aha-compat-shell {
-          padding: 24px; border: 1px solid rgba(255,255,255,0.12); border-radius: 36px;
-          background:
-            radial-gradient(circle at 16% 0%, rgba(255,63,110,.12), transparent 28%),
-            radial-gradient(circle at 84% 10%, rgba(54,214,255,.12), transparent 30%),
-            rgba(7,11,19,.72);
-          box-shadow: var(--shadow-float);
-          backdrop-filter: blur(24px) saturate(165%);
-        }
         .aha-compat-left, .aha-compat-center, .aha-compat-right, .aha-assistant-panel {
           border: 1px solid var(--glass-border); border-radius: 28px;
           background: linear-gradient(145deg, rgba(255,255,255,.095), rgba(255,255,255,.035));

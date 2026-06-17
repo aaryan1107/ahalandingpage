@@ -23,7 +23,6 @@ def render_compatibility_workspace():
         unsafe_allow_html=True,
     )
 
-    st.markdown('<div class="aha-compat-shell">', unsafe_allow_html=True)
     left, center, right = st.columns([0.8, 1.25, 1])
 
     with left:
@@ -74,8 +73,6 @@ def render_compatibility_workspace():
         st.markdown("<div style='height:12px'></div>", unsafe_allow_html=True)
         for chip in brand_data["recommendations"]:
             render_recommendation_chip(chip)
-
-    st.markdown("</div>", unsafe_allow_html=True)
 
     st.markdown(
         """

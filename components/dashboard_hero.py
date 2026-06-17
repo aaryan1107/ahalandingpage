@@ -10,7 +10,6 @@ from data.vehicles import BRANDS
 MODEL_FILES = {
     ("Tata", "Nexon"): "tata-nexon.glb",
     ("Tata", "Punch"): "tata_punch.glb",
-    ("Tata", "Safari"): "tata-safari.glb",
 }
 
 
@@ -39,8 +38,8 @@ def _render_vehicle_visual(selected_brand, selected_model, brand, vehicle_class,
     model_src = _model_url(selected_brand, selected_model)
     if model_src:
         if surface == "compatibility":
-            camera_orbit = "0deg 0deg 185%"
-            field_of_view = "34deg"
+            camera_orbit = "0deg 7deg 145%"
+            field_of_view = "30deg"
             plate_class = "aha-real-model-plate aha-compat-model-plate"
         else:
             camera_orbit = "90deg 82deg 78%"
@@ -54,20 +53,28 @@ def _render_vehicle_visual(selected_brand, selected_model, brand, vehicle_class,
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
                 <style>
+                  * {{
+                    box-sizing: border-box;
+                  }}
                   html, body {{
                     width: 100%;
                     height: 100%;
                     margin: 0;
                     overflow: hidden;
-                    background: transparent;
+                    background: rgba(0,0,0,0) !important;
+                    color-scheme: dark;
                   }}
                   model-viewer {{
                     width: 100%;
                     height: 100%;
                     min-height: 360px;
                     --poster-color: transparent;
-                    background: transparent;
+                    background: rgba(0,0,0,0) !important;
+                    background-color: rgba(0,0,0,0) !important;
                     filter: drop-shadow(0 34px 52px rgba(0,0,0,.42));
+                  }}
+                  model-viewer::part(default-progress-bar) {{
+                    display: none;
                   }}
                 </style>
               </head>
@@ -78,12 +85,9 @@ def _render_vehicle_visual(selected_brand, selected_model, brand, vehicle_class,
                   shadow-intensity="0.85"
                   camera-orbit="{camera_orbit}"
                   field-of-view="{field_of_view}"
-                  min-camera-orbit="{camera_orbit}"
-                  max-camera-orbit="{camera_orbit}"
                   interaction-prompt="none"
-                  disable-pan
-                  disable-zoom
-                  disable-tap
+                  loading="eager"
+                  reveal="auto"
                 ></model-viewer>
               </body>
             </html>
@@ -92,7 +96,7 @@ def _render_vehicle_visual(selected_brand, selected_model, brand, vehicle_class,
         )
         return textwrap.dedent(f"""
             <div class="aha-model-stage">
-              <iframe class="aha-model-iframe" title="{selected_brand} {selected_model} 3D model" srcdoc="{iframe_doc}"></iframe>
+              <iframe class="aha-model-iframe" title="{selected_brand} {selected_model} 3D model" srcdoc="{iframe_doc}" allowtransparency="true"></iframe>
               <div class="aha-car-nameplate {plate_class}">{selected_brand} {selected_model}</div>
             </div>
         """).strip()

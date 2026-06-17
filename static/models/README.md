@@ -6,7 +6,7 @@ Current mapped files:
 
 - `tata-nexon.glb` renders for Tata + Nexon.
 - `tata_punch.glb` renders for Tata + Punch.
-- `tata-safari.glb` renders for Tata + Safari.
+- `tata-safari.glb` is present, but not mapped yet because it does not render reliably in `model-viewer`.
 
 Recommended Blender export:
 
