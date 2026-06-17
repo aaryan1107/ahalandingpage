@@ -1,7 +1,7 @@
 import streamlit as st
+from urllib.parse import urlencode
 
 from data.vehicles import BRANDS
-from utils.state import reset_compatibility
 
 
 def render_brand_selector():
@@ -20,18 +20,18 @@ def render_brand_selector():
     for index, (name, data) in enumerate(BRANDS.items()):
         active = name == st.session_state.selected_brand
         with cols[index % 4]:
+            params = dict(st.query_params)
+            params["brand"] = name
+            params["model"] = data["models"][0]
+            href = f"?{urlencode(params, doseq=True)}#compatibility"
             st.markdown(
                 f"""
-                <div class="aha-brand-card {'aha-brand-card-active' if active else ''}" style="--brand-accent:{data['accent']}">
+                <a class="aha-brand-card aha-brand-button {'aha-brand-card-active' if active else ''}" href="{href}" style="--brand-accent:{data['accent']}">
                   <div class="aha-brand-mark" style="--brand-accent:{data['accent']}"><img src="{data['logo']}" alt="{name} logo" /></div>
                   <strong>{name}</strong>
                   <p style="font-size:12px;margin:6px 0">{data['fleet']}</p>
                   <span class="aha-chip">{data['metrics']['confidence']} confidence</span>
-                </div>
+                </a>
                 """,
                 unsafe_allow_html=True,
             )
-            if st.button(f"Use {name}", key=f"brand_{name}"):
-                st.session_state.selected_brand = name
-                st.session_state.selected_model = data["models"][0]
-                reset_compatibility()

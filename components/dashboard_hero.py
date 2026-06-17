@@ -10,6 +10,7 @@ from data.vehicles import BRANDS
 MODEL_FILES = {
     ("Tata", "Nexon"): "tata-nexon.glb",
     ("Tata", "Punch"): "tata_punch.glb",
+    ("Tata", "Safari"): "tata-safari.glb",
 }
 
 
@@ -38,12 +39,12 @@ def _render_vehicle_visual(selected_brand, selected_model, brand, vehicle_class,
     model_src = _model_url(selected_brand, selected_model)
     if model_src:
         if surface == "compatibility":
-            camera_orbit = "76deg 68deg 112%"
-            field_of_view = "28deg"
+            camera_orbit = "0deg 0deg 185%"
+            field_of_view = "34deg"
             plate_class = "aha-real-model-plate aha-compat-model-plate"
         else:
-            camera_orbit = "90deg 78deg 118%"
-            field_of_view = "26deg"
+            camera_orbit = "90deg 82deg 78%"
+            field_of_view = "20deg"
             plate_class = "aha-real-model-plate"
         iframe_doc = html.escape(
             f"""
@@ -63,7 +64,7 @@ def _render_vehicle_visual(selected_brand, selected_model, brand, vehicle_class,
                   model-viewer {{
                     width: 100%;
                     height: 100%;
-                    min-height: 330px;
+                    min-height: 360px;
                     --poster-color: transparent;
                     background: transparent;
                     filter: drop-shadow(0 34px 52px rgba(0,0,0,.42));
@@ -77,9 +78,12 @@ def _render_vehicle_visual(selected_brand, selected_model, brand, vehicle_class,
                   shadow-intensity="0.85"
                   camera-orbit="{camera_orbit}"
                   field-of-view="{field_of_view}"
+                  min-camera-orbit="{camera_orbit}"
+                  max-camera-orbit="{camera_orbit}"
                   interaction-prompt="none"
                   disable-pan
                   disable-zoom
+                  disable-tap
                 ></model-viewer>
               </body>
             </html>

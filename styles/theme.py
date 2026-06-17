@@ -149,29 +149,29 @@ def inject_global_styles():
         .aha-secondary-btn { border: 1px solid rgba(255,255,255,0.16); background: rgba(255,255,255,.07); }
         .aha-dashboard-canvas {
           position: absolute; right: 34px; top: 88px; width: 58%; height: 470px;
-          border: 1px solid rgba(255,255,255,0.14);
+          border: 1px solid rgba(255,255,255,0.08);
           border-radius: 34px;
           background:
-            radial-gradient(circle at 34% 30%, color-mix(in srgb, var(--brand-accent) 32%, transparent), transparent 33%),
-            radial-gradient(circle at 74% 16%, rgba(255,63,110,0.20), transparent 24%),
-            linear-gradient(150deg, rgba(20,31,51,0.78), rgba(10,15,26,0.76) 48%, rgba(13,25,45,0.88));
+            radial-gradient(circle at 48% 48%, color-mix(in srgb, var(--brand-accent) 22%, transparent), transparent 36%),
+            radial-gradient(circle at 82% 20%, rgba(255,63,110,0.12), transparent 26%),
+            linear-gradient(150deg, rgba(12,18,30,0.72), rgba(5,8,14,0.48) 52%, rgba(9,18,32,0.66));
           box-shadow: var(--shadow-float);
           overflow: hidden;
           backdrop-filter: blur(18px) saturate(150%);
         }
         .aha-hero-road {
           position: absolute;
-          left: 6%;
-          right: 6%;
-          bottom: 74px;
-          height: 132px;
+          left: 8%;
+          right: 8%;
+          bottom: 58px;
+          height: 118px;
           transform: perspective(680px) rotateX(62deg);
           transform-origin: bottom center;
           border-radius: 44px;
           background:
-            linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.03));
+            linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.018));
           box-shadow: 0 36px 70px rgba(0,0,0,.28);
-          opacity: .82;
+          opacity: .72;
         }
         .aha-hero-road span {
           position: absolute;
@@ -194,10 +194,10 @@ def inject_global_styles():
         }
         .aha-model-stage {
           position: absolute;
-          left: 8%;
-          right: 8%;
-          top: 86px;
-          height: 265px;
+          left: 0;
+          right: 0;
+          top: 28px;
+          height: 378px;
           z-index: 3;
           display: grid;
           place-items: center;
@@ -205,13 +205,13 @@ def inject_global_styles():
         .aha-model-iframe {
           width: 100%;
           height: 100%;
-          min-height: 250px;
+          min-height: 360px;
           border: 0;
           background: transparent;
         }
         .aha-real-model-plate {
           left: 13%;
-          bottom: 14px;
+          bottom: 26px;
           z-index: 4;
         }
         .aha-compat-model-plate {
@@ -352,6 +352,7 @@ def inject_global_styles():
           border: 1px solid rgba(255,255,255,.14); border-radius: 24px;
           background: rgba(8,13,22,.78); box-shadow: var(--shadow-soft); backdrop-filter: blur(16px);
           color: var(--text-main);
+          z-index: 6;
         }
         .aha-stat-grid { position: absolute; left: 41%; right: 44px; bottom: 34px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; z-index: 2; }
         .aha-stat-card {
@@ -370,6 +371,18 @@ def inject_global_styles():
           box-shadow: var(--shadow-soft);
           backdrop-filter: blur(18px) saturate(155%);
           transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+        }
+        .aha-brand-button,
+        .aha-brand-button:visited,
+        .aha-brand-button:hover {
+          display: block;
+          color: var(--text-main) !important;
+          text-decoration: none !important;
+        }
+        .aha-brand-button:hover {
+          transform: translateY(-4px);
+          border-color: color-mix(in srgb, var(--brand-accent) 70%, rgba(255,255,255,.18));
+          box-shadow: 0 24px 70px color-mix(in srgb, var(--brand-accent) 20%, rgba(0,0,0,.48));
         }
         .aha-brand-card-active {
           border-color: var(--brand-accent);
@@ -423,16 +436,17 @@ def inject_global_styles():
         }
         .aha-control-label { font-size: 11px; color: var(--text-muted); font-weight: 900; text-transform: uppercase; margin: 14px 0 4px; }
         .aha-showcase {
-          position: relative; min-height: 360px; border-radius: 28px; overflow: hidden;
+          position: relative; min-height: 420px; border-radius: 28px; overflow: hidden;
           background:
-            radial-gradient(circle at 50% 22%, color-mix(in srgb, var(--brand-accent) 20%, transparent), transparent 32%),
-            linear-gradient(180deg, #111b2e, #070b13);
+            radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--brand-accent) 16%, transparent), transparent 34%),
+            linear-gradient(180deg, rgba(17,27,46,.68), rgba(7,11,19,.55));
         }
         .aha-showcase .aha-model-stage {
-          left: 4%;
-          right: 4%;
-          top: 72px;
-          height: 210px;
+          left: 7%;
+          right: 26%;
+          top: 92px;
+          height: 160px;
+          z-index: 2;
         }
         .aha-showcase .aha-vehicle-stage {
           left: 9%;
@@ -440,17 +454,27 @@ def inject_global_styles():
           width: 72%;
           height: 190px;
         }
+        .aha-showcase-metrics {
+          position: absolute;
+          left: 18px;
+          bottom: 18px;
+          display: flex;
+          gap: 10px;
+          flex-wrap: wrap;
+          z-index: 5;
+        }
         .aha-showcase-road {
           position: absolute;
-          left: 8%;
-          right: 8%;
-          bottom: 46px;
-          height: 86px;
+          left: 10%;
+          right: 10%;
+          bottom: 48px;
+          height: 96px;
           transform: perspective(580px) rotateX(62deg);
           transform-origin: bottom center;
           border-radius: 38px;
           background: linear-gradient(180deg, rgba(255,255,255,.11), rgba(255,255,255,.025));
           box-shadow: 0 26px 56px rgba(0,0,0,.28);
+          z-index: 1;
         }
         .aha-road { position: absolute; inset: 0 42%; background: linear-gradient(rgba(255,255,255,.12), rgba(255,255,255,.03)); }
         .aha-road::before { content: ""; position: absolute; left: calc(50% - 3px); top: 0; width: 6px; height: 100%; background: linear-gradient(var(--brand-accent), #111827); border-radius: 99px; }
@@ -462,6 +486,7 @@ def inject_global_styles():
         }
         .aha-model-strip {
           position: absolute; left: 18px; right: 18px; top: 18px;
+          z-index: 5;
           color: rgba(255,255,255,.58);
           font: 800 11px 'IBM Plex Mono';
           text-transform: uppercase;

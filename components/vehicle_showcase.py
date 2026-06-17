@@ -17,7 +17,7 @@ def render_vehicle_showcase(selected_brand, brand_data, selected_model):
             <h3 style="margin:12px 0 4px">AHA for {selected_model}</h3>
             <p style="font-size:13px">{brand_data['tone']}</p>
           </div>
-          <div style="position:absolute;left:18px;bottom:18px;display:flex;gap:10px;flex-wrap:wrap">
+          <div class="aha-showcase-metrics">
             <span class="aha-chip">{metrics['price']}</span>
             <span class="aha-chip">{metrics['install']} install</span>
             <span class="aha-chip">{metrics['confidence']} confidence</span>
