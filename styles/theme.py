@@ -199,13 +199,12 @@ def inject_global_styles():
           display: grid;
           place-items: center;
         }
-        .aha-real-model {
+        .aha-model-iframe {
           width: 100%;
           height: 100%;
           min-height: 330px;
-          --poster-color: transparent;
+          border: 0;
           background: transparent;
-          filter: drop-shadow(0 34px 52px rgba(0,0,0,.42));
         }
         .aha-real-model-plate {
           left: 13%;

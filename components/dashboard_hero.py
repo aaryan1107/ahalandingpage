@@ -1,4 +1,5 @@
-import base64
+import html
+import textwrap
 from pathlib import Path
 
 import streamlit as st
@@ -8,6 +9,7 @@ from data.vehicles import BRANDS
 
 MODEL_FILES = {
     ("Tata", "Nexon"): "tata-nexon.glb",
+    ("Tata", "Punch"): "tata_punch.glb",
 }
 
 
@@ -22,40 +24,69 @@ def _vehicle_class(model):
     return "suv"
 
 
-def _model_data_uri(brand, model):
+def _model_url(brand, model):
     filename = MODEL_FILES.get((brand, model))
     if not filename:
         return ""
-    model_path = Path(__file__).resolve().parents[1] / "assets" / "models" / filename
+    model_path = Path(__file__).resolve().parents[1] / "static" / "models" / filename
     if not model_path.exists():
         return ""
-    encoded = base64.b64encode(model_path.read_bytes()).decode("ascii")
-    return f"data:model/gltf-binary;base64,{encoded}"
+    return f"/app/static/models/{filename}"
 
 
 def _render_vehicle_visual(selected_brand, selected_model, brand, vehicle_class):
-    model_uri = _model_data_uri(selected_brand, selected_model)
-    if model_uri:
-        return f"""
+    model_src = _model_url(selected_brand, selected_model)
+    if model_src:
+        iframe_doc = html.escape(
+            f"""
+            <!doctype html>
+            <html>
+              <head>
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+                <style>
+                  html, body {{
+                    width: 100%;
+                    height: 100%;
+                    margin: 0;
+                    overflow: hidden;
+                    background: transparent;
+                  }}
+                  model-viewer {{
+                    width: 100%;
+                    height: 100%;
+                    min-height: 330px;
+                    --poster-color: transparent;
+                    background: transparent;
+                    filter: drop-shadow(0 34px 52px rgba(0,0,0,.42));
+                  }}
+                </style>
+              </head>
+              <body>
+                <model-viewer
+                  src="{model_src}"
+                  camera-controls
+                  auto-rotate
+                  auto-rotate-delay="900"
+                  rotation-per-second="18deg"
+                  exposure="1.05"
+                  shadow-intensity="0.85"
+                  camera-orbit="-35deg 68deg 105%"
+                  field-of-view="30deg"
+                  ar
+                ></model-viewer>
+              </body>
+            </html>
+            """,
+            quote=True,
+        )
+        return textwrap.dedent(f"""
             <div class="aha-model-stage">
-              <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-              <model-viewer
-                src="{model_uri}"
-                camera-controls
-                auto-rotate
-                auto-rotate-delay="900"
-                rotation-per-second="18deg"
-                exposure="1.05"
-                shadow-intensity="0.85"
-                camera-orbit="-35deg 68deg 105%"
-                field-of-view="30deg"
-                ar
-                class="aha-real-model"
-              ></model-viewer>
+              <iframe class="aha-model-iframe" title="{selected_brand} {selected_model} 3D model" srcdoc="{iframe_doc}"></iframe>
               <div class="aha-car-nameplate aha-real-model-plate">{selected_brand} {selected_model}</div>
             </div>
-        """
-    return f"""
+        """).strip()
+    return textwrap.dedent(f"""
             <div class="aha-vehicle-stage aha-vehicle-{vehicle_class}">
               <div class="aha-car-shadow"></div>
               <div class="aha-car-body">
@@ -72,7 +103,7 @@ def _render_vehicle_visual(selected_brand, selected_model, brand, vehicle_class)
               </div>
               <div class="aha-car-nameplate">{selected_brand} {selected_model}</div>
             </div>
-    """
+    """).strip()
 
 
 def render_dashboard_hero():
