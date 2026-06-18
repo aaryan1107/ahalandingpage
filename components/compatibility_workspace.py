@@ -5,6 +5,7 @@ from components.insight_cards import render_reason_card, render_recommendation_c
 from components.vehicle_showcase import render_vehicle_showcase
 from data.vehicles import BRANDS, BUDGET_BANDS, FAQS, PRODUCT_FEATURES, REGIONS, USE_CASES
 from utils.state import reset_compatibility, run_compatibility_check
+from utils.tracking import track_event
 
 
 def render_compatibility_workspace():
@@ -51,6 +52,16 @@ def render_compatibility_workspace():
 
         if st.button("Run NexCruise scan", key="run_scan"):
             run_compatibility_check()
+            track_event(
+                "CheckCompatibilityClicked",
+                data={
+                    "brand": st.session_state.selected_brand,
+                    "model": st.session_state.selected_model,
+                    "city": st.session_state.selected_region,
+                    "use_case": st.session_state.selected_use_case,
+                    "budget": st.session_state.selected_budget,
+                },
+            )
 
     with center:
         render_vehicle_showcase(st.session_state.selected_brand, brand_data, st.session_state.selected_model)

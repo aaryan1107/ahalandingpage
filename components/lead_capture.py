@@ -6,6 +6,7 @@ import urllib.request
 import streamlit as st
 
 from data.vehicles import BRANDS
+from utils.tracking import track_event
 
 
 def _post_lead_to_dashboard(payload):
@@ -93,6 +94,19 @@ def render_lead_capture():
             if not payload["phone"]:
                 st.error("Add a phone number so the dashboard can save this lead.")
             else:
+                track_event(
+                    "RequestCallbackSubmitted",
+                    data={
+                        "brand": preferred,
+                        "model": model,
+                        "city": city,
+                        "preferred_time": contact_time,
+                        "compatibility_status": st.session_state.compatibility_status,
+                        "compatibility_score": st.session_state.compatibility_score,
+                    },
+                    is_lead=True,
+                    contact_number=payload["phone"],
+                )
                 try:
                     result = _post_lead_to_dashboard(payload)
                     lead = result.get("lead", {}) if isinstance(result, dict) else {}

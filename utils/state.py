@@ -3,6 +3,7 @@ import uuid
 import streamlit as st
 
 from data.vehicles import BRANDS, COMPATIBILITY_RULES
+from utils.tracking import track_event
 
 
 SOURCE_PROFILES = {
@@ -119,6 +120,14 @@ def apply_utm_context():
             st.session_state.selected_brand = matched_brand
             st.session_state.selected_model = BRANDS[matched_brand]["models"][0]
             reset_compatibility()
+            track_event(
+                "BrandSelected",
+                data={
+                    "brand": matched_brand,
+                    "model": st.session_state.selected_model,
+                    "selection_source": "query_param",
+                },
+            )
 
     model_from_url = _first_query_value(params, "model", "")
     if model_from_url:

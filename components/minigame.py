@@ -1,6 +1,7 @@
 import streamlit as st
 
 from utils.state import reset_game, update_game_score
+from utils.tracking import track_event
 
 
 def render_minigame():
@@ -60,6 +61,15 @@ def render_minigame():
     with c4:
         if st.button("AHA Zone", key="smart"):
             update_game_score("AHA Zone")
+            track_event(
+                "MiniGameCompleted",
+                data={
+                    "brand": st.session_state.selected_brand,
+                    "model": st.session_state.selected_model,
+                    "result": "aha_zone",
+                    "score": st.session_state.game_score,
+                },
+            )
     with c5:
         if st.button("Reset", key="game_reset"):
             reset_game()

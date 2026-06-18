@@ -32,9 +32,11 @@ export default function LeadForm({ brands, onWhatsApp }) {
     setSuccess(true);
     trackLead("RequestCallbackSubmitted", {
       brand: form.brand,
+      model: form.model,
       city: form.city,
       preferred_time: form.time,
-      lead_source: "callback_form"
+      lead_source: "callback_form",
+      contactNumber: form.phone
     });
     // Backend/API integration point: send `form` to AHA CRM, email automation, or database here.
   }

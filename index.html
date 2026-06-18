@@ -33,7 +33,15 @@
         fbq('track', 'PageView', { test_event_code: testEventCode });
       })();
     </script>
-    <!-- Google Analytics placeholder: add GA4 gtag script here when the measurement ID is available. -->
+    <!-- Google Ads tag from the NexCruise conversion tracking email. Fires lead conversions from src/tracking.js. -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18243205076"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-18243205076');
+    </script>
+    <!-- Google Analytics placeholder: add a GA4 measurement ID here when available. -->
   </head>
   <body>
     <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2687561291629470&ev=PageView&noscript=1" /></noscript>

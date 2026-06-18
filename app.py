@@ -9,6 +9,7 @@ from components.lead_capture import render_lead_capture
 from components.minigame import render_minigame
 from styles.theme import inject_global_styles
 from utils.state import init_state
+from utils.tracking import inject_tracking_tags
 
 
 st.set_page_config(
@@ -20,6 +21,7 @@ st.set_page_config(
 
 inject_global_styles()
 init_state()
+inject_tracking_tags()
 
 render_header()
 render_dashboard_hero()

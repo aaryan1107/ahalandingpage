@@ -42,7 +42,8 @@ export default function CompatibilityChecker({ brands, selectedBrand, models, on
       brand: form.brand,
       model: form.model,
       city: form.city,
-      lead_source: "compatibility_checker"
+      lead_source: "compatibility_checker",
+      contactNumber: form.phone
     });
     trackCustom("Used_Tool", { tool_name: "Compatibility Checker", brand: form.brand, model: form.model });
   }
@@ -100,7 +101,7 @@ export default function CompatibilityChecker({ brands, selectedBrand, models, on
               <textarea value={form.query} onChange={(event) => updateField("query", event.target.value)} placeholder="Tell us your route, car use, or upgrade requirement" />
             </label>
           </div>
-          <button className="primary-button wide" type="submit" onClick={() => trackFunnel("CheckCompatibilityClicked", { brand: form.brand })}>
+          <button className="primary-button wide" type="submit" onClick={() => trackFunnel("CheckCompatibilityClicked", { brand: form.brand, model: form.model })}>
             Check Compatibility
           </button>
           {submitted && (
