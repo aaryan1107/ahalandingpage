@@ -4,6 +4,7 @@ import { WHATSAPP_LINK } from "../tracking";
 const navItems = [
   ["Brands", "brands"],
   ["Check Car", "compatibility"],
+  ["Owners", "owners"],
   ["Videos", "official"],
   ["Install", "installation"],
   ["Variants", "variants"],

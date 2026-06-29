@@ -102,20 +102,25 @@ BUDGET_BANDS = ["Basic Rs 19,990+", "Smart Rs 27,490+", "Need callback pricing",
 REGIONS = ["Delhi NCR", "Jaipur", "Mumbai", "Bengaluru", "Pune", "Hyderabad", "Other city"]
 
 PRODUCT_FEATURES = [
-    ("Cruise Control", "Set speed, take your foot off the pedal, and brake anytime to override instantly."),
-    ("Eco / Sport / City", "Switch between efficient, sharper, or everyday throttle behaviour."),
+    ("Cruise Control", "Engage from low speeds, rest your right foot, and brake anytime to override instantly."),
+    ("Eco / City / Sport", "Switch between efficient, everyday, or sharper throttle behaviour."),
     ("Speed Governor", "Set a maximum speed through the phone for family and fleet safety."),
     ("No Wire Cutting", "Connector-based fitment through accelerator coupler, OBD port, and steering dial."),
-    ("iCAT Certified", "Government-certified after safety testing, with patented Made-in-India engineering."),
+    ("iCAT Certified", "Safety-tested, patented Made-in-India hardware from Jaipur."),
     ("Lifetime Support", "OTA updates, support guidance, and transferability to another compatible car."),
 ]
 
 FAQS = [
     ("Is this compatible with my car?", "Select brand and model. AHA verifies exact variant, fuel type, transmission, and year before fitment."),
-    ("Does it affect warranty?", "NexCruise is positioned as plug-and-play with no wire cutting, drilling, or ECM changes. Final guidance is confirmed for your model."),
-    ("How does installation work?", "A coupler connects near the accelerator pedal, another cable plugs into the OBD port, and the dial mounts on the steering wheel."),
-    ("Is it safe?", "The brake pedal overrides cruise instantly. The system is iCAT certified after safety testing."),
-    ("Can it be removed later?", "Yes. It is non-permanent and can move to another compatible car with a suitable cable set."),
+    ("Will NexCruise void warranty?", "It is plug-and-play: no wire cutting, no drilling, and no ECM changes. AHA still confirms your exact model route before installation."),
+    ("Does it work with CNG?", "Yes. CNG is a fuel type and does not change the accelerator coupler plus OBD path. Exact model compatibility is verified first."),
+    ("Is there an installer near me?", "AHA lists professional local technicians in 60+ cities, plus video-call support when needed."),
+    ("What if it does not work for me?", "The live AHA site mentions a 7-day trial after installation with refund support if you are not satisfied, subject to their terms."),
+    ("How does mileage improvement work?", "Eco mode smooths throttle response so acceleration spikes reduce. Actual savings depend on route, speed, traffic and driving style."),
+    ("Can I install it myself?", "Yes, if you are comfortable with two connections: accelerator pedal coupler and OBD port. AHA can also guide or arrange installation."),
+    ("Can it be transferred later?", "Yes. It is non-permanent and can move to another compatible car with a suitable cable set."),
+    ("What happens if I press brake?", "Cruise disengages instantly. Your brake pedal stays the final override."),
+    ("I already have factory cruise. Is it useful?", "Maybe. Factory cruise may be enough if you only need cruise. Smart adds low-speed cruise, driving modes and speed governor."),
 ]
 
 COMPATIBILITY_RULES = {

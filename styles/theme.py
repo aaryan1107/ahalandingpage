@@ -546,7 +546,9 @@ def inject_global_styles():
         }
         .aha-video-grid,
         .aha-variant-grid,
-        .aha-founder-grid {
+        .aha-founder-grid,
+        .aha-testimonial-grid,
+        .aha-value-grid {
           display: grid;
           grid-template-columns: repeat(2, minmax(0, 1fr));
           gap: 16px;
@@ -555,13 +557,49 @@ def inject_global_styles():
         .aha-video-card,
         .aha-variant-card,
         .aha-founder-card,
-        .aha-install-row {
+        .aha-install-row,
+        .aha-testimonial-card,
+        .aha-value-grid article {
           border: 1px solid rgba(255,255,255,0.14);
           border-radius: 24px;
           background: linear-gradient(145deg, rgba(255,255,255,.10), rgba(255,255,255,.035));
           box-shadow: var(--shadow-soft);
           backdrop-filter: blur(20px) saturate(150%);
           overflow: hidden;
+        }
+        .aha-testimonial-card,
+        .aha-value-grid article {
+          padding: 20px;
+        }
+        .aha-testimonial-card {
+          border-left: 4px solid #77d6d2;
+          background:
+            radial-gradient(circle at 96% 5%, rgba(255,183,125,.14), transparent 32%),
+            linear-gradient(145deg, rgba(255,255,255,.13), rgba(255,255,255,.045));
+        }
+        .aha-testimonial-card p {
+          color: rgba(255,255,255,.88);
+          font-size: 18px;
+          line-height: 1.45;
+          font-style: italic;
+        }
+        .aha-testimonial-card strong,
+        .aha-testimonial-card span,
+        .aha-value-grid strong {
+          display: block;
+        }
+        .aha-testimonial-card span {
+          color: rgba(255,255,255,.58);
+          font-size: 13px;
+          font-weight: 760;
+        }
+        .aha-value-grid article {
+          min-height: 132px;
+        }
+        .aha-value-grid strong {
+          color: var(--text-main);
+          margin-bottom: 7px;
+          font-size: 18px;
         }
         .aha-video-frame {
           aspect-ratio: 16 / 9;
@@ -763,7 +801,7 @@ def inject_global_styles():
         @media (max-width: 540px) {
           .main .block-container { padding: .8rem 1rem 3rem; }
           .aha-hero h1 { font-size: 42px; }
-          .aha-stat-grid, .aha-reason-grid, .aha-action-grid, .aha-video-grid, .aha-variant-grid, .aha-founder-grid { grid-template-columns: 1fr; }
+          .aha-stat-grid, .aha-reason-grid, .aha-action-grid, .aha-video-grid, .aha-variant-grid, .aha-founder-grid, .aha-testimonial-grid, .aha-value-grid { grid-template-columns: 1fr; }
           .aha-founder-card { grid-template-columns: 1fr; }
         }
         @media (prefers-reduced-motion: reduce) {

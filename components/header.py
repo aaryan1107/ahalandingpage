@@ -13,7 +13,7 @@ def render_header():
             </div>
           </div>
           <div class="aha-nav-links">
-            <span>Brands</span><span>Compatibility</span><span>Features</span><span>Challenge</span><span>Callback</span>
+            <span>Brands</span><span>Compatibility</span><span>Owners</span><span>Videos</span><span>Callback</span>
           </div>
           <div class="aha-status-pill">Live AHA fitment funnel</div>
         </nav>

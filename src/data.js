@@ -77,49 +77,90 @@ export const carBrands = [
 
 export const proofStats = [
   ["4,000+", "installations"],
-  ["20 min", "plug-and-play setup"],
+  ["20 min", "setup flow"],
   ["60+", "installer cities"],
   ["Rs 19,990", "starting price"]
 ];
 
 export const featureCards = [
-  ["Cruise Control", "Set speed, take your foot off the pedal, and brake anytime to override instantly."],
-  ["Eco / Sport / City", "Choose smoother efficiency, sharper response, or everyday city behaviour."],
-  ["Speed Governor", "Lock a maximum speed from the phone for family and fleet safety."],
-  ["No Wire Cutting", "Connector-based fitment under the dashboard with no drilling or permanent changes."],
-  ["30-Min Install", "Accelerator coupler, OBD port, and steering-mounted dial come together quickly."],
-  ["iCAT Certified", "Government-certified after safety testing, with patented Made-in-India engineering."],
-  ["Transferable Unit", "Move the device to your next compatible car with a new cable set."],
-  ["Lifetime Support", "Free support and OTA updates keep the upgrade useful after installation."]
+  ["Cruise Control", "Engage from low speeds, rest your right foot, and brake anytime to cancel instantly."],
+  ["Eco / City / Sport", "Tune throttle feel for mileage, everyday traffic, or sharper highway response."],
+  ["Speed Governor", "Set an upper speed limit for family cars, new drivers, or fleet discipline."],
+  ["No Wire Cutting", "The unit sits between the accelerator coupler and OBD port. Nothing permanent."],
+  ["Installer Route", "Buy online, choose professional installation, or take video-call guidance from AHA."],
+  ["iCAT Certified", "Safety-tested, patented, Made-in-India hardware from Jaipur."],
+  ["Transferable Unit", "Move it to a future compatible car with a fresh cable set."],
+  ["Lifetime Support", "Support and OTA firmware updates keep the upgrade useful after the first install."]
 ];
 
 export const detailTabs = {
-  Overview: "NexCruise by AHA adds aftermarket cruise control and smarter throttle behaviour to compatible cars, designed for Indian highway drivers who want less fatigue.",
+  Overview: "NexCruise by AHA adds aftermarket cruise control and smarter throttle behaviour to compatible Indian cars, built for drivers who do long highway runs and want their right foot to finally rest.",
   Compatibility: "Works across petrol, diesel, CNG, manual, AMT, CVT and automatic configurations after model-level verification by the AHA team.",
   "Installation Process": "A coupler connects near the accelerator pedal, another cable plugs into the OBD port, and the dial mounts on the steering wheel. No wire cutting. No drilling.",
   "Technical Details": "Smart variant adds Eco, Sport and City modes, speed adjustment while cruising, resume after braking, and speed governor controls.",
-  Support: "Installer support is available across 50+ cities, with video-call guidance, lifetime support, and OTA updates after purchase.",
+  Support: "Installer support is available across 60+ cities, with video-call guidance, lifetime support, and OTA updates after purchase.",
   "Why Choose AHA?": "Made in India, patented technology, iCAT certified, 4,000+ installations, 7-day trial, and a one-time purchase that can move to your next compatible car."
 };
 
 export const faqs = [
   ["Is this compatible with my car?", "Choose your brand and model in the checker. The AHA team verifies the exact variant, fuel type, transmission, and year before fitment."],
-  ["Does it affect my car warranty?", "NexCruise is positioned as plug-and-play with no wire cutting, drilling, or ECM changes. Final guidance is confirmed for your model before installation."],
-  ["How does installation work?", "It connects through an accelerator pedal coupler and OBD port, then the control dial mounts on the steering wheel."],
-  ["Is it safe?", "The brake pedal overrides cruise instantly. NexCruise is iCAT certified after safety testing."],
-  ["How much time does installation take?", "Most installs are designed around a quick 30-minute plug-and-play process, depending on car access and model."],
-  ["Does it work with CNG, manual, AMT or automatic cars?", "Yes, the product supports petrol, diesel, CNG, manual, AMT, CVT and automatic configurations where the exact model is compatible."],
-  ["Can it be removed or moved later?", "Yes, it is non-permanent and can move to another compatible car with a suitable cable set."],
-  ["Is after-sales support available?", "Yes, AHA provides support, OTA updates, and installer guidance after purchase."],
-  ["How do I request a callback?", "Use the callback form or the compatibility checker form on this page."],
-  ["Can I contact directly on WhatsApp?", "Yes. Use any WhatsApp CTA on the page and replace the placeholder number before launch."]
+  ["Will NexCruise void my car's warranty?", "It is plug-and-play: no wire cutting, no drilling, and no ECM changes. The AHA team still confirms the exact route for your model before installation."],
+  ["Does it work with CNG or aftermarket CNG kits?", "Yes. CNG is a fuel type; it does not change the accelerator coupler and OBD connection path. Exact model compatibility is still verified first."],
+  ["Is there an installer near me?", "AHA lists professional local technicians in 60+ cities, plus video-call support if you want guidance before or during installation."],
+  ["What if it doesn't work for me?", "The live AHA site mentions a 7-day trial after installation with refund support if you are not satisfied, subject to their terms."],
+  ["How does mileage improvement work?", "Eco mode smooths throttle response so acceleration spikes reduce. Actual savings depend on route, speed, traffic and driving style."],
+  ["Can I install it myself?", "Yes, if you are comfortable with two connections: accelerator pedal coupler and OBD port. AHA also offers installation help."],
+  ["Can I transfer it to my next car?", "Yes. The unit can move to another compatible car with the right cable set."],
+  ["What happens if I press the brake during cruise?", "Cruise disengages instantly. Your brake pedal stays the final override."],
+  ["I already have factory cruise control. Is NexCruise useful?", "Maybe. Factory cruise may be enough if you only need cruise. Smart adds low-speed cruise, driving modes and speed governor for people who want more control."],
+  ["Does it work with automatic, AMT or CVT?", "Yes, where the exact model is compatible. AHA verifies manual, AMT, AGS, CVT and automatic variants before fitment."]
 ];
 
 export const updates = [
-  ["New compatibility checks opening soon", "More model-level verification paths are being prepared for popular Indian car families."],
-  ["NexCruise Smart brings mode control", "Eco, Sport, City, resume cruise and speed governor are available on the Smart variant."],
-  ["Installer network expanding", "AHA lists support across 50+ cities through partner and direct installation routes."],
-  ["Made-in-India automobile tech", "Patented, iCAT-certified engineering from Aha Innovations in Jaipur."]
+  ["AHA Dost", "Talk to someone who already uses NexCruise in a similar car or city before you buy."],
+  ["Smart mode control", "Eco, City, Sport, resume cruise and speed governor sit in the Smart variant."],
+  ["Installer network", "Professional installers and video-call support are part of the purchase journey."],
+  ["Made in Jaipur", "Patented, iCAT-certified engineering from Aha Automotive Innovations LLP."]
+];
+
+export const testimonials = [
+  {
+    quote: "All I need to say is that my right foot can rest easy on long drives.",
+    name: "umahesh612",
+    car: "Honda Amaze 2023 VX CVT",
+    source: "Team-BHP",
+    href: "https://www.team-bhp.com/news/installed-aha-nexcruise-cruise-control-device-my-maruti-swift"
+  },
+  {
+    quote: "There was no cutting of wires and the device fitted neatly under the dashboard and was ready to use in just 30 mins.",
+    name: "sumeethaldankar",
+    car: "Maruti Swift 2019, Mumbai",
+    source: "Team-BHP",
+    href: "https://www.team-bhp.com/news/installed-aha-nexcruise-cruise-control-device-my-maruti-swift"
+  },
+  {
+    quote: "Having installed and driven with the NexCruise, it has transformed my highway driving experience completely.",
+    name: "Kernelmann",
+    car: "Tata Nexon EV, Chennai",
+    source: "Nexon EV Owners Club",
+    href: "https://www.nexonevowners.club/the-aha-nexcruise-saga"
+  }
+];
+
+export const trustBadges = [
+  ["iCAT Certified", "Safety-tested hardware"],
+  ["Patented Technology", "Made by AHA in India"],
+  ["4,000+ Installations", "Across compatible cars"],
+  ["60+ Cities", "Installer and support routes"],
+  ["7-Day Trial", "Try after installation"],
+  ["Lifetime Support", "Help after purchase"]
+];
+
+export const valuePoints = [
+  ["Less fatigue", "Cruise holds speed so the right foot is not working the whole highway."],
+  ["Smoother mileage habits", "Eco mode reduces sharp throttle spikes that waste fuel."],
+  ["Safer family limits", "Speed governor can cap top speed for family cars and fleets."],
+  ["One upgrade, many years", "Transfer the unit to another compatible car with a new cable set."]
 ];
 
 export const officialVideos = [
@@ -128,28 +169,28 @@ export const officialVideos = [
     title: "Full install and demo - Aha! Car.OS Explained",
     duration: "8:55",
     views: "16,803 views",
-    note: "Complete overview of the NexCruise system, controls, and installation flow."
+    note: "Full product walkthrough: hardware, controls, pairing, and install flow."
   },
   {
     id: "rlrIGqnEPDM",
     title: "For better performance, choose Aha NexCruise",
     duration: "0:43",
     views: "6,018 views",
-    note: "Short official performance and highway comfort film."
+    note: "A short road-film style look at the performance side of the upgrade."
   },
   {
     id: "8fNHTVPz7JU",
     title: "World's First Adaptive Speed Limit - No More Challans",
     duration: "10:29",
     views: "4,539 views",
-    note: "Speed governor and adaptive limit behaviour explained."
+    note: "The speed governor story for people worried about challans and family driving."
   },
   {
     id: "8D1yLErzi_c",
     title: "NexCruise Basic - Full Demo",
     duration: "Demo",
     views: "Basic variant",
-    note: "Cruise control, brake override, and car-specific cable demo."
+    note: "The essential cruise-control path without the extra Smart controls."
   },
   {
     id: "rH7ape15Dq0",

@@ -6,12 +6,12 @@ export default function Hero({ heroImage, stats, selectedBrand, onWhatsApp }) {
       <div className="hero-grid container">
         <div className="hero-copy" data-reveal>
           <p className="eyebrow">NexCruise by AHA Automobiles</p>
-          <h1>Your next highway drive. No leg pain. No fatigue stops.</h1>
+          <h1><span className="hero-title-line">Cruise control.</span><span className="hero-title-line">Indian cars.</span></h1>
           <p className="hero-sub">
-            Aftermarket cruise control and smart drive modes for compatible Indian cars. AHA verifies your
-            exact model, installs without wire cutting, and keeps long drives calmer.
+            A plug-and-play upgrade for compatible Tata, Mahindra, Hyundai, Kia, Maruti, Toyota,
+            Honda and MG models. AHA checks your exact variant before anyone touches the car.
           </p>
-          <p className="punchline">When cruise mode sets in... AHA.</p>
+          <p className="punchline">No wire cutting. Brake override stays instant. Your right foot gets the break.</p>
           <div className="button-row">
             <a className="primary-button" href="#compatibility">Check compatibility</a>
             <a className="secondary-button" href="#callback">Request callback</a>
@@ -43,7 +43,7 @@ export default function Hero({ heroImage, stats, selectedBrand, onWhatsApp }) {
             <small>{selectedBrand.models.slice(0, 4).join(" / ")}</small>
           </div>
           <div className="hero-metrics">
-            <span>Petrol / Diesel / CNG / Manual / AMT / CVT</span>
+            <span>Petrol / Diesel / CNG / Manual / AMT / CVT / Automatic</span>
             <strong>Basic from Rs 19,990 / Smart from Rs 27,490</strong>
           </div>
         </div>

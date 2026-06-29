@@ -1,19 +1,19 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=IBM+Plex+Mono:wght@500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Saira:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600;700&display=swap");
 
 :root {
-  --bg: #080b10;
-  --bg-2: #101721;
+  --bg: #121416;
+  --bg-2: #1a1c1e;
   --surface: rgba(255, 255, 255, 0.068);
   --surface-strong: rgba(255, 255, 255, 0.11);
-  --surface-solid: #121821;
+  --surface-solid: #1d2023;
   --text: #f6f7fb;
   --soft: rgba(246, 247, 251, 0.82);
   --muted: rgba(246, 247, 251, 0.58);
   --line: rgba(255, 255, 255, 0.12);
   --ink: #07090d;
-  --paper: #f4f6f8;
-  --aha: #2f6fed;
-  --aha-2: #7fb4ff;
+  --paper: #e2e2e5;
+  --aha: #77d6d2;
+  --aha-2: #ffb77d;
   --silver: #d8dde5;
   --shadow: 0 32px 90px rgba(0, 0, 0, 0.42);
   --shadow-soft: 0 22px 56px rgba(0, 0, 0, 0.24);
@@ -63,15 +63,19 @@ img { display: block; max-width: 100%; }
 p { margin-top: 0; color: var(--muted); line-height: 1.65; }
 h1, h2, h3 { margin-top: 0; color: var(--text); letter-spacing: 0; }
 h1, h2 {
-  font-family: "Plus Jakarta Sans", Inter, sans-serif;
-  font-weight: 800;
-  letter-spacing: -0.035em;
+  font-family: Saira, Inter, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 h1 {
   max-width: 820px;
   margin-bottom: 24px;
   font-size: clamp(48px, 7vw, 104px);
   line-height: 0.95;
+  overflow-wrap: anywhere;
+}
+.hero-title-line {
+  display: block;
 }
 h2 {
   margin-bottom: 16px;
@@ -217,9 +221,9 @@ h3 {
   box-shadow: 0 18px 34px rgba(0,0,0,0.22);
 }
 .secondary-button {
-  background: color-mix(in srgb, var(--brand-accent, var(--aha)) 88%, #ffffff 8%);
-  color: #fff;
-  box-shadow: 0 18px 42px color-mix(in srgb, var(--brand-accent, var(--aha)) 28%, transparent);
+  background: linear-gradient(135deg, #ffcf9d, var(--aha-2) 50%, #f97832);
+  color: #3a1a00;
+  box-shadow: 0 18px 42px rgba(255, 183, 125, 0.24);
 }
 .ghost-button {
   border-color: var(--line);
@@ -496,7 +500,7 @@ h3 {
 }
 .selected-brand-panel h3 {
   margin: 0;
-  font-family: "Plus Jakarta Sans", Inter, sans-serif;
+  font-family: Saira, Inter, sans-serif;
   font-size: clamp(28px, 3.2vw, 48px);
   line-height: 1;
   letter-spacing: -0.04em;
@@ -733,13 +737,170 @@ textarea { min-height: 116px; resize: vertical; }
 .official-media-section,
 .install-glass-section,
 .variant-section,
-.founder-section {
+.founder-section,
+.owner-proof-section {
   scroll-margin-top: 96px;
   background:
     radial-gradient(circle at 12% 18%, rgba(54,214,255,0.13), transparent 28%),
     radial-gradient(circle at 86% 16%, rgba(255,122,48,0.10), transparent 26%),
     linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.012));
   border-block: 1px solid var(--line);
+}
+.owner-proof-section {
+  background:
+    linear-gradient(110deg, rgba(226,226,229,0.96), rgba(226,226,229,0.86) 54%, rgba(119,214,210,0.18)),
+    var(--paper);
+  color: #101315;
+}
+.owner-proof-section h2,
+.owner-proof-section h3,
+.owner-proof-section strong {
+  color: #101315;
+}
+.owner-proof-section p {
+  color: rgba(16,19,21,0.72);
+}
+.owner-proof-layout,
+.value-dost-grid {
+  display: grid;
+  grid-template-columns: 0.88fr 1.12fr;
+  gap: 28px;
+  align-items: start;
+}
+.owner-proof-copy {
+  position: sticky;
+  top: 104px;
+}
+.owner-proof-copy h2 {
+  max-width: 680px;
+}
+.trust-badge-rail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+}
+.trust-badge-rail span {
+  display: grid;
+  gap: 3px;
+  min-width: 150px;
+  border-radius: 22px;
+  padding: 13px 15px;
+  background: rgba(255,255,255,0.62);
+  box-shadow: 0 18px 36px rgba(30,35,38,0.08);
+  backdrop-filter: blur(18px);
+}
+.trust-badge-rail strong {
+  font-size: 13px;
+  font-weight: 900;
+}
+.trust-badge-rail span {
+  color: rgba(16,19,21,0.58);
+  font-size: 12px;
+  font-weight: 760;
+}
+.testimonial-stack {
+  display: grid;
+  gap: 14px;
+}
+.testimonial-card,
+.value-panel,
+.aha-dost-panel {
+  border-radius: 28px;
+  background: rgba(255,255,255,0.70);
+  box-shadow: 0 22px 54px rgba(28,33,36,0.12);
+  backdrop-filter: blur(24px) saturate(145%);
+}
+.testimonial-card {
+  padding: 24px;
+  border-left: 4px solid var(--aha);
+}
+.testimonial-card p {
+  margin-bottom: 18px;
+  color: #15191b;
+  font-size: clamp(18px, 2vw, 24px);
+  font-style: italic;
+  line-height: 1.35;
+}
+.testimonial-card strong,
+.testimonial-card span,
+.testimonial-card a {
+  display: block;
+}
+.testimonial-card span {
+  margin-top: 4px;
+  color: rgba(16,19,21,0.58);
+  font-size: 13px;
+  font-weight: 750;
+}
+.testimonial-card a {
+  width: fit-content;
+  margin-top: 12px;
+  color: #08736e;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+.value-dost-grid {
+  margin-top: 28px;
+  grid-template-columns: 1fr 1fr;
+}
+.value-panel,
+.aha-dost-panel {
+  padding: 30px;
+}
+.value-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 18px;
+}
+.value-list article {
+  min-height: 128px;
+  border-radius: 22px;
+  padding: 18px;
+  background: rgba(18,20,22,0.08);
+}
+.value-list p {
+  margin: 7px 0 0;
+  font-size: 14px;
+}
+.aha-dost-panel {
+  background:
+    radial-gradient(circle at 88% 12%, rgba(255,183,125,0.30), transparent 34%),
+    linear-gradient(140deg, #15191b, #253238);
+}
+.aha-dost-panel span,
+.aha-dost-panel h3,
+.aha-dost-panel p,
+.aha-dost-panel label {
+  color: #fff;
+}
+.aha-dost-panel > span {
+  display: block;
+  margin-bottom: 9px;
+  color: var(--aha);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.aha-dost-panel p {
+  color: rgba(255,255,255,0.70);
+}
+.aha-dost-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 18px 0;
+}
+.aha-dost-success {
+  margin-top: 14px;
+  margin-bottom: 0;
+  color: #b8fff5 !important;
+  font-size: 13px;
+  font-weight: 800;
 }
 .official-media-section .section-heading {
   padding-top: 34px;
@@ -1092,14 +1253,29 @@ textarea { min-height: 116px; resize: vertical; }
   .compatibility-grid,
   .feature-layout,
   .install-layout,
+  .owner-proof-layout,
+  .value-dost-grid,
   .game-grid,
   .callback-grid,
   .footer-grid {
     grid-template-columns: 1fr;
   }
   .hero-section { min-height: auto; }
+  .hero-copy {
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+  }
+  .hero-sub,
+  .punchline {
+    width: min(100%, 340px);
+    max-width: min(100%, 340px);
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
   .feature-media,
-  .install-copy { position: static; }
+  .install-copy,
+  .owner-proof-copy { position: static; }
   .updates-grid { grid-template-columns: repeat(2, 1fr); }
   .video-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .glass-video-card.featured { grid-column: span 2; }
@@ -1119,7 +1295,19 @@ textarea { min-height: 116px; resize: vertical; }
   .header-actions .ghost-button { min-height: 40px; padding-inline: 13px; }
   .nav-links { top: 68px; left: 16px; right: 16px; }
   .hero-section { padding: 38px 0 72px; }
-  h1 { font-size: clamp(38px, 12.5vw, 54px); }
+  .hero-copy {
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+  }
+  .hero-copy > * {
+    max-width: calc(100vw - 32px) !important;
+  }
+  h1 {
+    max-width: 100%;
+    font-size: clamp(38px, 11vw, 46px);
+    line-height: 1.04;
+  }
   h2 { font-size: clamp(34px, 11vw, 48px); }
   .button-row,
   .hero-copy .button-row {
@@ -1131,6 +1319,8 @@ textarea { min-height: 116px; resize: vertical; }
   .hero-stats,
   .brand-grid,
   .feature-grid,
+  .value-list,
+  .aha-dost-fields,
   .video-grid,
   .variant-grid,
   .founder-grid,
@@ -1150,6 +1340,21 @@ textarea { min-height: 116px; resize: vertical; }
   }
   .hero-visual,
   .hero-visual img { min-height: 380px; }
+  .hero-sub {
+    width: calc(100vw - 32px);
+    max-width: calc(100vw - 32px);
+    font-size: 16px;
+    overflow-wrap: anywhere;
+  }
+  .punchline {
+    width: calc(100vw - 32px);
+    max-width: calc(100vw - 32px);
+    padding: 11px 13px;
+    font-size: 12px;
+    line-height: 1.45;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
   .hero-brand-card {
     top: 14px;
     right: 14px;

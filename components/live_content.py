@@ -22,14 +22,59 @@ FOUNDERS = [
     ("Krishna Koravadi", "Co-Founder", "https://ahanexcruise.com/nexcruise-assets/nexcruise-founder-krishna.png", "20+ years in automotive ADAS, 20+ US patents, and ISO 26262 safety committee experience."),
 ]
 
+TESTIMONIALS = [
+    ("umahesh612", "Honda Amaze 2023 VX CVT", "All I need to say is that my right foot can rest easy on long drives.", "Team-BHP"),
+    ("sumeethaldankar", "Maruti Swift 2019, Mumbai", "There was no cutting of wires and the device fitted neatly under the dashboard and was ready to use in just 30 mins.", "Team-BHP"),
+    ("Kernelmann", "Tata Nexon EV, Chennai", "Having installed and driven with the NexCruise, it has transformed my highway driving experience completely.", "Nexon EV Owners Club"),
+]
+
+VALUE_POINTS = [
+    ("Less fatigue", "Cruise holds speed so the right foot is not working the whole highway."),
+    ("Smoother mileage habits", "Eco mode reduces sharp throttle spikes that waste fuel."),
+    ("Safer family limits", "Speed governor can cap top speed for family cars and fleets."),
+    ("One upgrade, many years", "Transfer the unit to another compatible car with a new cable set."),
+]
+
 
 def render_live_content():
+    testimonials_html = "".join(
+        f"""
+        <article class="aha-testimonial-card">
+          <p>"{quote}"</p>
+          <strong>{name}</strong>
+          <span>{car} - {source}</span>
+        </article>
+        """
+        for name, car, quote, source in TESTIMONIALS
+    )
+    value_html = "".join(
+        f"""
+        <article>
+          <strong>{title}</strong>
+          <p>{body}</p>
+        </article>
+        """
+        for title, body in VALUE_POINTS
+    )
+    st.markdown(
+        f"""
+        <section class="aha-live-section">
+          <div class="aha-kicker">Owner proof</div>
+          <h2>4,000+ cars. Keep the buyer proof close to the fitment workflow.</h2>
+          <p>NexCruise is not a generic accessory page. It has owner reviews, installation stories, safety questions, support expectations, and variant decisions that should stay visible while the user checks compatibility.</p>
+          <div class="aha-testimonial-grid">{testimonials_html}</div>
+          <div class="aha-value-grid">{value_html}</div>
+        </section>
+        """,
+        unsafe_allow_html=True,
+    )
+
     st.markdown(
         """
         <section class="aha-live-section">
-          <div class="aha-kicker">Official AHA NexCruise media</div>
-          <h2>Real demos, installation flow, and founder proof from ahanexcruise.com.</h2>
-          <p>Use these embeds to inspect the product story, Basic and Smart variants, and speed-limit behaviour without leaving the compatibility OS.</p>
+          <div class="aha-kicker">Official AHA films</div>
+          <h2>Watch the product in motion before the fitment call.</h2>
+          <p>Installation walkthroughs, Basic and Smart demos, and the adaptive speed-limit story are embedded inside the Streamlit prototype so the sales workflow does not break into scattered tabs.</p>
         </section>
         """,
         unsafe_allow_html=True,

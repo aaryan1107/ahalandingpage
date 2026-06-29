@@ -15,6 +15,7 @@ export default function Footer({ onWhatsApp }) {
           <h3>Quick links</h3>
           <a href="#brands">Brands</a>
           <a href="#compatibility">Compatibility</a>
+          <a href="#owners">Owner proof</a>
           <a href="#official">Official videos</a>
           <a href="#installation">Installation</a>
           <a href="#variants">Variants</a>

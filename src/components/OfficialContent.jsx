@@ -44,11 +44,11 @@ export default function OfficialContent() {
       <section className="section official-media-section" id="official">
         <div className="container">
           <div className="section-heading">
-            <p className="eyebrow">Official videos from AHA NexCruise</p>
-            <h2>Watch the real product story, demos, and safety behaviour.</h2>
+            <p className="eyebrow">Official AHA films</p>
+            <h2>Watch the product in motion before you book the fitment call.</h2>
             <p>
-              Pulled from the live AHA NexCruise site: official overview films, adaptive speed-limit demo,
-              and Basic / Smart variant walkthroughs.
+              Full installation walkthroughs, Basic and Smart demos, and the adaptive speed-limit story
+              are embedded here so buyers can inspect the product without opening five tabs.
             </p>
           </div>
           <div className="video-grid">
@@ -62,11 +62,11 @@ export default function OfficialContent() {
       <section className="section install-glass-section" id="installation">
         <div className="container install-layout">
           <div className="install-copy" data-reveal>
-            <p className="eyebrow">Setup in 20 minutes</p>
-            <h2>No wire cutting. No drilling. Fully reversible.</h2>
+            <p className="eyebrow">Fitment flow</p>
+            <h2>Two plugs, one dial, and a route that can be reversed later.</h2>
             <p>
-              Professional local technicians are available in 60+ cities, and AHA support can guide owners
-              on video call. The flow stays plug-and-play from pedal coupler to OBD to steering dial.
+              This is the buyer journey people care about: does it cut wires, who installs it, what happens
+              under the dashboard, and can support help if the installer is not nearby.
             </p>
             <a className="secondary-button" href="#callback" onClick={() => trackFunnel("InstallCallbackClicked")}>
               Book installation help
@@ -90,8 +90,8 @@ export default function OfficialContent() {
       <section className="section variant-section" id="variants">
         <div className="container">
           <div className="section-heading centered">
-            <p className="eyebrow">Two versions, one upgrade</p>
-            <h2>Choose Basic for cruise control or Smart for full drive-mode control.</h2>
+            <p className="eyebrow">Basic or Smart</p>
+            <h2>Pick the level of control you actually need.</h2>
           </div>
           <div className="variant-grid">
             {productVariants.map((variant) => (
@@ -119,8 +119,8 @@ export default function OfficialContent() {
       <section className="section founder-section" id="founders">
         <div className="container founder-layout">
           <div className="section-heading">
-            <p className="eyebrow">Who builds NexCruise</p>
-            <h2>Built by automotive and hardware people, not a generic accessory seller.</h2>
+            <p className="eyebrow">Founders and press</p>
+            <h2>Built by people who understand throttle systems, not just car accessories.</h2>
           </div>
           <div className="founder-grid">
             {founders.map((founder) => (

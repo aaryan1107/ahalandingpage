@@ -138,10 +138,10 @@ def render_dashboard_hero():
     selected_model = st.session_state.get("selected_model", BRANDS[selected_brand]["hero"])
     brand = BRANDS[selected_brand]
     vehicle_class = _vehicle_class(selected_model)
-    headline = utm.get("headline", "Your next highway drive. No leg pain. No fatigue stops.")
+    headline = utm.get("headline", "Cruise control. Indian cars.")
     subcopy = utm.get(
         "subcopy",
-        "Plug-and-play cruise control, Eco/Sport/City drive modes, and speed governor support for compatible Indian cars.",
+        "Plug-and-play cruise control, Eco/City/Sport drive modes, and speed governor support after AHA checks your exact variant.",
     )
     cta = utm.get("cta", "Direct visitor")
     vehicle_visual = _render_vehicle_visual(selected_brand, selected_model, brand, vehicle_class)
@@ -164,8 +164,8 @@ def render_dashboard_hero():
           </div>
           <div class="aha-stat-grid">
             <div class="aha-stat-card"><div class="aha-stat-value">4K+</div><div class="aha-stat-label">Drives transformed</div></div>
-            <div class="aha-stat-card"><div class="aha-stat-value">30m</div><div class="aha-stat-label">Plug-play install</div></div>
-            <div class="aha-stat-card"><div class="aha-stat-value">50+</div><div class="aha-stat-label">Installer cities</div></div>
+            <div class="aha-stat-card"><div class="aha-stat-value">20m</div><div class="aha-stat-label">Setup flow</div></div>
+            <div class="aha-stat-card"><div class="aha-stat-value">60+</div><div class="aha-stat-label">Installer cities</div></div>
             <div class="aha-stat-card"><div class="aha-stat-value">Rs19K</div><div class="aha-stat-label">Starting price</div></div>
           </div>
         </section>
