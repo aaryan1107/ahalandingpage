@@ -110,13 +110,7 @@ def inject_global_styles():
           backdrop-filter: blur(24px) saturate(160%);
         }
         .aha-hero::before {
-          content: "NEXCRUISE";
-          position: absolute;
-          right: -24px;
-          top: 38px;
-          color: rgba(255,255,255,0.035);
-          font: 900 clamp(74px, 12vw, 170px) 'Plus Jakarta Sans';
-          letter-spacing: -0.08em;
+          display: none;
         }
         .aha-hero::after {
           display: none;
@@ -532,6 +526,131 @@ def inject_global_styles():
         }
         .aha-skill-track { height: 5px; background: rgba(255,255,255,.12); border-radius: 99px; overflow: hidden; margin: 5px 0 12px; }
         .aha-skill-fill { height: 100%; background: linear-gradient(90deg, #2f6fed, #b9d3ff); box-shadow: 0 0 8px rgba(47,111,237,.5); }
+        .aha-live-section,
+        .aha-glass-panel {
+          margin-top: 28px;
+          padding: 30px;
+          border: 1px solid rgba(255,255,255,0.15);
+          border-radius: 34px;
+          background:
+            radial-gradient(circle at 12% 15%, rgba(54,214,255,0.14), transparent 30%),
+            linear-gradient(145deg, rgba(255,255,255,0.10), rgba(255,255,255,0.035));
+          box-shadow: var(--shadow-soft);
+          backdrop-filter: blur(24px) saturate(160%);
+        }
+        .aha-live-section h2,
+        .aha-glass-panel h2 {
+          color: var(--text-main);
+          font-size: clamp(34px, 4vw, 58px);
+          margin: 10px 0 12px;
+        }
+        .aha-video-grid,
+        .aha-variant-grid,
+        .aha-founder-grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 16px;
+          margin-top: 16px;
+        }
+        .aha-video-card,
+        .aha-variant-card,
+        .aha-founder-card,
+        .aha-install-row {
+          border: 1px solid rgba(255,255,255,0.14);
+          border-radius: 24px;
+          background: linear-gradient(145deg, rgba(255,255,255,.10), rgba(255,255,255,.035));
+          box-shadow: var(--shadow-soft);
+          backdrop-filter: blur(20px) saturate(150%);
+          overflow: hidden;
+        }
+        .aha-video-frame {
+          aspect-ratio: 16 / 9;
+          background: #05070d;
+        }
+        .aha-video-iframe {
+          width: 100%;
+          height: 100%;
+          border: 0;
+        }
+        .aha-video-copy,
+        .aha-variant-card,
+        .aha-founder-card div {
+          padding: 18px;
+        }
+        .aha-video-copy span,
+        .aha-variant-card span,
+        .aha-founder-card span {
+          color: #b9d3ff;
+          font: 800 11px 'IBM Plex Mono';
+          letter-spacing: .1em;
+          text-transform: uppercase;
+        }
+        .aha-video-copy h3,
+        .aha-variant-card h3,
+        .aha-founder-card h3,
+        .aha-install-row h3 {
+          color: var(--text-main);
+          margin: 8px 0 6px;
+        }
+        .aha-install-grid {
+          display: grid;
+          gap: 12px;
+        }
+        .aha-install-row {
+          display: grid;
+          grid-template-columns: 58px 1fr;
+          gap: 16px;
+          align-items: start;
+          padding: 16px;
+        }
+        .aha-install-row > span {
+          width: 42px;
+          height: 42px;
+          display: grid;
+          place-items: center;
+          border-radius: 50%;
+          background: rgba(79,140,255,.22);
+          color: #dbe9ff;
+          font: 900 13px 'IBM Plex Mono';
+        }
+        .aha-variant-card.featured {
+          border-color: rgba(255,180,92,.36);
+          background:
+            radial-gradient(circle at 82% 10%, rgba(255,180,92,.18), transparent 36%),
+            linear-gradient(145deg, rgba(255,255,255,.13), rgba(255,255,255,.045));
+        }
+        .aha-variant-card strong {
+          display: block;
+          color: var(--text-main);
+          font-size: 28px;
+          margin: 8px 0;
+        }
+        .aha-founder-card {
+          display: grid;
+          grid-template-columns: 160px 1fr;
+          align-items: center;
+        }
+        .aha-founder-card img {
+          width: 100%;
+          height: 100%;
+          min-height: 180px;
+          object-fit: cover;
+        }
+        .aha-press-strip {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+          margin-top: 18px;
+        }
+        .aha-press-strip a {
+          border: 1px solid rgba(255,255,255,0.14);
+          border-radius: 999px;
+          padding: 9px 12px;
+          color: #dbe9ff !important;
+          text-decoration: none !important;
+          font-weight: 850;
+          font-size: 12px;
+        }
         .aha-game-stage { min-height: 360px; background: linear-gradient(180deg, #0d1520, #060c15); }
         .aha-route-line { height: 12px; border-radius: 999px; background: linear-gradient(90deg, #2f6fed, #ffffff, #ff5a1f); margin: 24px 0; box-shadow: 0 0 28px rgba(47,111,237,.35); }
         .aha-game-meter { height: 12px; border-radius: 999px; background: rgba(255,255,255,.12); overflow: hidden; }
@@ -644,7 +763,8 @@ def inject_global_styles():
         @media (max-width: 540px) {
           .main .block-container { padding: .8rem 1rem 3rem; }
           .aha-hero h1 { font-size: 42px; }
-          .aha-stat-grid, .aha-reason-grid, .aha-action-grid { grid-template-columns: 1fr; }
+          .aha-stat-grid, .aha-reason-grid, .aha-action-grid, .aha-video-grid, .aha-variant-grid, .aha-founder-grid { grid-template-columns: 1fr; }
+          .aha-founder-card { grid-template-columns: 1fr; }
         }
         @media (prefers-reduced-motion: reduce) {
           *, *::before, *::after { animation: none !important; transition: none !important; }

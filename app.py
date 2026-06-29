@@ -6,6 +6,7 @@ from components.dashboard_hero import render_dashboard_hero
 from components.footer import render_footer
 from components.header import render_header
 from components.lead_capture import render_lead_capture
+from components.live_content import render_live_content
 from components.minigame import render_minigame
 from styles.theme import inject_global_styles
 from utils.state import init_state
@@ -27,6 +28,7 @@ render_header()
 render_dashboard_hero()
 render_brand_selector()
 render_compatibility_workspace()
+render_live_content()
 render_minigame()
 render_lead_capture()
 render_footer()

@@ -3,7 +3,6 @@ import { WHATSAPP_LINK } from "../tracking";
 export default function Hero({ heroImage, stats, selectedBrand, onWhatsApp }) {
   return (
     <section className="hero-section" id="top" style={{ "--brand-accent": selectedBrand.accent }}>
-      <span className="hero-watermark" aria-hidden="true">NexCruise</span>
       <div className="hero-grid container">
         <div className="hero-copy" data-reveal>
           <p className="eyebrow">NexCruise by AHA Automobiles</p>

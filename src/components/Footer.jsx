@@ -15,7 +15,9 @@ export default function Footer({ onWhatsApp }) {
           <h3>Quick links</h3>
           <a href="#brands">Brands</a>
           <a href="#compatibility">Compatibility</a>
-          <a href="#features">Features</a>
+          <a href="#official">Official videos</a>
+          <a href="#installation">Installation</a>
+          <a href="#variants">Variants</a>
           <a href="#callback">Callback</a>
         </div>
         <div>
@@ -26,9 +28,9 @@ export default function Footer({ onWhatsApp }) {
         </div>
         <div>
           <h3>Social</h3>
-          <a href="#">Instagram placeholder</a>
-          <a href="#">Facebook placeholder</a>
-          <a href="#">YouTube placeholder</a>
+          <a href="https://www.instagram.com/aha.innovations/" target="_blank" rel="noreferrer">Instagram</a>
+          <a href="https://www.facebook.com/aha.nexcruise" target="_blank" rel="noreferrer">Facebook</a>
+          <a href="https://www.youtube.com/@ahainnovations" target="_blank" rel="noreferrer">YouTube</a>
         </div>
       </div>
       <div className="footer-bottom">Copyright 2026 AHA Automobiles. All rights reserved.</div>

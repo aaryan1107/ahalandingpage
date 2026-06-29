@@ -76,9 +76,9 @@ export const carBrands = [
 ];
 
 export const proofStats = [
-  ["4,000+", "drives transformed"],
-  ["30 min", "plug-and-play install"],
-  ["50+", "installer cities"],
+  ["4,000+", "installations"],
+  ["20 min", "plug-and-play setup"],
+  ["60+", "installer cities"],
   ["Rs 19,990", "starting price"]
 ];
 
@@ -120,4 +120,89 @@ export const updates = [
   ["NexCruise Smart brings mode control", "Eco, Sport, City, resume cruise and speed governor are available on the Smart variant."],
   ["Installer network expanding", "AHA lists support across 50+ cities through partner and direct installation routes."],
   ["Made-in-India automobile tech", "Patented, iCAT-certified engineering from Aha Innovations in Jaipur."]
+];
+
+export const officialVideos = [
+  {
+    id: "GxAH4LcJVbk",
+    title: "Full install and demo - Aha! Car.OS Explained",
+    duration: "8:55",
+    views: "16,803 views",
+    note: "Complete overview of the NexCruise system, controls, and installation flow."
+  },
+  {
+    id: "rlrIGqnEPDM",
+    title: "For better performance, choose Aha NexCruise",
+    duration: "0:43",
+    views: "6,018 views",
+    note: "Short official performance and highway comfort film."
+  },
+  {
+    id: "8fNHTVPz7JU",
+    title: "World's First Adaptive Speed Limit - No More Challans",
+    duration: "10:29",
+    views: "4,539 views",
+    note: "Speed governor and adaptive limit behaviour explained."
+  },
+  {
+    id: "8D1yLErzi_c",
+    title: "NexCruise Basic - Full Demo",
+    duration: "Demo",
+    views: "Basic variant",
+    note: "Cruise control, brake override, and car-specific cable demo."
+  },
+  {
+    id: "rH7ape15Dq0",
+    title: "NexCruise Smart - Full Demo",
+    duration: "Demo",
+    views: "Smart variant",
+    note: "Eco, City, Sport, resume cruise, speed governor, and dial controls."
+  }
+];
+
+export const installSteps = [
+  ["01", "Unbox NexCruise + your car's cable set", "Each order includes a car-specific accelerator pedal cable. No universal connectors, no guessing.", "/attached_assets/nexcruise-foot-pedal.png"],
+  ["02", "Connect to the accelerator pedal", "Unplug the existing connector, plug in the NexCruise coupler in-line. Snap-fit, no cuts.", "/attached_assets/nexcruise-step1-pedal.png"],
+  ["03", "Plug into the OBD port", "Found under the dashboard on the driver's side. Every car made after 2010 has one.", "/attached_assets/nexcruise-step2-obd.png"],
+  ["04", "Mount the dial + pair via Bluetooth", "Stick the control dial on the steering column. Bluetooth pairing takes around 30 seconds.", "/attached_assets/nexcruise-step3-dial.png"],
+  ["05", "Drive. Set your speed. Done.", "Hit 40 km/h, press Set on the dial, lift your foot. NexCruise holds the speed.", "/attached_assets/nexcruise-install-video.png"]
+];
+
+export const productVariants = [
+  {
+    name: "NexCruise Basic",
+    price: "Rs 19,990",
+    demoId: "8D1yLErzi_c",
+    features: ["Cruise control from 15 km/h", "One-touch Resume", "Brake override", "iCAT certified", "Car-specific cable included"]
+  },
+  {
+    name: "NexCruise Smart",
+    price: "Rs 27,490",
+    demoId: "rH7ape15Dq0",
+    featured: true,
+    features: ["Everything in Basic", "Eco, City and Sport modes", "Speed limiter / governor", "Wireless steering dial", "OTA firmware updates"]
+  }
+];
+
+export const founders = [
+  {
+    name: "Aakash Sharma",
+    title: "Founder & CEO",
+    image: "/attached_assets/nexcruise-founder-aakash.png",
+    bio: "Gold medallist from MNIT Jaipur, builder of large-format 3D printers, and the founder who built NexCruise after not finding cruise control for his own car."
+  },
+  {
+    name: "Krishna Koravadi",
+    title: "Co-Founder",
+    image: "/attached_assets/nexcruise-founder-krishna.png",
+    bio: "20+ years in automotive ADAS at Aptiv and Magna, 20+ US patents in cruise-control systems, and SAE / ISO 26262 safety committee experience."
+  }
+];
+
+export const mediaMentions = [
+  ["The Better India", "https://thebetterindia.com/279528/aha-nexacruise-plug-and-play-tata-nexon-ev-increases-battery-range/"],
+  ["Team-BHP", "https://www.team-bhp.com/news/installed-aha-nexcruise-cruise-control-device-my-maruti-swift"],
+  ["New Indian Express", "https://www.newindianexpress.com/business/2021/Jan/13/have-range-anxiety-jaipur-man-who-drove-electric-vehicle-to-indo-pak-border-has-some-tips-2249595.html"],
+  ["Nexon EV Owners Club", "https://www.nexonevowners.club/the-aha-nexcruise-saga"],
+  ["AHA YouTube", "https://www.youtube.com/@ahainnovations"]
 ];

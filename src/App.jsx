@@ -13,6 +13,7 @@ import Hero from "./components/Hero.jsx";
 import BrandSelector from "./components/BrandSelector.jsx";
 import CompatibilityChecker from "./components/CompatibilityChecker.jsx";
 import Features from "./components/Features.jsx";
+import OfficialContent from "./components/OfficialContent.jsx";
 import DetailTabs from "./components/DetailTabs.jsx";
 import FAQ from "./components/FAQ.jsx";
 import Updates from "./components/Updates.jsx";
@@ -79,6 +80,7 @@ export default function App() {
           onWhatsApp={handleWhatsApp}
         />
         <Features cards={featureCards} installImage={installImage} />
+        <OfficialContent />
         <DetailTabs tabs={detailTabs} />
         <FAQ items={faqs} />
         <Updates items={updates} />
