@@ -7,6 +7,7 @@ import streamlit as st
 
 from data.vehicles import BRANDS
 from utils.tracking import track_event
+from utils.whatsapp import WHATSAPP_LINK
 
 
 def _post_lead_to_dashboard(payload):
@@ -116,4 +117,4 @@ def render_lead_capture():
                 except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as exc:
                     st.warning(f"Lead captured locally for {preferred} {model}, but dashboard sync is pending.")
                     st.caption(f"Start the dashboard API with npm run dev in digital_marketing-master, then submit again. Detail: {exc}")
-        st.markdown('<a class="aha-primary-btn" href="https://wa.me/91XXXXXXXXXX" target="_blank">Continue on WhatsApp</a>', unsafe_allow_html=True)
+        st.markdown(f'<a class="aha-primary-btn" href="{WHATSAPP_LINK}" target="_blank">Continue on WhatsApp</a>', unsafe_allow_html=True)

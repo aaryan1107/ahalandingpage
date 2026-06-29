@@ -1,4 +1,4 @@
-export const WHATSAPP_NUMBER = "91XXXXXXXXXX"; // Replace with actual AHA Automobiles WhatsApp number.
+export const WHATSAPP_NUMBER = "918306924400";
 export const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}`;
 export const DEFAULT_META_TEST_EVENT_CODE = "TEST40117";
 export const GOOGLE_ADS_ID = "AW-18243205076";
@@ -40,6 +40,7 @@ export function getAttributionContext() {
   const params = new URLSearchParams(window.location.search);
   return {
     sessionId: getSessionId(),
+    siteHost: window.location.hostname,
     pagePath: window.location.pathname,
     utmSource: params.get("utm_source") || undefined,
     utmMedium: params.get("utm_medium") || undefined,
@@ -107,13 +108,17 @@ export function trackGoogleAdsLeadConversion(data = {}) {
 export function trackFirstParty(eventId, data = {}) {
   if (typeof window === "undefined" || !FIRST_PARTY_TRACKING_ENDPOINT) return;
 
+  const attributionContext = getAttributionContext();
   const payload = compactObject({
     eventId,
-    ...getAttributionContext(),
+    ...attributionContext,
     pathType: data.pathType,
     stepId: data.stepId,
     contactNumber: data.contactNumber,
-    properties: data.properties
+    properties: compactObject({
+      site_host: attributionContext.siteHost,
+      ...data.properties
+    })
   });
 
   const headers = { "Content-Type": "application/json" };

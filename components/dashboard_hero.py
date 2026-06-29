@@ -5,6 +5,7 @@ from pathlib import Path
 import streamlit as st
 
 from data.vehicles import BRANDS
+from utils.whatsapp import WHATSAPP_LINK
 
 
 MODEL_FILES = {
@@ -153,7 +154,7 @@ def render_dashboard_hero():
             <p>{subcopy}</p>
             <p class="aha-punchline">When cruise mode sets in... AHA.</p>
             <a class="aha-primary-btn" href="#compatibility">Check Compatibility</a>
-            <a class="aha-secondary-btn" href="https://wa.me/91XXXXXXXXXX" target="_blank">WhatsApp AHA</a>
+            <a class="aha-secondary-btn" href="{WHATSAPP_LINK}" target="_blank">WhatsApp AHA</a>
           </div>
           <div class="aha-dashboard-canvas" style="--brand-accent:{brand['accent']}">
             <div class="aha-hero-road">
