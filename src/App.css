@@ -244,8 +244,8 @@ h3 {
 
 .driving-car {
   position: absolute;
-  right: clamp(58px, 8vw, 148px);
-  top: clamp(350px, 52vh, 430px);
+  right: clamp(36px, 6vw, 112px);
+  top: clamp(430px, 58vh, 500px);
   z-index: 1;
   width: clamp(390px, 38vw, 620px);
   height: clamp(178px, 18vw, 270px);
