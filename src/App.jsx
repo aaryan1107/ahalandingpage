@@ -17,7 +17,21 @@ import {
 } from "./data";
 import "./App.css";
 
-const popularModels = ["Hyundai Creta", "Toyota Innova Crysta", "Kia Seltos", "Mahindra Thar", "Tata Safari"];
+const popularModels = [
+  { brand: "Hyundai", model: "Creta", key: "creta" },
+  { brand: "Toyota", model: "Innova Crysta", key: "innova" },
+  { brand: "Kia", model: "Seltos", key: "seltos" },
+  { brand: "Mahindra", model: "Thar", key: "thar" },
+  { brand: "Tata", model: "Safari", key: "safari" }
+];
+
+const modelStyles = {
+  creta: { body: "#24313a", roof: "#1a252c", glass: "#76d6d2", accent: "#b6c0c7", stance: "urban" },
+  innova: { body: "#d8dde0", roof: "#bcc7cc", glass: "#83d9d5", accent: "#f2f5f6", stance: "mpv" },
+  seltos: { body: "#eef2f2", roof: "#cbd4d6", glass: "#74d3d0", accent: "#ff9f4a", stance: "compact" },
+  thar: { body: "#1c2523", roof: "#101614", glass: "#6bc7c3", accent: "#ff9f4a", stance: "boxy" },
+  safari: { body: "#4d5654", roof: "#323b3c", glass: "#7ad7d3", accent: "#d7d9d7", stance: "suv" }
+};
 
 const heroCards = [
   ["Effortless Highway Drives", "Set speed. Relax. Drive safer."],
@@ -30,25 +44,25 @@ const reviewCards = [
     quote: "Long drives are so much easier now. My right leg finally gets a break.",
     name: "Vikram S.",
     car: "Hyundai Creta",
-    image: "/attached_assets/nexcruise-swift-thumb.png"
+    modelKey: "creta"
   },
   {
     quote: "Installed in 90 minutes. Feels OEM. No lag, no jerks.",
     name: "Ankit M.",
     car: "Kia Seltos",
-    image: "/attached_assets/nexcruise-video-thumb-1.png"
+    modelKey: "seltos"
   },
   {
     quote: "Delhi to Jaipur every week. NexCruise has been a game changer.",
     name: "Pooja R.",
     car: "Toyota Innova Crysta",
-    image: "/attached_assets/nexcruise-video-thumb-2.png"
+    modelKey: "innova"
   },
   {
     quote: "Even works in bumper to bumper traffic. Smart speed control is gold.",
     name: "Arjun N.",
     car: "Tata Harrier",
-    image: "/attached_assets/picsart-nexcruise-install-clean.png"
+    modelKey: "safari"
   }
 ];
 
@@ -87,6 +101,71 @@ const footerLinks = {
 
 function Icon({ children }) {
   return <span className="icon-mark" aria-hidden="true">{children}</span>;
+}
+
+function CarModel({ type = "creta", label = "Compatible car", className = "" }) {
+  const style = modelStyles[type] || modelStyles.creta;
+  const isBoxy = style.stance === "boxy";
+  const isMpv = style.stance === "mpv";
+  const isCompact = style.stance === "compact";
+
+  return (
+    <svg className={`car-model ${className}`} viewBox="0 0 520 230" role="img" aria-label={label}>
+      <defs>
+        <linearGradient id={`body-${type}`} x1="0%" x2="100%" y1="0%" y2="100%">
+          <stop offset="0%" stopColor={style.accent} stopOpacity="0.32" />
+          <stop offset="34%" stopColor={style.body} />
+          <stop offset="100%" stopColor="#0b1114" />
+        </linearGradient>
+        <linearGradient id={`glass-${type}`} x1="0%" x2="100%">
+          <stop offset="0%" stopColor={style.glass} stopOpacity="0.78" />
+          <stop offset="100%" stopColor="#17252b" stopOpacity="0.9" />
+        </linearGradient>
+        <filter id={`glow-${type}`} x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="5" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
+      <ellipse cx="266" cy="196" rx="208" ry="24" fill="rgba(0,0,0,.48)" />
+      <path
+        d={
+          isBoxy
+            ? "M74 120 C92 80 132 58 196 58 H338 C397 58 444 88 466 130 L490 150 C500 158 498 180 484 185 H54 C43 185 36 174 43 163 L74 120 Z"
+            : isMpv
+              ? "M54 132 C84 88 127 64 197 54 H330 C394 58 448 96 474 138 L498 150 C510 158 503 184 486 187 H52 C36 186 30 174 40 160 L54 132 Z"
+              : "M58 135 C86 94 126 73 190 68 H330 C395 71 448 102 472 141 L493 153 C504 161 499 184 483 187 H54 C39 186 33 174 42 160 L58 135 Z"
+        }
+        fill={`url(#body-${type})`}
+        stroke="rgba(255,255,255,.16)"
+        strokeWidth="2"
+      />
+      <path
+        d={
+          isBoxy
+            ? "M158 72 H316 C354 73 384 93 402 125 H120 C129 96 140 80 158 72 Z"
+            : "M170 70 H318 C354 75 386 98 407 129 H126 C139 99 151 79 170 70 Z"
+        }
+        fill={`url(#glass-${type})`}
+        stroke="rgba(119,214,210,.28)"
+        strokeWidth="2"
+      />
+      <path d="M238 75 L218 128" stroke="rgba(255,255,255,.24)" strokeWidth="2" />
+      <path d="M326 78 L336 128" stroke="rgba(255,255,255,.18)" strokeWidth="2" />
+      <rect x="74" y="145" width="56" height="10" rx="5" fill={style.glass} filter={`url(#glow-${type})`} />
+      <rect x="438" y="146" width="38" height="11" rx="6" fill="#ff9f4a" filter={`url(#glow-${type})`} />
+      <path d="M112 170 H420" stroke="rgba(255,255,255,.18)" strokeWidth="12" strokeLinecap="round" />
+      <circle cx="150" cy="184" r={isCompact ? 32 : 36} fill="#05090c" stroke="rgba(255,255,255,.16)" strokeWidth="2" />
+      <circle cx="150" cy="184" r={isCompact ? 17 : 19} fill="#15242a" />
+      <circle cx="150" cy="184" r="6" fill={style.glass} />
+      <circle cx="402" cy="184" r={isCompact ? 32 : 36} fill="#05090c" stroke="rgba(255,255,255,.16)" strokeWidth="2" />
+      <circle cx="402" cy="184" r={isCompact ? 17 : 19} fill="#15242a" />
+      <circle cx="402" cy="184" r="6" fill={style.glass} />
+      <path d="M102 118 C124 110 148 106 181 108" stroke="rgba(255,255,255,.18)" strokeWidth="3" strokeLinecap="round" />
+    </svg>
+  );
 }
 
 function WhatsAppIcon() {
@@ -135,19 +214,41 @@ function Header() {
 function Hero() {
   const [speed, setSpeed] = useState(80);
   const roadDuration = Math.max(0.7, 4.2 - speed / 26);
+  const wheelDuration = Math.max(0.34, 1.4 - speed / 118);
 
   function changeSpeed(delta) {
     setSpeed((current) => Math.min(120, Math.max(40, current + delta)));
   }
 
   return (
-    <section id="top" className="hero" style={{ "--road-speed": `${roadDuration}s`, "--speed-glow": `${speed / 120}` }}>
+    <section
+      id="top"
+      className="hero"
+      style={{
+        "--road-speed": `${roadDuration}s`,
+        "--wheel-speed": `${wheelDuration}s`,
+        "--speed-glow": `${speed / 120}`
+      }}
+    >
       <div className="motion-road" aria-hidden="true">
         <div className="road-horizon" />
         <div className="road-lane lane-left" />
         <div className="road-lane lane-mid" />
         <div className="road-lane lane-right" />
         <div className="road-streaks" />
+        <div className="driving-car">
+          <span className="car-shadow" />
+          <span className="car-beam left-beam" />
+          <span className="car-beam right-beam" />
+          <div className="drive-car-body">
+            <span className="drive-window windscreen" />
+            <span className="drive-window side-window" />
+            <span className="drive-light headlight" />
+            <span className="drive-light taillight" />
+            <span className="drive-wheel drive-front-wheel" />
+            <span className="drive-wheel drive-rear-wheel" />
+          </div>
+        </div>
         <div className="cockpit">
           <div className="wheel" />
           <div className="dash dash-left"><span>{speed}</span></div>
@@ -202,22 +303,6 @@ function Hero() {
           </div>
         </div>
 
-        <div className="hero-car-showcase" aria-label="NexCruise car visual">
-          <div className="car-silhouette">
-            <span className="car-window front" />
-            <span className="car-window rear" />
-            <span className="car-light left" />
-            <span className="car-light right" />
-            <span className="wheel-dot front-wheel" />
-            <span className="wheel-dot rear-wheel" />
-          </div>
-          <img src="/attached_assets/nexcruise-swift-thumb.png" alt="Car cockpit with NexCruise active" />
-          <div>
-            <strong>250+ car models</strong>
-            <span>Manual · AMT · CVT · Automatic</span>
-          </div>
-        </div>
-
         <div className="hero-badges">
           <span><Icon>⌁</Icon> Works in City & Highway</span>
           <span>Petrol · Diesel · Turbo</span>
@@ -230,11 +315,19 @@ function Hero() {
 function CompatibilityStrip() {
   const [brand, setBrand] = useState("");
   const [model, setModel] = useState("");
+  const [modelKey, setModelKey] = useState("creta");
   const selectedBrand = useMemo(() => carBrands.find((item) => item.name === brand), [brand]);
 
   function checkCompatibility() {
     trackFunnel("CheckCompatibilityClicked", { brand, model, location: "compatibility_strip" });
     trackCustom("Used_Tool", { tool_name: "Compatibility Checker", brand, model });
+  }
+
+  function selectPopular(item) {
+    setBrand(item.brand);
+    setModel(item.model);
+    setModelKey(item.key);
+    trackFunnel("BrandSelected", { brand: item.brand, model: item.model, location: "popular_model" });
   }
 
   return (
@@ -265,7 +358,11 @@ function CompatibilityStrip() {
 
       <div className="popular">
         <span>Popular:</span>
-        {popularModels.map((item) => <button key={item} type="button" onClick={() => setModel(item)}>{item}</button>)}
+        {popularModels.map((item) => (
+          <button key={item.key} type="button" onClick={() => selectPopular(item)}>
+            {item.brand} {item.model}
+          </button>
+        ))}
       </div>
 
       <a className="whatsapp-mini" href={WHATSAPP_LINK} target="_blank" rel="noreferrer" onClick={() => trackWhatsApp("compatibility_strip")}>
@@ -273,10 +370,10 @@ function CompatibilityStrip() {
       </a>
 
       <div className="compat-car-card" aria-hidden="true">
-        <div className="compat-car-silhouette">
-          <span />
-          <b />
-          <i />
+        <CarModel type={modelKey} label={`${brand || "Hyundai"} ${model || "Creta"}`} className="compat-car-model" />
+        <div className="compat-car-meta">
+          <strong>{model || "Creta"}</strong>
+          <span>{brand || "Hyundai"} ready</span>
         </div>
       </div>
     </section>
@@ -299,7 +396,7 @@ function SocialProof() {
             <div className="review-person">
               <span className="avatar">{review.name.slice(0, 1)}</span>
               <span><strong>{review.name}</strong><small>{review.car}</small></span>
-              <img src={review.image} alt="" />
+              <CarModel type={review.modelKey} label={review.car} className="review-car-model" />
             </div>
           </article>
         ))}
