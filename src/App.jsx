@@ -202,6 +202,22 @@ function Hero() {
           </div>
         </div>
 
+        <div className="hero-car-showcase" aria-label="NexCruise car visual">
+          <div className="car-silhouette">
+            <span className="car-window front" />
+            <span className="car-window rear" />
+            <span className="car-light left" />
+            <span className="car-light right" />
+            <span className="wheel-dot front-wheel" />
+            <span className="wheel-dot rear-wheel" />
+          </div>
+          <img src="/attached_assets/nexcruise-swift-thumb.png" alt="Car cockpit with NexCruise active" />
+          <div>
+            <strong>250+ car models</strong>
+            <span>Manual · AMT · CVT · Automatic</span>
+          </div>
+        </div>
+
         <div className="hero-badges">
           <span><Icon>⌁</Icon> Works in City & Highway</span>
           <span>Petrol · Diesel · Turbo</span>
@@ -255,6 +271,14 @@ function CompatibilityStrip() {
       <a className="whatsapp-mini" href={WHATSAPP_LINK} target="_blank" rel="noreferrer" onClick={() => trackWhatsApp("compatibility_strip")}>
         Not sure? WhatsApp us <WhatsAppIcon />
       </a>
+
+      <div className="compat-car-card" aria-hidden="true">
+        <div className="compat-car-silhouette">
+          <span />
+          <b />
+          <i />
+        </div>
+      </div>
     </section>
   );
 }
