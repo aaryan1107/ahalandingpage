@@ -66,27 +66,6 @@ const reviewCards = [
   }
 ];
 
-const showcaseVideos = [
-  {
-    title: "NexCruise on Hyundai Creta",
-    time: "02:14",
-    thumb: "/attached_assets/nexcruise-video-thumb-1.png",
-    id: "rlrIGqnEPDM"
-  },
-  {
-    title: "City Traffic Smarter Control",
-    time: "01:38",
-    thumb: "/attached_assets/nexcruise-video-thumb-2.png",
-    id: "8fNHTVPz7JU"
-  },
-  {
-    title: "Installation Walkthrough",
-    time: "03:21",
-    thumb: "/attached_assets/nexcruise-install-video.png",
-    id: "GxAH4LcJVbk"
-  }
-];
-
 const savings = [
   ["Save up to", "Rs 18,000 / year", "on fuel"],
   ["Reduce fatigue on", "long highway drives", ""],
@@ -405,28 +384,32 @@ function SocialProof() {
 
       <div id="videos" className="video-grid-wrap">
         <div>
-          <h2>See NexCruise<br />in action</h2>
-          <p>Real roads. Real cars. Real results.</p>
+          <h2>Watch the real<br />AHA demos</h2>
+          <p>Official videos with the product, controls, install flow, and speed-limit proof in one place.</p>
           <a className="outline-teal" href="https://www.youtube.com/@ahainnovations" target="_blank" rel="noreferrer">
             Watch on YouTube <span>▷</span>
           </a>
         </div>
 
         <div className="video-grid">
-          {showcaseVideos.map((video) => (
-            <a
-              className="video-card"
+          {officialVideos.slice(0, 3).map((video) => (
+            <article
+              className="video-embed-card"
               key={video.title}
-              href={`https://www.youtube.com/watch?v=${video.id}`}
-              target="_blank"
-              rel="noreferrer"
-              onClick={() => trackCustom("Used_Tool", { tool_name: "Video Card", video: video.title })}
             >
-              <img src={video.thumb} alt={video.title} />
-              <span className="play">▷</span>
-              <strong>{video.title}</strong>
-              <small>{video.time}</small>
-            </a>
+              <iframe
+                title={video.title}
+                src={`https://www.youtube.com/embed/${video.id}?rel=0&modestbranding=1`}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                onLoad={() => trackCustom("Used_Tool", { tool_name: "Video Embed Loaded", video: video.title })}
+              />
+              <div>
+                <strong>{video.title}</strong>
+                <span>{video.duration} · {video.views}</span>
+                <p>{video.note}</p>
+              </div>
+            </article>
           ))}
         </div>
       </div>
@@ -622,28 +605,6 @@ function CallbackFooter() {
   );
 }
 
-function OfficialVideoEmbeds() {
-  return (
-    <section className="official-embeds">
-      <div className="section-title">
-        <h2>Official AHA films</h2>
-        <p>The deeper product videos are still here when someone wants the full proof.</p>
-      </div>
-      <div className="embed-row">
-        {officialVideos.slice(0, 3).map((video) => (
-          <iframe
-            key={video.id}
-            title={video.title}
-            src={`https://www.youtube.com/embed/${video.id}?rel=0&modestbranding=1`}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-          />
-        ))}
-      </div>
-    </section>
-  );
-}
-
 export default function App() {
   return (
     <>
@@ -657,7 +618,6 @@ export default function App() {
         <Savings />
         <FAQSection />
         <FounderAndPress />
-        <OfficialVideoEmbeds />
       </main>
       <CallbackFooter />
     </>

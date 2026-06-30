@@ -1018,8 +1018,7 @@ h3 {
 .video-grid-wrap h2,
 .compare-title h2,
 .faq-side h2,
-.founder-band h2,
-.official-embeds h2 {
+.founder-band h2 {
   margin-bottom: 14px;
   font-size: clamp(26px, 3vw, 36px);
   line-height: 1.05;
@@ -1144,10 +1143,18 @@ h3 {
   gap: 18px;
 }
 
-.video-card {
+.video-card,
+.video-embed-card {
   position: relative;
-  min-height: 190px;
   overflow: hidden;
+  border: 1px solid rgba(119, 214, 210, 0.16);
+  border-radius: 8px;
+  background: linear-gradient(145deg, rgba(255,255,255,0.07), rgba(255,255,255,0.025));
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.24);
+}
+
+.video-card {
+  min-height: 190px;
 }
 
 .video-card img {
@@ -1201,6 +1208,38 @@ h3 {
 .video-card small {
   right: 18px;
   color: rgba(255, 255, 255, 0.62);
+}
+
+.video-embed-card iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  background: #000;
+}
+
+.video-embed-card div {
+  display: grid;
+  gap: 6px;
+  padding: 16px;
+}
+
+.video-embed-card strong {
+  color: #fff;
+  font-size: 15px;
+  line-height: 1.25;
+}
+
+.video-embed-card span {
+  color: var(--teal);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.video-embed-card p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.66);
+  font-size: 13px;
+  line-height: 1.45;
 }
 
 .install-band {
@@ -1533,30 +1572,6 @@ h3 {
   line-height: 1.58;
 }
 
-.official-embeds {
-  padding: 54px max(64px, calc((100vw - 1210px) / 2));
-  background: #0c0f10;
-}
-
-.official-embeds p {
-  color: rgba(255, 255, 255, 0.62);
-}
-
-.embed-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-  margin-top: 26px;
-}
-
-.embed-row iframe {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  border: 1px solid rgba(255, 255, 255, 0.13);
-  border-radius: 8px;
-  background: #000;
-}
-
 .site-footer {
   background:
     linear-gradient(180deg, #0a1215, #060b0d);
@@ -1731,7 +1746,6 @@ h3 {
   .compat-form,
   .install-steps,
   .video-grid,
-  .embed-row,
   .plan-grid,
   .footer-main {
     grid-template-columns: 1fr;
@@ -1858,7 +1872,6 @@ h3 {
   .savings-band,
   .faq-section,
   .founder-band,
-  .official-embeds,
   .contact-strip,
   .footer-main,
   .footer-bottom {
