@@ -39,6 +39,13 @@ const heroCards = [
   ["Plug & Play Installation", "No wire cuts. No warranty anxiety."]
 ];
 
+const heroProductDetails = [
+  ["Car-specific harness", "Inline coupler, no wire cutting"],
+  ["Steering dial", "Set, resume and adjust speed"],
+  ["Brake override", "Tap brake to cancel instantly"],
+  ["Transfer ready", "Move it to another compatible car"]
+];
+
 const reviewCards = [
   {
     quote: "Long drives are so much easier now. My right leg finally gets a break.",
@@ -243,6 +250,15 @@ function Hero() {
             <strong>AHA NexCruise</strong> is aftermarket cruise control for your car.
             Safe. Smart. Seamless. Built for Indian roads.
           </p>
+
+          <div className="hero-detail-grid" aria-label="NexCruise product details">
+            {heroProductDetails.map(([title, body]) => (
+              <div key={title}>
+                <strong>{title}</strong>
+                <span>{body}</span>
+              </div>
+            ))}
+          </div>
 
           <div className="hero-feature-row">
             {heroCards.map(([title, body], index) => (

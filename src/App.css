@@ -244,8 +244,8 @@ h3 {
 
 .driving-car {
   position: absolute;
-  right: clamp(120px, 14vw, 230px);
-  bottom: clamp(74px, 10vh, 132px);
+  right: clamp(58px, 8vw, 148px);
+  top: clamp(350px, 52vh, 430px);
   z-index: 1;
   width: clamp(390px, 38vw, 620px);
   height: clamp(178px, 18vw, 270px);
@@ -521,6 +521,38 @@ h3 {
 
 .hero-copy p strong {
   color: var(--teal);
+}
+
+.hero-detail-grid {
+  width: min(100%, 560px);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: -8px 0 24px;
+}
+
+.hero-detail-grid div {
+  min-height: 66px;
+  display: grid;
+  align-content: center;
+  gap: 4px;
+  padding: 12px 14px;
+  border: 1px solid rgba(119, 214, 210, 0.16);
+  border-radius: 8px;
+  background: linear-gradient(145deg, rgba(119,214,210,0.08), rgba(255,255,255,0.035));
+  backdrop-filter: blur(16px);
+}
+
+.hero-detail-grid strong {
+  color: #fff;
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.hero-detail-grid span {
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 11px;
+  line-height: 1.3;
 }
 
 .hero-feature-row {
@@ -1729,6 +1761,13 @@ h3 {
     width: min(760px, calc(100% - 36px));
   }
 
+  .driving-car {
+    right: clamp(-120px, -8vw, -40px);
+    top: auto;
+    bottom: 58px;
+    opacity: 0.72;
+  }
+
   .speed-widget,
   .hero-badges,
   .hero-car-showcase {
@@ -1836,6 +1875,25 @@ h3 {
 
   .hero-feature-row {
     grid-template-columns: 1fr;
+  }
+
+  .hero-detail-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: -6px;
+    gap: 8px;
+  }
+
+  .hero-detail-grid div {
+    min-height: 74px;
+    padding: 11px 12px;
+  }
+
+  .hero-detail-grid strong {
+    font-size: 11px;
+  }
+
+  .hero-detail-grid span {
+    font-size: 10px;
   }
 
   .hero-feature {
