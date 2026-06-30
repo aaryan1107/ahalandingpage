@@ -1,19 +1,19 @@
-@import url("https://fonts.googleapis.com/css2?family=Saira:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap");
 
 :root {
-  --charcoal: #07090a;
-  --charcoal-2: #101315;
+  --charcoal: #050b0f;
+  --charcoal-2: #08161b;
   --surface: rgba(255, 255, 255, 0.085);
   --surface-2: rgba(255, 255, 255, 0.13);
   --line: rgba(255, 255, 255, 0.15);
-  --paper: #f1f0ec;
-  --paper-2: #e7e5de;
+  --paper: #0a171d;
+  --paper-2: #0d2027;
   --ink: #111416;
   --muted: rgba(255, 255, 255, 0.68);
   --soft-ink: #5e6265;
   --teal: #77d6d2;
-  --orange: #ffb77d;
-  --orange-2: #ff9c3f;
+  --orange: #ff9f4a;
+  --orange-2: #ff7b22;
   --radius: 8px;
   --shadow: 0 26px 80px rgba(0, 0, 0, 0.42);
 }
@@ -30,9 +30,12 @@ html {
 body {
   margin: 0;
   overflow-x: hidden;
-  background: var(--charcoal);
+  background:
+    radial-gradient(circle at 12% 4%, rgba(119, 214, 210, 0.14), transparent 26%),
+    radial-gradient(circle at 88% 8%, rgba(255, 159, 74, 0.12), transparent 30%),
+    linear-gradient(180deg, #03080b, var(--charcoal) 42%, #061015);
   color: #fff;
-  font-family: Saira, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: Manrope, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 button,
@@ -66,6 +69,7 @@ p {
 h1,
 h2,
 h3 {
+  font-family: "Space Grotesk", Manrope, sans-serif;
   letter-spacing: 0;
 }
 
@@ -83,7 +87,7 @@ h3 {
   transform: translateX(-50%);
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: var(--radius);
-  background: linear-gradient(90deg, rgba(18, 20, 21, 0.84), rgba(36, 39, 41, 0.66));
+  background: linear-gradient(90deg, rgba(5, 16, 20, 0.86), rgba(14, 31, 38, 0.66));
   box-shadow: 0 18px 60px rgba(0, 0, 0, 0.32);
   backdrop-filter: blur(24px);
 }
@@ -95,6 +99,7 @@ h3 {
   padding-left: 22px;
   line-height: 0.92;
   font-weight: 800;
+  font-family: "Space Grotesk", Manrope, sans-serif;
 }
 
 .nx-logo span {
@@ -158,28 +163,162 @@ h3 {
 
 .hero {
   position: relative;
-  min-height: 680px;
+  min-height: 720px;
   display: grid;
   overflow: hidden;
-  background: #050607;
+  background: #04090d;
 }
 
-.hero-bg {
+.motion-road {
   position: absolute;
   inset: 0;
-  background-image: url("/attached_assets/nexcruise-hero.png");
-  background-size: cover;
-  background-position: center;
-  filter: saturate(0.98) contrast(1.05) brightness(0.72);
-  transform: scale(1.03);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 52% 18%, rgba(255, 255, 255, 0.32), transparent 4%),
+    radial-gradient(circle at 52% 19%, rgba(119, 214, 210, 0.16), transparent 14%),
+    linear-gradient(180deg, #101a21 0%, #061116 38%, #03070a 100%);
+}
+
+.motion-road::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(115deg, transparent 0 45%, rgba(255,255,255,0.16) 45.2% 45.5%, transparent 46%),
+    linear-gradient(245deg, transparent 0 45%, rgba(255,255,255,0.16) 45.2% 45.5%, transparent 46%),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0 1px, transparent 1px 120px);
+  opacity: 0.45;
+}
+
+.motion-road::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4%;
+  height: 54%;
+  background:
+    radial-gradient(ellipse at center top, rgba(119, 214, 210, calc(0.08 + var(--speed-glow) * 0.16)), transparent 54%),
+    linear-gradient(100deg, transparent 0 27%, rgba(68, 77, 82, 0.44) 27.4% 29%, transparent 29.4%),
+    linear-gradient(80deg, transparent 0 70%, rgba(68, 77, 82, 0.44) 70.4% 72%, transparent 72.4%),
+    linear-gradient(180deg, transparent 0, rgba(13, 18, 22, 0.9) 42%, #020405 100%);
+  clip-path: polygon(42% 0, 58% 0, 100% 100%, 0 100%);
+}
+
+.road-horizon {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 34%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.38), transparent);
+  box-shadow: 0 0 60px rgba(119,214,210,0.28);
+}
+
+.road-lane {
+  position: absolute;
+  left: 50%;
+  bottom: -18%;
+  width: 4px;
+  height: 78%;
+  background: repeating-linear-gradient(to bottom, rgba(255,255,255,0.95) 0 42px, transparent 42px 96px);
+  transform-origin: bottom center;
+  animation: laneFlow var(--road-speed, 1.3s) linear infinite;
+  filter: drop-shadow(0 0 10px rgba(255,255,255,0.45));
+}
+
+.lane-left { transform: translateX(-210px) perspective(380px) rotateX(64deg) rotateZ(16deg); }
+.lane-mid { transform: translateX(-2px) perspective(380px) rotateX(64deg); opacity: 0.9; }
+.lane-right { transform: translateX(210px) perspective(380px) rotateX(64deg) rotateZ(-16deg); }
+
+.road-streaks {
+  position: absolute;
+  inset: 18% 0 0;
+  background:
+    repeating-linear-gradient(105deg, transparent 0 130px, rgba(119,214,210,0.16) 132px 134px, transparent 136px 240px),
+    repeating-linear-gradient(75deg, transparent 0 150px, rgba(255,159,74,0.13) 152px 154px, transparent 156px 260px);
+  animation: streakFlow calc(var(--road-speed, 1.3s) * 1.25) linear infinite;
+  opacity: 0.46;
+}
+
+.cockpit {
+  position: absolute;
+  left: 50%;
+  bottom: -158px;
+  width: min(920px, 78vw);
+  height: 380px;
+  transform: translateX(-50%);
+  border-radius: 48% 48% 0 0;
+  background:
+    radial-gradient(circle at 50% 28%, rgba(119,214,210,0.2), transparent 14%),
+    linear-gradient(180deg, rgba(24,32,37,0.72), rgba(3,5,7,0.98));
+  box-shadow: inset 0 18px 70px rgba(255,255,255,0.06), 0 -22px 80px rgba(0,0,0,0.45);
+  opacity: 0.82;
+}
+
+.wheel {
+  position: absolute;
+  left: 50%;
+  bottom: 38px;
+  width: 340px;
+  height: 340px;
+  transform: translateX(-50%);
+  border: 38px solid rgba(0,0,0,0.72);
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 10px rgba(255,255,255,0.04), 0 0 50px rgba(0,0,0,0.58);
+}
+
+.dash {
+  position: absolute;
+  bottom: 188px;
+  width: 116px;
+  height: 72px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(119,214,210,0.35);
+  border-radius: 18px;
+  background: rgba(3, 11, 14, 0.8);
+  box-shadow: 0 0 36px rgba(119,214,210,0.14);
+}
+
+.dash-left {
+  left: calc(50% - 260px);
+}
+
+.dash-right {
+  right: calc(50% - 300px);
+}
+
+.dash span {
+  color: var(--teal);
+  font-family: "Space Grotesk", Manrope, sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.dash small {
+  color: rgba(255,255,255,0.55);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+@keyframes laneFlow {
+  from { background-position-y: 0; }
+  to { background-position-y: 96px; }
+}
+
+@keyframes streakFlow {
+  from { background-position: 0 0, 0 0; }
+  to { background-position: -260px 240px, 280px 260px; }
 }
 
 .hero-shade {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.67) 38%, rgba(0, 0, 0, 0.28) 72%, rgba(0, 0, 0, 0.72) 100%),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.55) 0%, transparent 34%, rgba(0, 0, 0, 0.95) 100%);
+    linear-gradient(90deg, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.5) 42%, rgba(0, 0, 0, 0.34) 72%, rgba(0, 0, 0, 0.72) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.44) 0%, transparent 34%, rgba(0, 0, 0, 0.92) 100%);
 }
 
 .hero-content {
@@ -196,17 +335,25 @@ h3 {
 .hero-copy h1 {
   max-width: 540px;
   margin-bottom: 24px;
-  font-size: clamp(46px, 6vw, 70px);
-  line-height: 0.98;
-  font-weight: 800;
+  font-size: clamp(52px, 7vw, 84px);
+  line-height: 0.94;
+  font-weight: 700;
+}
+
+.hero-copy h1 span {
+  color: var(--teal);
 }
 
 .hero-copy p {
   max-width: 510px;
   margin-bottom: 28px;
   color: rgba(255, 255, 255, 0.84);
-  font-size: 16px;
+  font-size: 17px;
   line-height: 1.6;
+}
+
+.hero-copy p strong {
+  color: var(--teal);
 }
 
 .hero-feature-row {
@@ -354,7 +501,13 @@ h3 {
   background: transparent;
   color: #fff;
   font-size: 24px;
-  cursor: default;
+  cursor: pointer;
+  transition: color 0.18s ease, transform 0.18s ease;
+}
+
+.speed-set button:hover {
+  color: var(--teal);
+  transform: scale(1.08);
 }
 
 .hero-badges {
@@ -385,8 +538,11 @@ h3 {
 
 .compat-strip,
 .light-band {
-  background: var(--paper);
-  color: var(--ink);
+  border-block: 1px solid rgba(119, 214, 210, 0.12);
+  background:
+    radial-gradient(circle at 82% 22%, rgba(119, 214, 210, 0.12), transparent 26%),
+    linear-gradient(135deg, rgba(6, 18, 23, 0.98), rgba(10, 31, 38, 0.94));
+  color: #fff;
 }
 
 .compat-strip {
@@ -401,7 +557,7 @@ h3 {
 .compat-strip h2,
 .light-band h2 {
   margin-bottom: 8px;
-  color: var(--ink);
+  color: #fff;
   font-size: 30px;
   line-height: 1.05;
 }
@@ -409,7 +565,7 @@ h3 {
 .compat-strip p,
 .light-band p {
   margin: 0;
-  color: var(--soft-ink);
+  color: rgba(255, 255, 255, 0.64);
   font-size: 13px;
 }
 
@@ -424,10 +580,10 @@ h3 {
 .newsletter input {
   width: 100%;
   min-height: 54px;
-  border: 1px solid rgba(12, 15, 16, 0.12);
+  border: 1px solid rgba(119, 214, 210, 0.18);
   border-radius: 6px;
-  background: rgba(255, 255, 255, 0.92);
-  color: var(--ink);
+  background: rgba(255, 255, 255, 0.065);
+  color: #fff;
   padding: 0 16px;
   outline: none;
 }
@@ -435,7 +591,7 @@ h3 {
 .compat-form button {
   border: 0;
   border-radius: 6px;
-  background: #1a2024;
+  background: linear-gradient(135deg, var(--teal), #20aaa5);
   color: #fff;
   font-weight: 800;
 }
@@ -447,7 +603,7 @@ h3 {
   align-items: center;
   gap: 18px;
   margin-top: -12px;
-  color: #1d2225;
+  color: rgba(255, 255, 255, 0.72);
   font-size: 12px;
 }
 
@@ -458,16 +614,30 @@ h3 {
 .popular button {
   border: 0;
   background: transparent;
-  color: #222;
+  color: rgba(255, 255, 255, 0.72);
   font-size: 12px;
 }
 
 .whatsapp-mini {
   grid-column: 3 / 4;
   margin-top: -12px;
-  color: #1f2427;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.88);
   font-size: 13px;
   font-weight: 800;
+}
+
+.whatsapp-svg {
+  width: 21px;
+  height: 21px;
+  display: block;
+  fill: currentColor;
+}
+
+.whatsapp-mini .whatsapp-svg {
+  color: #2bd66f;
 }
 
 .dark-section {
@@ -699,7 +869,7 @@ h3 {
   position: absolute;
   top: 36px;
   right: -22px;
-  color: #222;
+  color: rgba(255, 255, 255, 0.5);
   font-size: 24px;
 }
 
@@ -708,17 +878,20 @@ h3 {
   height: 56px;
   margin: 0 auto 10px;
   object-fit: cover;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.06);
+  box-shadow: 0 0 28px rgba(119,214,210,0.1);
 }
 
 .install-step span {
   display: block;
-  color: #3f4446;
+  color: rgba(255, 255, 255, 0.56);
   font-size: 12px;
 }
 
 .install-step strong {
   display: block;
-  color: #111416;
+  color: #fff;
   font-size: 13px;
   line-height: 1.25;
 }
@@ -729,7 +902,8 @@ h3 {
   display: grid;
   place-items: center;
   border-radius: 8px;
-  background: #111619;
+  border: 1px solid rgba(119, 214, 210, 0.16);
+  background: rgba(255, 255, 255, 0.07);
   color: #fff;
   text-align: center;
 }
@@ -869,19 +1043,20 @@ h3 {
   align-items: center;
   column-gap: 14px;
   border-radius: 8px;
-  background: #fff;
+  border: 1px solid rgba(119, 214, 210, 0.14);
+  background: rgba(255, 255, 255, 0.06);
   padding: 18px;
-  box-shadow: 0 18px 45px rgba(18, 20, 22, 0.07);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
 }
 
 .saving-card span,
 .saving-card small {
-  color: #2d3336;
+  color: rgba(255, 255, 255, 0.72);
   font-size: 13px;
 }
 
 .saving-card strong {
-  color: var(--ink);
+  color: #fff;
   font-size: 19px;
 }
 
@@ -948,41 +1123,46 @@ h3 {
   gap: 34px;
   align-items: center;
   padding: 38px max(64px, calc((100vw - 1210px) / 2));
+  border-block: 1px solid rgba(119, 214, 210, 0.12);
+  background:
+    radial-gradient(circle at 28% 30%, rgba(255, 159, 74, 0.1), transparent 28%),
+    linear-gradient(135deg, #061015, #0c2027);
 }
 
-.founder-photo-row {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
-
-.founder-photo-row article {
+.garage-proof {
   position: relative;
-  height: 210px;
   overflow: hidden;
   border-radius: 8px;
-  background: #15191b;
+  border: 1px solid rgba(119, 214, 210, 0.15);
+  background: rgba(255, 255, 255, 0.055);
+  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.26);
 }
 
-.founder-photo-row img {
+.garage-proof img {
   width: 100%;
-  height: 100%;
+  height: 230px;
   object-fit: cover;
+  opacity: 0.9;
 }
 
-.founder-photo-row strong {
-  position: absolute;
-  left: 14px;
-  bottom: 14px;
-  border-radius: 4px;
-  background: rgba(0, 0, 0, 0.55);
+.garage-proof div {
+  display: grid;
+  gap: 4px;
+  padding: 16px;
+}
+
+.garage-proof strong {
   color: #fff;
-  padding: 6px 9px;
+  font-size: 16px;
+}
+
+.garage-proof span {
+  color: rgba(255, 255, 255, 0.62);
   font-size: 13px;
 }
 
 .press-copy p {
-  color: #1b1f21;
+  color: rgba(255, 255, 255, 0.72);
   font-size: 16px;
 }
 
@@ -1031,8 +1211,15 @@ h3 {
   display: grid;
   place-items: center;
   border-radius: 50%;
-  background: #1f9f56;
+  background: linear-gradient(135deg, #25d366, #118c43);
+  color: #fff;
   font-weight: 900;
+  box-shadow: 0 0 34px rgba(37, 211, 102, 0.28);
+}
+
+.wa-icon .whatsapp-svg {
+  width: 30px;
+  height: 30px;
 }
 
 .contact-strip strong,
@@ -1266,7 +1453,7 @@ h3 {
     grid-template-columns: 1fr;
   }
 
-  .founder-photo-row {
+  .garage-proof {
     grid-template-columns: 1fr;
   }
 

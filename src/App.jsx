@@ -10,7 +10,6 @@ import {
 import {
   carBrands,
   faqs,
-  founders,
   installSteps,
   officialVideos,
   productVariants,
@@ -90,8 +89,24 @@ function Icon({ children }) {
   return <span className="icon-mark" aria-hidden="true">{children}</span>;
 }
 
+function WhatsAppIcon() {
+  return (
+    <svg className="whatsapp-svg" viewBox="0 0 32 32" aria-hidden="true">
+      <path d="M16.02 4.4A11.4 11.4 0 0 0 6.1 21.42L4.7 27.6l6.32-1.47A11.4 11.4 0 1 0 16.02 4.4Zm0 2.15a9.25 9.25 0 0 1 7.8 14.22 9.23 9.23 0 0 1-11.96 3.16l-.43-.22-3.77.88.84-3.68-.25-.45a9.25 9.25 0 0 1 7.77-13.91Zm-3.2 4.7c-.2 0-.53.07-.8.37-.27.3-1.05 1.02-1.05 2.5 0 1.47 1.08 2.9 1.23 3.1.15.2 2.1 3.35 5.2 4.57 2.58 1.02 3.1.82 3.66.77.56-.05 1.8-.73 2.05-1.43.25-.7.25-1.3.18-1.43-.07-.13-.27-.2-.57-.35-.3-.15-1.8-.88-2.07-.98-.28-.1-.48-.15-.68.15-.2.3-.78.98-.95 1.18-.18.2-.35.22-.65.07-.3-.15-1.27-.47-2.42-1.5-.9-.8-1.5-1.78-1.67-2.08-.18-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.38-.03-.53-.07-.15-.68-1.64-.93-2.24-.24-.58-.49-.5-.68-.51h-.7Z" />
+    </svg>
+  );
+}
+
 function Header() {
-  const nav = ["Features", "Compatibility", "Installation", "Compare", "Savings", "FAQ"];
+  const nav = [
+    ["Home", "#top"],
+    ["Product", "#compare"],
+    ["Compatibility", "#compatibility"],
+    ["Installation", "#installation"],
+    ["Videos", "#videos"],
+    ["About Us", "#about"],
+    ["Support", "#callback"]
+  ];
 
   return (
     <header className="nx-header">
@@ -101,34 +116,52 @@ function Header() {
       </a>
 
       <nav className="nx-nav" aria-label="Primary navigation">
-        {nav.map((item) => (
-          <a key={item} href={`#${item.toLowerCase()}`}>{item}</a>
+        {nav.map(([item, href]) => (
+          <a key={item} href={href}>{item}</a>
         ))}
       </nav>
 
       <a
         className="book-call"
-        href="#callback"
+        href="#compare"
         onClick={() => trackFunnel("BookCallClicked", { location: "header" })}
       >
-        Book a Call <span aria-hidden="true">-&gt;</span>
+        Buy Now <span aria-hidden="true">-&gt;</span>
       </a>
     </header>
   );
 }
 
 function Hero() {
+  const [speed, setSpeed] = useState(80);
+  const roadDuration = Math.max(0.7, 4.2 - speed / 26);
+
+  function changeSpeed(delta) {
+    setSpeed((current) => Math.min(120, Math.max(40, current + delta)));
+  }
+
   return (
-    <section id="top" className="hero">
-      <div className="hero-bg" />
+    <section id="top" className="hero" style={{ "--road-speed": `${roadDuration}s`, "--speed-glow": `${speed / 120}` }}>
+      <div className="motion-road" aria-hidden="true">
+        <div className="road-horizon" />
+        <div className="road-lane lane-left" />
+        <div className="road-lane lane-mid" />
+        <div className="road-lane lane-right" />
+        <div className="road-streaks" />
+        <div className="cockpit">
+          <div className="wheel" />
+          <div className="dash dash-left"><span>{speed}</span></div>
+          <div className="dash dash-right"><span>AHA</span><small>NEXCRUISE</small></div>
+        </div>
+      </div>
       <div className="hero-shade" />
 
       <div className="hero-content">
         <div className="hero-copy">
-          <h1>Cruise Control that feels factory.</h1>
+          <h1>Drive Smarter.<br /><span>Cruise Longer.</span></h1>
           <p>
-            NexCruise is India's most advanced retrofit cruise control.
-            Purpose-built for Indian roads. Engineered to feel original.
+            <strong>AHA NexCruise</strong> is aftermarket cruise control for your car.
+            Safe. Smart. Seamless. Built for Indian roads.
           </p>
 
           <div className="hero-feature-row">
@@ -158,10 +191,14 @@ function Hero() {
             <span className="gauge">⌁</span>
             <span>Cruise<br />Active</span>
           </div>
-          <div className="speed-value"><strong>80</strong> km/h</div>
+          <div className="speed-value"><strong>{speed}</strong> km/h</div>
           <div className="speed-set">
             <span>Set Speed</span>
-            <div><button>-</button><b>80</b><button>+</button></div>
+            <div>
+              <button type="button" onClick={() => changeSpeed(-5)} aria-label="Decrease speed">-</button>
+              <b>{speed}</b>
+              <button type="button" onClick={() => changeSpeed(5)} aria-label="Increase speed">+</button>
+            </div>
           </div>
         </div>
 
@@ -216,7 +253,7 @@ function CompatibilityStrip() {
       </div>
 
       <a className="whatsapp-mini" href={WHATSAPP_LINK} target="_blank" rel="noreferrer" onClick={() => trackWhatsApp("compatibility_strip")}>
-        Not sure? WhatsApp us <span>◉</span>
+        Not sure? WhatsApp us <WhatsAppIcon />
       </a>
     </section>
   );
@@ -386,26 +423,25 @@ function FAQSection() {
 
 function FounderAndPress() {
   return (
-    <section className="light-band founder-band">
+    <section id="about" className="founder-band">
       <div className="founder-copy">
-        <h2>Built by car people.<br />For car people.</h2>
-        <p>AHA NexCruise was founded by a team of automotive engineers who love to drive.</p>
+        <h2>From a garage.<br />For India.</h2>
+        <p>AHA NexCruise is shaped around real Indian highway driving: heat, traffic, mixed transmissions, long weekend routes, and owners who want OEM-like confidence.</p>
         <a className="outline-dark" href="#callback">Know Our Story <span>-&gt;</span></a>
       </div>
 
-      <div className="founder-photo-row">
-        {founders.map((founder) => (
-          <article key={founder.name}>
-            <img src={founder.image} alt={founder.name} />
-            <strong>{founder.name}</strong>
-          </article>
-        ))}
+      <div className="garage-proof">
+        <img src="/attached_assets/nexcruise-product-still.png" alt="NexCruise product and installation kit" />
+        <div>
+          <strong>Engineered, packed and supported by AHA</strong>
+          <span>No AI founder portraits. Product-first proof, owner-first story.</span>
+        </div>
       </div>
 
       <div className="press-copy">
-        <h2>In the press</h2>
-        <p>"NexCruise retrofit cruise control is a neat aftermarket solution for Indian roads." - AutoCar India</p>
-        <p>"Smart, seamless and very Indian in its design approach." - CarToq</p>
+        <h2>As featured in</h2>
+        <p>AutoX · Team-BHP · The Better India · Nexon EV Owners Club</p>
+        <p>Smart, seamless and very Indian in its design approach.</p>
       </div>
     </section>
   );
@@ -427,7 +463,9 @@ function CallbackFooter() {
   return (
     <footer id="callback" className="site-footer">
       <div className="contact-strip">
-        <a className="wa-icon" href={WHATSAPP_LINK} target="_blank" rel="noreferrer" onClick={() => trackWhatsApp("footer")}>WA</a>
+        <a className="wa-icon" href={WHATSAPP_LINK} target="_blank" rel="noreferrer" onClick={() => trackWhatsApp("footer")} aria-label="Chat on WhatsApp">
+          <WhatsAppIcon />
+        </a>
         <div><strong>Have questions?</strong><span>We're here on WhatsApp.</span></div>
         <form onSubmit={requestCallback}>
           <label htmlFor="callback-phone">Prefer a callback instead?</label>
