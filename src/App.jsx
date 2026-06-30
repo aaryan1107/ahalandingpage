@@ -94,9 +94,9 @@ const savings = [
 ];
 
 const footerLinks = {
-  Product: ["Features", "Compatibility", "Installation", "Compare"],
-  Company: ["Our Story", "Press", "Careers", "Contact"],
-  Support: ["FAQs", "Warranty", "Shipping & Returns", "Sitemap"]
+  Product: ["NexCruise Basic", "NexCruise Smart", "Car compatibility", "Installation steps"],
+  Support: ["WhatsApp support", "Warranty questions", "Installer near me", "Transfer to next car"],
+  Proof: ["Team-BHP owners", "Nexon EV Owners Club", "AHA YouTube demos", "Made in Jaipur"]
 };
 
 function Icon({ children }) {
@@ -547,22 +547,22 @@ function FounderAndPress() {
     <section id="about" className="founder-band">
       <div className="founder-copy">
         <h2>From a garage.<br />For India.</h2>
-        <p>AHA NexCruise is shaped around real Indian highway driving: heat, traffic, mixed transmissions, long weekend routes, and owners who want OEM-like confidence.</p>
-        <a className="outline-dark" href="#callback">Know Our Story <span>-&gt;</span></a>
+        <p>Built around the boring but important details: car-specific couplers, OBD fitment, brake override, city traffic, heat, dust and long Indian highway routes.</p>
+        <a className="outline-dark" href="#callback">Talk to AHA <span>-&gt;</span></a>
       </div>
 
       <div className="garage-proof">
-        <img src="/attached_assets/nexcruise-product-still.png" alt="NexCruise product and installation kit" />
+        <img src="/attached_assets/nexcruise-box.jpeg" alt="Full NexCruise product box and kit on a desk" />
         <div>
-          <strong>Engineered, packed and supported by AHA</strong>
-          <span>No AI founder portraits. Product-first proof, owner-first story.</span>
+          <strong>Box, harness, dial, support. No mystery install.</strong>
+          <span>Every order is matched to the car before fitment, so the upgrade stays reversible.</span>
         </div>
       </div>
 
       <div className="press-copy">
-        <h2>As featured in</h2>
-        <p>AutoX · Team-BHP · The Better India · Nexon EV Owners Club</p>
-        <p>Smart, seamless and very Indian in its design approach.</p>
+        <h2>Owner proof beats brochure copy.</h2>
+        <p>Team-BHP install threads, Nexon EV owner writeups and AHA's own YouTube demos show the real product in use.</p>
+        <p>No wire cutting. Brake override. Installer guidance. Transferable to the next compatible car.</p>
       </div>
     </section>
   );
@@ -587,9 +587,9 @@ function CallbackFooter() {
         <a className="wa-icon" href={WHATSAPP_LINK} target="_blank" rel="noreferrer" onClick={() => trackWhatsApp("footer")} aria-label="Chat on WhatsApp">
           <WhatsAppIcon />
         </a>
-        <div><strong>Have questions?</strong><span>We're here on WhatsApp.</span></div>
+        <div><strong>Need fitment checked?</strong><span>Send car model, year and fuel type.</span></div>
         <form onSubmit={requestCallback}>
-          <label htmlFor="callback-phone">Prefer a callback instead?</label>
+          <label htmlFor="callback-phone">Book an install callback</label>
           <input id="callback-phone" value={phone} onChange={(event) => setPhone(event.target.value)} placeholder="Enter your mobile number" />
           <button>Request Callback</button>
         </form>
@@ -599,7 +599,7 @@ function CallbackFooter() {
       <div className="footer-main">
         <div className="footer-brand">
           <a className="nx-logo" href="#top"><span>AHA</span><strong>NexCruise</strong></a>
-          <p>Advanced retrofit cruise control systems engineered for Indian roads.</p>
+          <p>Retrofit cruise control for compatible Indian cars. Plug-and-play harness, steering dial, brake override and installer support.</p>
         </div>
         {Object.entries(footerLinks).map(([title, links]) => (
           <div className="footer-links" key={title}>
@@ -608,8 +608,9 @@ function CallbackFooter() {
           </div>
         ))}
         <div className="newsletter">
-          <strong>Stay updated</strong>
-          <div><input placeholder="Enter your email" /><button aria-label="Subscribe">-&gt;</button></div>
+          <strong>Compatibility desk</strong>
+          <p>Not sure if your exact variant works? WhatsApp the RC year, fuel type and transmission.</p>
+          <div><input placeholder="Your car model" /><button aria-label="Check model">-&gt;</button></div>
         </div>
       </div>
 
