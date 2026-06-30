@@ -25,6 +25,7 @@
 html {
   scroll-behavior: smooth;
   background: var(--charcoal);
+  overflow-x: hidden;
 }
 
 body {
@@ -1736,6 +1737,10 @@ h3 {
     grid-template-columns: 1fr;
   }
 
+  .compat-form {
+    min-width: 0;
+  }
+
   .popular,
   .whatsapp-mini {
     grid-column: auto;
@@ -1772,11 +1777,19 @@ h3 {
 @media (max-width: 720px) {
   .nx-header {
     top: 12px;
+    left: 12px;
+    right: 12px;
+    width: auto;
     min-height: 52px;
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+    gap: 12px;
+    transform: none;
   }
 
   .nx-logo {
     padding-left: 14px;
+    padding-right: 4px;
   }
 
   .nx-logo span {
@@ -1790,8 +1803,9 @@ h3 {
   .book-call {
     min-height: 36px;
     margin-right: 8px;
-    padding: 0 12px;
+    padding: 0 10px;
     font-size: 11px;
+    white-space: nowrap;
   }
 
   .hero {
