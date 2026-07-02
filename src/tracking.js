@@ -5,7 +5,7 @@ export const GOOGLE_ADS_ID = "AW-18243205076";
 export const GOOGLE_LEADS_CONVERSION_LABEL = "UYYRCM7u18AcENTvhPtD";
 export const GOOGLE_LEADS_SEND_TO = `${GOOGLE_ADS_ID}/${GOOGLE_LEADS_CONVERSION_LABEL}`;
 export const FIRST_PARTY_TRACKING_ENDPOINT =
-  import.meta.env.VITE_AHA_TRACK_ENDPOINT || "https://dashboard.ahaautomotive.in/api/track/event";
+  import.meta.env.VITE_AHA_TRACK_ENDPOINT || "https://ahadigitalmarketingpage.onrender.com/api/track/event";
 export const FIRST_PARTY_TRACKING_KEY = import.meta.env.VITE_AHA_TRACK_KEY || "";
 
 const FIRST_PARTY_EVENT_IDS = {
