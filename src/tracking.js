@@ -12,14 +12,16 @@ const FIRST_PARTY_EVENT_IDS = {
   BrandSelected: "web.insight_button_click",
   CheckCompatibilityClicked: "web.check_compatibility_click",
   RequestCallbackSubmitted: "web.callback_form_completion",
-  WhatsAppClicked: "web.connect_with_aha_dost_click"
+  WhatsAppClicked: "web.connect_with_aha_dost_click",
+  CruiseSpeedGameLocked: "web.insight_button_click"
 };
 
 const FIRST_PARTY_PATH_TYPES = {
   BrandSelected: "website_widget",
   CheckCompatibilityClicked: "website_widget",
   RequestCallbackSubmitted: "website_callback",
-  WhatsAppClicked: "website_callback"
+  WhatsAppClicked: "website_callback",
+  CruiseSpeedGameLocked: "website_widget"
 };
 
 function getSessionId() {
@@ -159,6 +161,9 @@ export function trackFunnel(eventName, data = {}) {
         location: data.location,
         lead_source: data.lead_source,
         preferred_time: data.preferred_time,
+        challenge: data.challenge,
+        speed: data.speed,
+        matched: data.matched,
         source_event: eventName
       }
     });

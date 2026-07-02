@@ -46,6 +46,12 @@ const heroProductDetails = [
   ["Transfer ready", "Move it to another compatible car"]
 ];
 
+const cruiseChallenges = [
+  { label: "City crawl", range: [45, 55], hint: "Smooth in stop-go traffic" },
+  { label: "Ring road", range: [65, 75], hint: "Steady without over-speeding" },
+  { label: "Highway cruise", range: [80, 90], hint: "Relaxed long-drive pace" }
+];
+
 const reviewCards = [
   {
     quote: "Long drives are so much easier now. My right leg finally gets a break.",
@@ -199,11 +205,55 @@ function Header() {
 
 function Hero() {
   const [speed, setSpeed] = useState(80);
+  const [challengeIndex, setChallengeIndex] = useState(2);
+  const [score, setScore] = useState(0);
+  const [gameMessage, setGameMessage] = useState("Match the target range");
+  const activeChallenge = cruiseChallenges[challengeIndex];
+  const inTargetRange = speed >= activeChallenge.range[0] && speed <= activeChallenge.range[1];
   const roadDuration = Math.max(0.7, 4.2 - speed / 26);
   const wheelDuration = Math.max(0.34, 1.4 - speed / 118);
 
   function changeSpeed(delta) {
-    setSpeed((current) => Math.min(120, Math.max(40, current + delta)));
+    setSpeed((current) => {
+      const nextSpeed = Math.min(120, Math.max(40, current + delta));
+      trackCustom("Used_Tool", {
+        tool_name: "Cruise Speed Game",
+        action: delta > 0 ? "increase_speed" : "decrease_speed",
+        challenge: activeChallenge.label,
+        speed: nextSpeed
+      });
+      setGameMessage(
+        nextSpeed >= activeChallenge.range[0] && nextSpeed <= activeChallenge.range[1]
+          ? "Perfect cruise lock"
+          : nextSpeed < activeChallenge.range[0]
+            ? "Add a little speed"
+            : "Ease it down"
+      );
+      return nextSpeed;
+    });
+  }
+
+  function selectChallenge(index) {
+    const challenge = cruiseChallenges[index];
+    setChallengeIndex(index);
+    setGameMessage("Match the target range");
+    trackCustom("Used_Tool", {
+      tool_name: "Cruise Speed Game",
+      action: "select_drive_mode",
+      challenge: challenge.label
+    });
+  }
+
+  function lockCruiseSpeed() {
+    const matched = speed >= activeChallenge.range[0] && speed <= activeChallenge.range[1];
+    if (matched) setScore((current) => current + 1);
+    setGameMessage(matched ? "Cruise set cleanly" : "Try the target range first");
+    trackFunnel("CruiseSpeedGameLocked", {
+      location: "hero_speed_panel",
+      challenge: activeChallenge.label,
+      speed,
+      matched
+    });
   }
 
   return (
@@ -282,12 +332,17 @@ function Hero() {
           </div>
         </div>
 
-        <div className="speed-widget" aria-label="Cruise active speed widget">
+        <div className={`speed-widget ${inTargetRange ? "is-locked" : ""}`} aria-label="Cruise speed game panel">
           <div className="speed-top">
             <span className="gauge">⌁</span>
-            <span>Cruise<br />Active</span>
+            <span>Cruise<br />Game</span>
           </div>
           <div className="speed-value"><strong>{speed}</strong> km/h</div>
+          <div className="speed-target">
+            <span>{activeChallenge.label}</span>
+            <strong>{activeChallenge.range[0]}-{activeChallenge.range[1]} km/h</strong>
+            <small>{activeChallenge.hint}</small>
+          </div>
           <div className="speed-set">
             <span>Set Speed</span>
             <div>
@@ -295,6 +350,25 @@ function Hero() {
               <b>{speed}</b>
               <button type="button" onClick={() => changeSpeed(5)} aria-label="Increase speed">+</button>
             </div>
+          </div>
+          <div className="speed-modes" aria-label="Choose a drive condition">
+            {cruiseChallenges.map((challenge, index) => (
+              <button
+                key={challenge.label}
+                type="button"
+                className={index === challengeIndex ? "active" : ""}
+                onClick={() => selectChallenge(index)}
+              >
+                {challenge.label}
+              </button>
+            ))}
+          </div>
+          <button type="button" className="speed-lock" onClick={lockCruiseSpeed}>
+            {inTargetRange ? "Lock Cruise" : "Find Range"}
+          </button>
+          <div className="speed-score">
+            <span>{gameMessage}</span>
+            <strong>{score} clean locks</strong>
           </div>
         </div>
 

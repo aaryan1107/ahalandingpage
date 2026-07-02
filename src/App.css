@@ -634,15 +634,20 @@ h3 {
 .speed-widget {
   align-self: start;
   justify-self: end;
-  width: 250px;
-  margin-top: 42px;
+  width: 292px;
+  margin-top: 34px;
   margin-right: 18px;
-  padding: 24px;
+  padding: 22px;
   border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 22px;
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.06));
   box-shadow: var(--shadow);
   backdrop-filter: blur(22px);
+}
+
+.speed-widget.is-locked {
+  border-color: rgba(119, 214, 210, 0.5);
+  box-shadow: 0 28px 80px rgba(0,0,0,0.42), 0 0 42px rgba(119,214,210,0.18);
 }
 
 .hero-car-showcase {
@@ -808,7 +813,7 @@ h3 {
 }
 
 .speed-value {
-  margin: 4px 0 24px;
+  margin: 4px 0 14px;
   color: rgba(255, 255, 255, 0.88);
   font-size: 18px;
 }
@@ -817,6 +822,28 @@ h3 {
   color: #fff;
   font-size: 46px;
   line-height: 1;
+}
+
+.speed-target {
+  display: grid;
+  gap: 3px;
+  margin-bottom: 14px;
+  padding: 12px;
+  border: 1px solid rgba(119, 214, 210, 0.2);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.22);
+}
+
+.speed-target span,
+.speed-target small,
+.speed-score span {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 11px;
+}
+
+.speed-target strong {
+  color: var(--teal);
+  font-size: 15px;
 }
 
 .speed-set > span {
@@ -849,6 +876,55 @@ h3 {
 .speed-set button:hover {
   color: var(--teal);
   transform: scale(1.08);
+}
+
+.speed-modes {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.speed-modes button,
+.speed-lock {
+  min-height: 34px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.speed-modes button {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.055);
+  color: rgba(255, 255, 255, 0.76);
+}
+
+.speed-modes button.active {
+  border-color: rgba(119, 214, 210, 0.58);
+  color: #071112;
+  background: linear-gradient(135deg, #9ff5ee, var(--teal));
+}
+
+.speed-lock {
+  width: 100%;
+  margin-top: 10px;
+  border: 0;
+  background: linear-gradient(135deg, var(--orange), var(--orange-2));
+  color: #241404;
+}
+
+.speed-score {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 10px;
+  font-size: 11px;
+}
+
+.speed-score strong {
+  color: #fff;
+  white-space: nowrap;
 }
 
 .hero-badges {
