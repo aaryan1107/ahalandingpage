@@ -133,8 +133,27 @@ export function trackFirstParty(eventId, data = {}) {
     headers,
     body: JSON.stringify(payload),
     keepalive: true
-  }).catch(() => {
-    // Analytics should never block the website experience.
+  }).then((res) => {
+    // Surface rejected events (e.g. 401 key mismatch, 400 unknown eventId) instead
+    // of failing silently — a silent drop looks identical to "no data collected".
+    if (!res.ok) {
+      res.text()
+        .catch(() => "")
+        .then((detail) => {
+          console.warn(
+            `[aha-track] event "${eventId}" rejected: ${res.status} ${res.statusText} ` +
+              `from ${FIRST_PARTY_TRACKING_ENDPOINT}` +
+              (detail ? ` — ${detail.slice(0, 200)}` : "")
+          );
+        });
+    }
+  }).catch((err) => {
+    // Network/CORS failure (endpoint unreachable, blocked, cold-start drop).
+    // Analytics should never block the website experience — just log it.
+    console.warn(
+      `[aha-track] event "${eventId}" failed to send to ${FIRST_PARTY_TRACKING_ENDPOINT}:`,
+      err?.message || err
+    );
   });
 }
 
