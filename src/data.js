@@ -218,11 +218,11 @@ export const officialVideos = [
 ];
 
 export const installSteps = [
-  ["01", "Unbox NexCruise + your car's cable set", "AHA packs the system with the accelerator harness selected for your exact car. No universal connector and no guesswork.", "/installation/unbox-real.jpg"],
-  ["02", "Connect the car-specific harness", "The original accelerator connector is unplugged and the matched NexCruise coupler is fitted in-line. No wire cutting.", "/installation/harness-real.jpg"],
-  ["03", "Secure the pod and OBD lead", "The control pod and diagnostic lead are connected under the dashboard, then secured away from the pedals.", "/installation/obd-real.jpg"],
-  ["04", "Mount and pair the wireless dial", "NexCruise Smart adds the steering-mounted dial for set, resume, speed adjustment, modes, and governor control.", "/hero/dial-cut.png"],
-  ["05", "Road test and verify every override", "The installer checks set and resume behavior, then confirms that brake input immediately returns control to the driver.", "/hero/hero-poster.jpg"]
+  ["01", "Identify the car-specific harness", "AHA supplies the connector selected for the exact vehicle configuration. The installation begins by matching the supplied harness to the car.", "/installation/step-01-harness.png"],
+  ["02", "Connect the accelerator harness", "The original accelerator connector is unplugged and the matched NexCruise coupler is fitted in-line. No wire cutting.", "/installation/step-02-connect.png"],
+  ["03", "Connect and secure the control pod", "The NexCruise control pod and diagnostic lead are connected under the dashboard, then secured away from the pedals.", "/installation/step-03-pod.png"],
+  ["04", "Mount and pair the wireless dial", "NexCruise Smart adds the steering-mounted dial for set, resume, speed adjustment, modes, and governor control.", "/installation/step-04-dial.png"],
+  ["05", "Road test and verify every override", "The installer checks set and resume behavior, then confirms that brake input immediately returns control to the driver.", "/installation/step-05-road-test.png"]
 ];
 
 export const productVariants = [

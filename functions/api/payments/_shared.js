@@ -136,6 +136,7 @@ export function orderNotes({ plan, controller, installation, billing, carDetails
     delivery_state: billing.state,
     delivery_pincode: billing.pincode,
     car: clean(`${car.brand || ""} ${car.model || ""}`, 100),
-    car_configuration: clean(`${car.year || ""} ${car.fuel || ""} ${car.transmission || ""}`, 100)
+    car_configuration: clean(`${car.year || ""} ${car.fuel || ""} ${car.transmission || ""}`, 100),
+    ncv2_model_uid: clean(car.modelUid, 36)
   };
 }

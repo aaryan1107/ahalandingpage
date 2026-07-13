@@ -6,6 +6,10 @@ const browser = await chromium.launch({ headless: true });
 const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
 const pageErrors = [];
 page.on("pageerror", (error) => pageErrors.push(error.message));
+const TATA_UID = "010fbdb8-6fc1-48c6-91ad-127d0bb4cf0e";
+const MAHINDRA_UID = "1ff1a0f1-cee1-489b-adb4-710168e46623";
+const NEXON_UID = "11111111-2222-4333-8444-555555555555";
+const THAR_UID = "66666666-7777-4888-8999-000000000000";
 await page.addInitScript(() => {
   window.Razorpay = function Razorpay(options) {
     return {
@@ -35,6 +39,34 @@ await page.route("**/api/payments/verify", (route) => route.fulfill({
   status: 200,
   contentType: "application/json",
   body: JSON.stringify({ status: "captured", orderId: "order_browser_test", paymentId: "pay_browser_test" })
+}));
+await page.route("**/api/compatibility/companies", (route) => route.fulfill({
+  status: 200,
+  contentType: "application/json",
+  body: JSON.stringify({ source: "NCV2", companies: [
+    { uid: TATA_UID, name: "Tata" },
+    { uid: MAHINDRA_UID, name: "Mahindra" }
+  ] })
+}));
+await page.route("**/api/compatibility/models*", (route) => {
+  const isTata = new URL(route.request().url()).searchParams.get("companyUid") === TATA_UID;
+  return route.fulfill({
+    status: 200,
+    contentType: "application/json",
+    body: JSON.stringify({ source: "NCV2", models: isTata
+      ? [{ uid: NEXON_UID, name: "Nexon" }]
+      : [{ uid: THAR_UID, name: "Thar" }] })
+  });
+});
+await page.route("**/api/compatibility/options*", (route) => route.fulfill({
+  status: 200,
+  contentType: "application/json",
+  body: JSON.stringify({ source: "NCV2", fuelOptions: ["Petrol", "Diesel"], transmissionOptions: ["Manual", "Automatic"], years: [2024, 2023], hasFitment: true })
+}));
+await page.route("**/api/compatibility/check", (route) => route.fulfill({
+  status: 200,
+  contentType: "application/json",
+  body: JSON.stringify({ status: "compatible", compatible: true, message: "Listed in NCV2." })
 }));
 
 await page.goto(`${BASE_URL}/`, { waitUntil: "domcontentloaded" });
@@ -77,8 +109,8 @@ assert.match(await page.locator("[data-panel-copy='2'] h3").textContent(), /cont
 await goTo(".brand-garage");
 await page.locator(".brand-card", { hasText: "Mahindra" }).click();
 await page.locator(".brand-models button", { hasText: "Thar" }).first().click();
-assert.equal(await page.locator("#compatibility select").nth(0).inputValue(), "Mahindra");
-assert.equal(await page.locator("#compatibility select").nth(1).inputValue(), "Thar");
+assert.equal(await page.locator("#compatibility select").nth(0).inputValue(), MAHINDRA_UID);
+assert.equal(await page.locator("#compatibility select").nth(1).inputValue(), THAR_UID);
 
 // The car stage shows the selected model and updates when the model changes.
 await page.waitForTimeout(400);
@@ -86,14 +118,17 @@ assert.match(await page.locator(".car-nameplate strong").textContent(), /Mahindr
 await page.screenshot({ path: "/tmp/aha-carstage-thar.png" });
 
 await goTo(".compatibility-workspace");
-await page.locator("#compatibility select").nth(0).selectOption("Tata");
-await page.locator("#compatibility select").nth(1).selectOption("Nexon");
+await page.locator("#compatibility select").nth(0).selectOption({ label: "Tata" });
+await page.locator("#compatibility select").nth(1).selectOption({ label: "Nexon" });
 await page.locator("#compatibility select").nth(2).selectOption("Petrol");
 await page.locator("#compatibility select").nth(3).selectOption("Manual");
 await page.locator("#compatibility select").nth(4).selectOption("2024");
-await page.getByRole("button", { name: /check fitment path/i }).click();
+await page.getByRole("button", { name: /check live compatibility/i }).click();
+await page.waitForFunction(() => document.querySelector(".compatibility-result")?.dataset.status !== "loading");
 assert.match(await page.locator(".compatibility-result strong").textContent(), /Tata Nexon/);
 assert.match(await page.locator(".car-nameplate strong").textContent(), /Tata Nexon/);
+assert.match(await page.locator(".compatibility-server-status").textContent(), /NCV2/);
+await page.locator(".compatibility-lower").screenshot({ path: "/tmp/aha-compatibility-server.png" });
 
 // Basic, Pro, and Smart: one shared box image, three sourced plan cards.
 await goTo(".compare-shell");
@@ -144,7 +179,12 @@ for (let index = 0; index < 5; index += 1) {
   await page.locator(".step-nav button").nth(index).click();
   const src = await page.locator(".step-image img").getAttribute("src");
   assert.match(src, /^\/(installation|hero)\//);
+  await page.waitForFunction(() => {
+    const image = document.querySelector(".step-image img");
+    return image?.complete && image.naturalWidth > 0;
+  });
 }
+await page.locator(".installation-section").screenshot({ path: "/tmp/aha-installation-step-5.png" });
 
 await goTo(".owner-controls");
 const firstReview = await page.locator(".owner-quote blockquote").textContent();

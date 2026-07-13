@@ -10,6 +10,10 @@ const purchaseSource = await readFile(new URL("../src/components/PurchaseFlow.js
 test("compatibility action produces a visible result", () => {
   assert.match(source, /className="compatibility-result/);
   assert.match(source, /setCompatibilityResult/);
+  assert.match(source, /\/api\/compatibility\/companies/);
+  assert.match(source, /\/api\/compatibility\/models/);
+  assert.match(source, /\/api\/compatibility\/options/);
+  assert.match(source, /\/api\/compatibility\/check/);
 });
 
 test("review controls change the active review", () => {
@@ -30,7 +34,7 @@ test("product explorer exposes GSAP-driven panels and tabs", () => {
 test("brand garage renders brand-specific cards", () => {
   assert.match(source, /brand-garage/);
   assert.match(source, /brand-card/);
-  assert.match(source, /brand\.confidence/);
+  assert.match(source, /Available in NCV2/);
 });
 
 test("cinematic hero uses the product film with a stable media fallback", () => {
@@ -58,11 +62,11 @@ test("featured film panel embeds the official video lazily", () => {
 });
 
 test("installation uses real AHA footage rather than generic illustrations", () => {
-  assert.match(dataSource, /\/installation\/unbox-real\.jpg/);
-  assert.match(dataSource, /\/installation\/harness-real\.jpg/);
-  assert.match(dataSource, /\/installation\/obd-real\.jpg/);
-  assert.match(dataSource, /\/hero\/dial-cut\.png/);
-  assert.match(dataSource, /\/hero\/hero-poster\.jpg/);
+  assert.match(dataSource, /\/installation\/step-01-harness\.png/);
+  assert.match(dataSource, /\/installation\/step-02-connect\.png/);
+  assert.match(dataSource, /\/installation\/step-03-pod\.png/);
+  assert.match(dataSource, /\/installation\/step-04-dial\.png/);
+  assert.match(dataSource, /\/installation\/step-05-road-test\.png/);
   assert.doesNotMatch(dataSource, /nexcruise-step1-pedal\.png/);
   assert.doesNotMatch(dataSource, /nexcruise-step2-obd\.png/);
   assert.doesNotMatch(dataSource, /nexcruise-step3-dial\.png/);

@@ -45,7 +45,7 @@ const productComponents = [
     label: "Car-specific harness",
     title: "Built around the exact car, not a universal splice.",
     body: "AHA matches the accelerator coupler to the selected model, year, fuel type, and transmission before installation.",
-    image: "/installation/harness-real.jpg",
+    image: "/installation/step-01-harness.png",
     dark: false,
     cutout: false,
     points: ["No wire cutting", "Reversible fitment", "Model-level verification"]
@@ -63,9 +63,6 @@ const productComponents = [
 ];
 
 const allReviews = [...testimonials, ...storeReviews];
-
-const transmissionOptions = ["Manual", "AMT / AGS", "CVT", "Automatic"];
-const fuelOptions = ["Petrol", "Diesel", "CNG", "Electric"];
 
 function Arrow({ direction = "right" }) {
   return <span aria-hidden="true">{direction === "left" ? "<-" : "->"}</span>;
@@ -165,29 +162,117 @@ function ProductSystem() {
 }
 
 function Compatibility({ onChecked }) {
-  const [form, setForm] = useState({ brand: "", model: "", fuel: "", transmission: "", year: "" });
+  const [form, setForm] = useState({ brand: "", brandUid: "", model: "", modelUid: "", fuel: "", transmission: "", year: "" });
   const [compatibilityResult, setCompatibilityResult] = useState(null);
+  const [companies, setCompanies] = useState([]);
+  const [models, setModels] = useState([]);
+  const [fitmentOptions, setFitmentOptions] = useState({ fuelOptions: [], transmissionOptions: [], years: [], hasFitment: false });
+  const [serverState, setServerState] = useState({ type: "loading", message: "Connecting to NCV2 vehicle data..." });
+  const requestRef = useRef(0);
   const selectedBrand = useMemo(() => carBrands.find((brand) => brand.name === form.brand), [form.brand]);
 
+  async function requestJson(url, init) {
+    const response = await fetch(url, init);
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(data.error || "The NCV2 compatibility service could not be reached.");
+    return data;
+  }
+
+  useEffect(() => {
+    let active = true;
+    requestJson("/api/compatibility/companies")
+      .then((data) => {
+        if (!active) return;
+        setCompanies(data.companies || []);
+        setServerState({ type: "ready", message: `${data.companies?.length || 0} vehicle brands loaded from NCV2.` });
+      })
+      .catch((error) => active && setServerState({ type: "error", message: error.message }));
+    return () => { active = false; };
+  }, []);
+
   function update(field, value) {
-    setForm((current) => field === "brand" ? { ...current, brand: value, model: "" } : { ...current, [field]: value });
+    setForm((current) => ({ ...current, [field]: value }));
     setCompatibilityResult(null);
   }
 
-  function checkCompatibility(event) {
+  async function selectBrand(company) {
+    if (!company) {
+      requestRef.current += 1;
+      setForm({ brand: "", brandUid: "", model: "", modelUid: "", fuel: "", transmission: "", year: "" });
+      setModels([]);
+      setFitmentOptions({ fuelOptions: [], transmissionOptions: [], years: [], hasFitment: false });
+      setCompatibilityResult(null);
+      return;
+    }
+    const requestId = ++requestRef.current;
+    setForm({ brand: company.name, brandUid: company.uid, model: "", modelUid: "", fuel: "", transmission: "", year: "" });
+    setModels([]);
+    setFitmentOptions({ fuelOptions: [], transmissionOptions: [], years: [], hasFitment: false });
+    setCompatibilityResult(null);
+    setServerState({ type: "loading", message: `Loading ${company.name} models from NCV2...` });
+    try {
+      const data = await requestJson(`/api/compatibility/models?companyUid=${encodeURIComponent(company.uid)}`);
+      if (requestId !== requestRef.current) return;
+      setModels(data.models || []);
+      setServerState({ type: "ready", message: `${data.models?.length || 0} ${company.name} models loaded from NCV2.` });
+    } catch (error) {
+      if (requestId === requestRef.current) setServerState({ type: "error", message: error.message });
+    }
+  }
+
+  async function selectModel(model) {
+    if (!model) {
+      requestRef.current += 1;
+      setForm((current) => ({ ...current, model: "", modelUid: "", fuel: "", transmission: "", year: "" }));
+      setFitmentOptions({ fuelOptions: [], transmissionOptions: [], years: [], hasFitment: false });
+      setCompatibilityResult(null);
+      return;
+    }
+    const requestId = ++requestRef.current;
+    setForm((current) => ({ ...current, model: model.name, modelUid: model.uid, fuel: "", transmission: "", year: "" }));
+    setFitmentOptions({ fuelOptions: [], transmissionOptions: [], years: [], hasFitment: false });
+    setCompatibilityResult(null);
+    setServerState({ type: "loading", message: `Loading ${model.name} fitment options from NCV2...` });
+    try {
+      const data = await requestJson(`/api/compatibility/options?modelUid=${encodeURIComponent(model.uid)}`);
+      if (requestId !== requestRef.current) return;
+      setFitmentOptions(data);
+      setServerState({
+        type: data.hasFitment ? "ready" : "warning",
+        message: data.hasFitment ? "Live fuel, transmission, and year options loaded from NCV2." : "Model found, but NCV2 requires manual fitment review."
+      });
+    } catch (error) {
+      if (requestId === requestRef.current) setServerState({ type: "error", message: error.message });
+    }
+  }
+
+  async function checkCompatibility(event) {
     event.preventDefault();
-    const missing = Object.entries(form).filter(([, value]) => !value).map(([key]) => key);
+    const required = [["brandUid", "brand"], ["modelUid", "model"], ["fuel", "fuel"], ["transmission", "transmission"], ["year", "manufacture year"]];
+    const missing = required.filter(([key]) => !form[key]).map(([, label]) => label);
     if (missing.length) {
       setCompatibilityResult({ type: "error", title: "Complete the car details", body: `Add ${missing.join(", ")} so AHA can follow the correct fitment path.` });
       return;
     }
-    setCompatibilityResult({
-      type: "success",
-      title: `${form.brand} ${form.model} is listed for AHA fitment review.`,
-      body: `${form.year} / ${form.fuel} / ${form.transmission}. Add your name and number below — the callback sends everything to AHA on WhatsApp in one message.`
-    });
-    onChecked?.({ ...form });
-    trackFunnel("CheckCompatibilityClicked", { ...form, location: "compatibility_workspace" });
+    setCompatibilityResult({ type: "loading", title: "Checking NCV2 fitment", body: "Verifying this exact configuration on the server..." });
+    try {
+      const result = await requestJson("/api/compatibility/check", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ modelUid: form.modelUid, fuel: form.fuel, transmission: form.transmission, year: form.year })
+      });
+      const type = result.status === "compatible" ? "success" : result.status === "review" ? "warning" : "error";
+      const title = result.status === "compatible"
+        ? `${form.brand} ${form.model} is compatible.`
+        : result.status === "review"
+          ? `${form.brand} ${form.model} needs manual verification.`
+          : "This exact configuration is not listed.";
+      setCompatibilityResult({ type, title, body: result.message });
+      if (result.status !== "not_listed") onChecked?.({ ...form });
+      trackFunnel("CheckCompatibilityClicked", { ...form, compatibility_status: result.status, location: "compatibility_workspace" });
+    } catch (error) {
+      setCompatibilityResult({ type: "error", title: "Server check unavailable", body: `${error.message} Please use WhatsApp so AHA can verify the car manually.` });
+    }
   }
 
   return (
@@ -206,14 +291,16 @@ function Compatibility({ onChecked }) {
             className={form.brand === brand.name ? "brand-card active" : "brand-card"}
             style={{ "--brand-accent": brand.accent }}
             onClick={() => {
-              update("brand", brand.name);
+              const company = companies.find((item) => item.name === brand.name);
+              if (company) selectBrand(company);
+              else setCompatibilityResult({ type: "error", title: "NCV2 is still loading", body: "Wait for the live vehicle server connection, then select the brand again." });
               trackCustom("Brand_Selected", { brand: brand.name, location: "brand_garage" });
             }}
           >
             <span className="brand-logo"><img src={brand.logo} alt="" loading="lazy" /></span>
             <strong>{brand.name}</strong>
             <small>{brand.fleet}</small>
-            <em>{brand.confidence} confidence / {brand.fit}</em>
+            <em>{companies.some((company) => company.name === brand.name) ? "Available in NCV2" : "Server lookup required"}</em>
           </button>
         ))}
       </div>
@@ -221,29 +308,31 @@ function Compatibility({ onChecked }) {
         <div className="brand-brief" style={{ "--brand-accent": selectedBrand.accent }}>
           <p>{selectedBrand.copy}</p>
           <div className="brand-models" role="group" aria-label={`${selectedBrand.name} models`}>
-            {selectedBrand.models.map((model) => (
-              <button key={model} type="button" className={form.model === model ? "active" : ""} onClick={() => update("model", model)}>
-                {model}
+            {models.map((model) => (
+              <button key={model.uid} type="button" className={form.modelUid === model.uid ? "active" : ""} onClick={() => selectModel(model)}>
+                {model.name}
               </button>
             ))}
+            {serverState.type === "loading" && <span>Loading live models...</span>}
           </div>
         </div>
       )}
       <div className="compatibility-lower">
         <CarStage brand={form.brand} model={form.model} accent={selectedBrand?.accent} />
         <div className="compatibility-workspace" data-reveal>
+          <div className={`compatibility-server-status is-${serverState.type}`} role="status"><i />{serverState.message}</div>
           <form onSubmit={checkCompatibility}>
-            <label>Brand<select value={form.brand} onChange={(event) => update("brand", event.target.value)}><option value="">Select brand</option>{carBrands.map((brand) => <option key={brand.name}>{brand.name}</option>)}</select></label>
-            <label>Model<select value={form.model} onChange={(event) => update("model", event.target.value)} disabled={!selectedBrand}><option value="">Select model</option>{(selectedBrand?.models || []).map((model) => <option key={model}>{model}</option>)}</select></label>
-            <label>Fuel<select value={form.fuel} onChange={(event) => update("fuel", event.target.value)}><option value="">Select fuel</option>{fuelOptions.map((fuel) => <option key={fuel}>{fuel}</option>)}</select></label>
-            <label>Transmission<select value={form.transmission} onChange={(event) => update("transmission", event.target.value)}><option value="">Select transmission</option>{transmissionOptions.map((item) => <option key={item}>{item}</option>)}</select></label>
-            <label>Manufacture year<select value={form.year} onChange={(event) => update("year", event.target.value)}><option value="">Select year</option>{Array.from({ length: 17 }, (_, index) => 2026 - index).map((year) => <option key={year}>{year}</option>)}</select></label>
-            <button className="primary-action form-action" type="submit">Check fitment path <Arrow /></button>
+            <label>Brand<select value={form.brandUid} onChange={(event) => selectBrand(companies.find((company) => company.uid === event.target.value))} disabled={!companies.length}><option value="">Select brand</option>{companies.map((company) => <option key={company.uid} value={company.uid}>{company.name}</option>)}</select></label>
+            <label>Model<select value={form.modelUid} onChange={(event) => selectModel(models.find((model) => model.uid === event.target.value))} disabled={!models.length}><option value="">Select model</option>{models.map((model) => <option key={model.uid} value={model.uid}>{model.name}</option>)}</select></label>
+            <label>Fuel<select value={form.fuel} onChange={(event) => update("fuel", event.target.value)} disabled={!fitmentOptions.fuelOptions.length}><option value="">Select fuel</option>{fitmentOptions.fuelOptions.map((fuel) => <option key={fuel}>{fuel}</option>)}</select></label>
+            <label>Transmission<select value={form.transmission} onChange={(event) => update("transmission", event.target.value)} disabled={!fitmentOptions.transmissionOptions.length}><option value="">Select transmission</option>{fitmentOptions.transmissionOptions.map((item) => <option key={item}>{item}</option>)}</select></label>
+            <label>Manufacture year<select value={form.year} onChange={(event) => update("year", event.target.value)} disabled={!fitmentOptions.years.length}><option value="">Select year</option>{fitmentOptions.years.map((year) => <option key={year}>{year}</option>)}</select></label>
+            <button className="primary-action form-action" type="submit" disabled={compatibilityResult?.type === "loading"}>Check live compatibility <Arrow /></button>
           </form>
           {compatibilityResult && (
             <div className="compatibility-result" data-status={compatibilityResult.type} role="status">
               <strong>{compatibilityResult.title}</strong><p>{compatibilityResult.body}</p>
-              {compatibilityResult.type === "success" && (
+              {(compatibilityResult.type === "success" || compatibilityResult.type === "warning") && (
                 <a
                   href="#callback"
                   onClick={() => trackFunnel("CompatibilityToCallback", { ...form, location: "compatibility_result" })}

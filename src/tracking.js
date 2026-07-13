@@ -169,6 +169,8 @@ export function trackFunnel(eventName, data = {}) {
       properties: {
         brand: data.brand,
         model: data.model,
+        model_uid: data.modelUid,
+        compatibility_status: data.compatibility_status,
         plan: data.plan,
         controller: data.controller,
         installation: data.installation,

@@ -157,6 +157,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .compatibility-trust span { padding: 8px 10px; border: 1px solid var(--color-fog); border-radius: var(--radius-md); background: white; font-size: 12px; }
 .compatibility-lower { display: grid; grid-template-columns: minmax(0, 1fr) minmax(420px, .95fr); gap: 24px; margin-top: 48px; align-items: stretch; }
 .compatibility-workspace { align-self: stretch; border: 1px solid var(--color-mist); border-radius: var(--radius-lg); padding: 28px; background: white; }
+.compatibility-server-status { display: flex; align-items: center; gap: 9px; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--color-mist); color: var(--color-slate-whisper); font-size: 12px; }
+.compatibility-server-status i { width: 8px; height: 8px; border-radius: 50%; background: var(--color-slate-whisper); }
+.compatibility-server-status.is-ready i { background: #15956f; box-shadow: 0 0 0 4px rgba(21,149,111,.12); }
+.compatibility-server-status.is-loading i { background: var(--color-signal-blue); animation: status-pulse 1s ease-in-out infinite alternate; }
+.compatibility-server-status.is-warning i, .compatibility-server-status.is-error i { background: #d88618; }
 .compatibility-workspace form { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 .compatibility-workspace label, .callback-form label { display: grid; gap: 8px; font-size: 12px; font-weight: 500; color: var(--color-slate-whisper); }
 select, input { width: 100%; min-height: 52px; padding: 0 14px; border: 1px solid var(--color-fog); border-radius: var(--radius-lg); background: white; color: var(--color-horizon-navy); }
@@ -164,10 +169,12 @@ select:disabled { color: var(--color-fog); background: var(--color-hailstone); }
 .form-action { grid-column: 1 / -1; width: 100%; }
 .compatibility-result { margin-top: 18px; padding: 20px; border-radius: var(--radius-lg); background: var(--color-hailstone); }
 .compatibility-result[data-status="success"] { background: #e9f7f7; }
+.compatibility-result[data-status="warning"] { background: #fff7e8; }
 .compatibility-result[data-status="error"] { background: #fff1ee; }
 .compatibility-result strong { display: block; margin-bottom: 8px; }
 .compatibility-result p { margin: 0; color: var(--color-graphite-dim); font-size: 14px; }
 .compatibility-result a { display: inline-flex; gap: 10px; margin-top: 14px; color: var(--color-signal-blue); font-weight: 500; font-size: 14px; }
+@keyframes status-pulse { to { opacity: .35; transform: scale(.75); } }
 
 .variants-section { padding: 128px max(24px, calc((100vw - var(--page-max-width)) / 2)); color: white; background: var(--color-horizon-navy); }
 .section-heading.inverse h2 { max-width: 940px; }
