@@ -25,9 +25,20 @@ def inject_global_styles():
           --glass-border: rgba(255,255,255,0.18);
           --shadow-soft: 0 16px 42px rgba(0,0,0,0.34);
           --shadow-float: 0 34px 110px rgba(0,0,0,0.48);
-          --radius-lg: 22px;
-          --radius-xl: 34px;
+          --radius-lg: 24px;
+          --radius-xl: 40px;
           --radius-pill: 999px;
+
+          /* Spacing Tokens (8px grid) */
+          --space-1: 4px;
+          --space-2: 8px;
+          --space-3: 12px;
+          --space-4: 16px;
+          --space-6: 24px;
+          --space-8: 32px;
+          --space-12: 48px;
+          --space-16: 64px;
+          --space-20: 80px;
         }
 
         #MainMenu, footer, header { visibility: hidden; }
@@ -40,48 +51,55 @@ def inject_global_styles():
             linear-gradient(135deg, #03050a 0%, #08111f 44%, #03050a 100%);
           color: var(--text-main);
           font-family: Inter, sans-serif;
+          scroll-behavior: smooth;
         }
+        * { transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease; }
         .main .block-container {
-          max-width: 1280px;
-          padding: 1rem 2rem 4rem;
+          max-width: 1320px;
+          padding: var(--space-4) var(--space-8) var(--space-20);
         }
         h1, h2, h3 {
           font-family: 'Plus Jakarta Sans', Inter, sans-serif !important;
-          letter-spacing: -0.035em;
+          letter-spacing: -0.04em;
+          font-weight: 800;
         }
+        h1 { font-size: clamp(48px, 6vw, 96px) !important; line-height: 0.9 !important; }
+        h2 { font-size: clamp(32px, 4vw, 56px) !important; line-height: 1.0 !important; margin-bottom: var(--space-6) !important; }
+        h3 { font-size: 24px !important; line-height: 1.2 !important; }
         p { color: var(--text-muted); }
         label, .stMarkdown, [data-testid="stWidgetLabel"], .stSelectbox label, .stTextInput label, .stTextArea label {
           color: var(--text-muted) !important;
         }
-        div[data-testid="stVerticalBlock"] { gap: 1rem; }
+        div[data-testid="stVerticalBlock"] { gap: var(--space-6); }
+        .stColumn > div { padding: 0 var(--space-2); }
 
         .aha-nav {
           position: sticky;
-          top: 0;
-          z-index: 30;
+          top: var(--space-4);
+          z-index: 100;
           display: flex;
           align-items: center;
           justify-content: space-between;
-          gap: 24px;
-          margin-bottom: 24px;
-          padding: 14px 18px;
-          border: 1px solid rgba(255,255,255,0.14);
+          gap: var(--space-6);
+          margin-bottom: var(--space-8);
+          padding: var(--space-3) var(--space-6);
+          border: 1px solid rgba(255,255,255,0.12);
           border-radius: var(--radius-pill);
-          background:
-            linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.035)),
-            rgba(7,11,19,0.72);
-          box-shadow: 0 20px 60px rgba(0,0,0,0.34);
-          backdrop-filter: blur(22px) saturate(160%);
+          background: rgba(7,11,19,0.6);
+          box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+          backdrop-filter: blur(24px) saturate(180%);
         }
-        .aha-logo { display: flex; align-items: center; gap: 12px; font-weight: 900; }
+        .aha-logo { display: flex; align-items: center; gap: var(--space-3); font-weight: 800; font-size: 18px; letter-spacing: -0.02em; }
         .aha-logo-mark {
-          width: 42px; height: 42px; display: grid; place-items: center;
+          width: 36px; height: 36px; display: grid; place-items: center;
           border-radius: 50%; color: white;
           background: radial-gradient(circle at 30% 20%, #6ee7ff, #246bff 40%, #060914 72%);
-          box-shadow: 0 0 32px rgba(79,140,255,.36);
-          font: 800 12px 'IBM Plex Mono', monospace; letter-spacing: .03em;
+          box-shadow: 0 0 24px rgba(79,140,255,.3);
+          font: 800 11px 'IBM Plex Mono', monospace; letter-spacing: .03em;
         }
-        .aha-nav-links { display: flex; gap: 24px; color: var(--text-muted); font-size: 13px; font-weight: 800; }
+        .aha-nav-links { display: flex; gap: var(--space-8); color: var(--text-muted); font-size: 14px; font-weight: 600; }
+        .aha-nav-links a { color: inherit !important; text-decoration: none !important; transition: color 0.2s ease; }
+        .aha-nav-links a:hover { color: var(--text-main) !important; }
         .aha-status-pill, .aha-chip {
           display: inline-flex; align-items: center; gap: 8px;
           border: 1px solid rgba(79,140,255,0.34);
@@ -96,18 +114,20 @@ def inject_global_styles():
 
         .aha-hero {
           position: relative;
-          min-height: 650px;
-          padding: 46px;
+          min-height: 720px;
+          padding: var(--space-12);
           border: 1px solid rgba(255,255,255,0.15);
-          border-radius: 42px;
+          border-radius: var(--radius-xl);
           background:
-            radial-gradient(circle at 11% 10%, rgba(255,63,110,0.24), transparent 31%),
-            radial-gradient(circle at 82% 32%, rgba(54,214,255,0.22), transparent 36%),
-            linear-gradient(90deg, rgba(9,13,22,0.96) 0 39%, rgba(9,16,29,0.80) 39% 100%),
-            linear-gradient(145deg, #070a12, #111b2f);
+            radial-gradient(circle at 11% 10%, rgba(255,63,110,0.20), transparent 40%),
+            radial-gradient(circle at 82% 32%, rgba(54,214,255,0.18), transparent 40%),
+            linear-gradient(90deg, rgba(9,13,22,0.98) 0 45%, rgba(9,16,29,0.85) 45% 100%),
+            linear-gradient(145deg, #05070a, #0b1528);
           box-shadow: var(--shadow-float);
           overflow: hidden;
-          backdrop-filter: blur(24px) saturate(160%);
+          backdrop-filter: blur(32px) saturate(180%);
+          display: flex;
+          align-items: center;
         }
         .aha-hero::before {
           display: none;
@@ -115,10 +135,10 @@ def inject_global_styles():
         .aha-hero::after {
           display: none;
         }
-        .aha-hero-copy { position: relative; z-index: 2; max-width: 500px; padding-top: 22px; }
-        .aha-kicker { color: var(--accent-blue); text-transform: uppercase; font: 800 12px 'IBM Plex Mono'; letter-spacing: .14em; }
-        .aha-hero h1 { margin: 14px 0 16px; color: var(--text-main); font-size: clamp(50px, 5.8vw, 84px); line-height: .94; }
-        .aha-hero p { font-size: 16px; line-height: 1.7; }
+        .aha-hero-copy { position: relative; z-index: 2; max-width: 540px; }
+        .aha-kicker { color: var(--accent-blue); text-transform: uppercase; font: 700 12px 'IBM Plex Mono'; letter-spacing: 0.2em; margin-bottom: var(--space-4); opacity: 0.9; }
+        .aha-hero h1 { margin: 0 0 var(--space-6); color: var(--text-main); }
+        .aha-hero p { font-size: 18px; line-height: 1.6; margin-bottom: var(--space-8); }
         .aha-punchline {
           width: fit-content;
           padding: 9px 13px;
@@ -130,29 +150,35 @@ def inject_global_styles():
         }
         .aha-primary-btn, .aha-secondary-btn {
           display: inline-flex; align-items: center; justify-content: center;
-          border-radius: var(--radius-pill); padding: 13px 22px; margin: 7px 8px 7px 0;
-          font-weight: 900; font-size: 14px; text-decoration: none !important;
+          border-radius: var(--radius-pill); padding: var(--space-3) var(--space-8); margin: var(--space-2) var(--space-3) var(--space-2) 0;
+          font-weight: 800; font-size: 15px; text-decoration: none !important;
+          letter-spacing: -0.01em;
         }
         .aha-primary-btn, .aha-primary-btn:visited, .aha-primary-btn:hover { color: white !important; }
         .aha-secondary-btn, .aha-secondary-btn:visited, .aha-secondary-btn:hover { color: var(--text-main) !important; }
         .aha-primary-btn {
-          background: linear-gradient(135deg, #f7faff, #8db7ff 45%, #285bff);
+          background: linear-gradient(135deg, #ffffff, #dbe8ff 60%, #4f8cff);
           color: #05070d !important;
-          box-shadow: 0 18px 44px rgba(79,140,255,.34);
+          box-shadow: 0 20px 40px rgba(79,140,255,.4);
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .aha-primary-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 24px 48px rgba(79,140,255,.5);
         }
         .aha-secondary-btn { border: 1px solid rgba(255,255,255,0.16); background: rgba(255,255,255,.07); }
         .aha-dashboard-canvas {
-          position: absolute; right: 34px; top: 88px; width: 58%; height: 470px;
-          border: 1px solid rgba(255,255,255,0.08);
-          border-radius: 34px;
+          position: absolute; right: var(--space-8); top: 50%; transform: translateY(-50%); width: 56%; height: 540px;
+          border: 1px solid rgba(255,255,255,0.1);
+          border-radius: var(--radius-xl);
           background:
-            radial-gradient(circle at 48% 48%, color-mix(in srgb, var(--brand-accent) 22%, transparent), transparent 36%),
-            radial-gradient(circle at 82% 20%, rgba(255,63,110,0.12), transparent 26%),
-            linear-gradient(150deg, rgba(12,18,30,0.72), rgba(5,8,14,0.48) 52%, rgba(9,18,32,0.66));
+            radial-gradient(circle at 48% 48%, color-mix(in srgb, var(--brand-accent) 20%, transparent), transparent 40%),
+            radial-gradient(circle at 82% 20%, rgba(255,63,110,0.1), transparent 30%),
+            linear-gradient(150deg, rgba(12,18,30,0.8), rgba(5,8,14,0.6) 52%, rgba(9,18,32,0.75));
           box-shadow: var(--shadow-float);
           overflow: hidden;
-          backdrop-filter: blur(18px) saturate(150%);
-          animation: ahaLiftIn .7s ease both;
+          backdrop-filter: blur(24px) saturate(160%);
+          animation: ahaLiftIn .8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
         }
         .aha-hero-road {
           position: absolute;
@@ -346,23 +372,25 @@ def inject_global_styles():
         .aha-vehicle-hatch .aha-car-cabin { left: 23%; top: -68px; width: 42%; }
         .aha-vehicle-mpv .aha-car-body { height: 132px; border-radius: 74px 80px 34px 42px; }
         .aha-vehicle-mpv .aha-car-cabin { left: 24%; top: -74px; width: 46%; }
-        .aha-stat-grid { position: absolute; left: 41%; right: 44px; bottom: 34px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; z-index: 2; }
+        .aha-stat-grid { position: absolute; left: var(--space-12); right: var(--space-12); bottom: var(--space-8); display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); z-index: 5; }
         .aha-stat-card {
-          padding: 17px; border: 1px solid rgba(255,255,255,.13); border-radius: 20px;
-          background: linear-gradient(145deg, rgba(255,255,255,.10), rgba(255,255,255,.04)); box-shadow: var(--shadow-soft);
-          backdrop-filter: blur(16px);
+          padding: var(--space-4) var(--space-6); border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius-lg);
+          background: rgba(255,255,255,.06); box-shadow: var(--shadow-soft);
+          backdrop-filter: blur(20px);
+          text-align: center;
         }
         .aha-stat-value { font: 700 24px 'IBM Plex Mono'; color: var(--text-main); }
         .aha-stat-label { color: var(--text-muted); font-size: 10px; font-weight: 900; text-transform: uppercase; }
 
-        .aha-section-title { margin: 56px 0 18px; }
-        .aha-section-title h2 { font-size: clamp(36px, 4.8vw, 62px); line-height: .98; margin: 5px 0; }
+        .aha-section-title { margin: var(--space-20) 0 var(--space-12); }
+        .aha-section-title h2 { margin: var(--space-2) 0 var(--space-6) !important; }
+        .aha-section-title p { max-width: 680px; font-size: 20px; line-height: 1.6; opacity: 0.85; }
         .aha-brand-card {
-          min-height: 158px; padding: 20px; margin-bottom: 18px; border: 1px solid rgba(255,255,255,.12); border-radius: 26px;
-          background: linear-gradient(145deg, rgba(255,255,255,.09), rgba(255,255,255,.035));
+          min-height: 180px; padding: var(--space-6); margin-bottom: var(--space-4); border: 1px solid rgba(255,255,255,.10); border-radius: var(--radius-lg);
+          background: linear-gradient(145deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
           box-shadow: var(--shadow-soft);
-          backdrop-filter: blur(18px) saturate(155%);
-          transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+          backdrop-filter: blur(24px) saturate(160%);
+          transition: all .3s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
         .aha-brand-button,
         .aha-brand-button:visited,
@@ -378,15 +406,17 @@ def inject_global_styles():
         }
         .aha-brand-card-active {
           border-color: var(--brand-accent);
-          box-shadow: 0 22px 54px color-mix(in srgb, var(--brand-accent) 18%, transparent);
-          transform: translateY(-2px);
-          background: linear-gradient(140deg, color-mix(in srgb, var(--brand-accent) 18%, rgba(255,255,255,.08)), rgba(255,255,255,.07) 72%);
+          box-shadow: 0 22px 54px color-mix(in srgb, var(--brand-accent) 20%, transparent);
+          transform: translateY(-4px);
+          background: linear-gradient(140deg, color-mix(in srgb, var(--brand-accent) 15%, rgba(255,255,255,.08)), rgba(255,255,255,.04) 72%);
         }
+        .aha-brand-card strong { font-size: 20px; font-weight: 800; letter-spacing: -0.02em; }
+        .aha-brand-card p { font-size: 14px !important; line-height: 1.5; margin: var(--space-2) 0 var(--space-4) !important; }
         .aha-brand-mark {
-          width: 48px; height: 48px; border-radius: 17px; display: grid; place-items: center;
-          margin-bottom: 12px;
+          width: 56px; height: 56px; border-radius: 18px; display: grid; place-items: center;
+          margin-bottom: var(--space-4);
           border: 1px solid rgba(255,255,255,.12);
-          background: color-mix(in srgb, var(--brand-accent) 18%, rgba(255,255,255,.06));
+          background: color-mix(in srgb, var(--brand-accent) 15%, rgba(255,255,255,.08));
         }
         .aha-brand-mark img {
           width: 30px;
@@ -479,24 +509,31 @@ def inject_global_styles():
           width: 88px; height: 88px; border-radius: 50%; background: #090f19; display: grid; place-items: center;
           font: 700 24px 'IBM Plex Mono'; color: var(--text-main);
         }
-        .aha-reason-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 14px; }
+        .aha-reason-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); margin-top: var(--space-6); }
         .aha-reason-card {
-          padding: 13px; border: 1px solid rgba(255,255,255,.10); border-radius: 18px; background: rgba(255,255,255,.055);
-          font-size: 13px;
+          padding: var(--space-4); border: 1px solid rgba(255,255,255,.10); border-radius: var(--radius-lg); background: rgba(255,255,255,.04);
+          font-size: 14px; line-height: 1.5;
         }
-        .aha-action-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 14px 0; }
-        .aha-action-tile { padding: 13px; border-radius: 16px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.10); font-weight: 900; font-size: 12px; }
-        .aha-chat-input { border-radius: 20px; background: rgba(255,255,255,.06); padding: 13px 14px; font-size: 13px; color: var(--text-muted); }
+        .aha-reason-card strong { display: block; color: var(--text-main); margin-bottom: var(--space-1); font-size: 15px; }
+        .aha-action-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-3); margin: var(--space-4) 0; }
+        .aha-action-tile {
+          padding: var(--space-3); border-radius: var(--radius-lg); background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
+          font-weight: 800; font-size: 12px; line-height: 1.4;
+        }
+        .aha-action-tile small { display: block; color: var(--accent-blue); font-size: 11px; margin-top: 2px; }
+        .aha-chat-input { border-radius: var(--radius-lg); background: rgba(255,255,255,.04); padding: var(--space-4); font-size: 14px; color: var(--text-muted); border: 1px solid rgba(255,255,255,.06); }
         .aha-feature-card {
-          min-height: 170px;
-          margin-bottom: 16px;
-          padding: 22px;
+          min-height: 200px;
+          margin-bottom: var(--space-6);
+          padding: var(--space-8);
           border: 1px solid rgba(255,255,255,.12);
-          border-radius: 26px;
-          background: linear-gradient(145deg, rgba(255,255,255,.09), rgba(255,255,255,.035));
+          border-radius: var(--radius-lg);
+          background: linear-gradient(145deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
           box-shadow: var(--shadow-soft);
-          backdrop-filter: blur(18px) saturate(150%);
+          backdrop-filter: blur(24px) saturate(160%);
+          transition: border-color 0.2s ease;
         }
+        .aha-feature-card:hover { border-color: rgba(255,255,255,0.25); }
         .aha-feature-card span {
           display: inline-grid; place-items: center; min-width: 40px; height: 32px; margin-bottom: 14px;
           border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius-pill);
@@ -528,15 +565,15 @@ def inject_global_styles():
         .aha-skill-fill { height: 100%; background: linear-gradient(90deg, #2f6fed, #b9d3ff); box-shadow: 0 0 8px rgba(47,111,237,.5); }
         .aha-live-section,
         .aha-glass-panel {
-          margin-top: 28px;
-          padding: 30px;
-          border: 1px solid rgba(255,255,255,0.15);
-          border-radius: 34px;
+          margin-top: var(--space-8);
+          padding: var(--space-12);
+          border: 1px solid rgba(255,255,255,0.12);
+          border-radius: var(--radius-xl);
           background:
-            radial-gradient(circle at 12% 15%, rgba(54,214,255,0.14), transparent 30%),
-            linear-gradient(145deg, rgba(255,255,255,0.10), rgba(255,255,255,0.035));
+            radial-gradient(circle at 12% 15%, rgba(54,214,255,0.10), transparent 40%),
+            linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
           box-shadow: var(--shadow-soft);
-          backdrop-filter: blur(24px) saturate(160%);
+          backdrop-filter: blur(32px) saturate(160%);
         }
         .aha-live-section h2,
         .aha-glass-panel h2 {
@@ -551,8 +588,8 @@ def inject_global_styles():
         .aha-value-grid {
           display: grid;
           grid-template-columns: repeat(2, minmax(0, 1fr));
-          gap: 16px;
-          margin-top: 16px;
+          gap: var(--space-6);
+          margin-top: var(--space-8);
         }
         .aha-video-card,
         .aha-variant-card,
@@ -613,7 +650,7 @@ def inject_global_styles():
         .aha-video-copy,
         .aha-variant-card,
         .aha-founder-card div {
-          padding: 18px;
+          padding: var(--space-6);
         }
         .aha-video-copy span,
         .aha-variant-card span,
@@ -695,15 +732,16 @@ def inject_global_styles():
         .aha-game-meter span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #ffffff, #2f6fed); }
 
         .aha-lead-panel {
-          max-width: 960px; margin: 56px auto 0; padding: 36px; text-align: center;
-          border: 1px solid rgba(255,255,255,.12); border-radius: 36px;
+          max-width: 1080px; margin: var(--space-20) auto 0; padding: var(--space-12); text-align: center;
+          border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius-xl);
           background:
-            linear-gradient(90deg, rgba(255,255,255,.07) 1px, transparent 1px) 0 0 / 86px 86px,
-            linear-gradient(180deg, rgba(255,255,255,.05) 1px, transparent 1px) 0 0 / 86px 86px,
-            radial-gradient(circle at 18% 20%, rgba(29,99,255,.24), transparent 32%),
-            radial-gradient(circle at 76% 12%, rgba(255,64,93,.17), transparent 26%),
-            linear-gradient(145deg, #05070d, #121d33);
+            linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px) 0 0 / 80px 80px,
+            linear-gradient(180deg, rgba(255,255,255,.04) 1px, transparent 1px) 0 0 / 80px 80px,
+            radial-gradient(circle at 18% 20%, rgba(29,99,255,.20), transparent 40%),
+            radial-gradient(circle at 76% 12%, rgba(255,64,93,.15), transparent 40%),
+            linear-gradient(145deg, #05070a, #0d1a33);
           color: white; box-shadow: var(--shadow-float);
+          backdrop-filter: blur(32px);
         }
         .aha-lead-panel h2 { color: white; font-size: clamp(34px, 4vw, 58px); line-height: 1; }
         .aha-retarget-note {
@@ -726,14 +764,15 @@ def inject_global_styles():
           color: rgba(255,255,255,.82);
           font: 800 12px 'IBM Plex Mono';
         }
-        .aha-footer { margin-top: 46px; padding: 24px 0 8px; color: var(--text-muted); text-align: center; font-size: 13px; }
+        .aha-footer { margin-top: var(--space-20); padding: var(--space-12) 0 var(--space-8); color: var(--text-soft); text-align: center; font-size: 14px; border-top: 1px solid var(--border-soft); }
 
         .stTextInput input, .stTextArea textarea, .stSelectbox [data-baseweb="select"] {
-          border-radius: 16px !important;
-          border: 1px solid rgba(255,255,255,.12) !important;
-          background: rgba(255,255,255,.08) !important;
+          border-radius: var(--radius-lg) !important;
+          border: 1px solid rgba(255,255,255,.10) !important;
+          background: rgba(255,255,255,.05) !important;
           color: var(--text-main) !important;
           box-shadow: 0 10px 24px rgba(0,0,0,.20) !important;
+          padding: var(--space-3) var(--space-4) !important;
         }
         .stSelectbox [data-baseweb="select"] > div,
         .stSelectbox [data-baseweb="select"] div,
@@ -793,9 +832,11 @@ def inject_global_styles():
 
         @media (max-width: 960px) {
           .aha-nav-links { display: none; }
-          .aha-hero { padding: 28px; }
-          .aha-dashboard-canvas { position: relative; right: auto; top: auto; width: 100%; margin-top: 24px; }
-          .aha-stat-grid { position: relative; left: auto; right: auto; bottom: auto; grid-template-columns: repeat(2,1fr); margin-top: 18px; }
+          .aha-hero { padding: var(--space-8); flex-direction: column; min-height: auto; }
+          .aha-hero-copy { max-width: 100%; text-align: center; }
+          .aha-hero p { margin-left: auto; margin-right: auto; }
+          .aha-dashboard-canvas { position: relative; right: auto; top: auto; transform: none; width: 100%; height: 360px; margin-top: var(--space-8); }
+          .aha-stat-grid { position: relative; left: auto; right: auto; bottom: auto; grid-template-columns: repeat(2,1fr); margin-top: var(--space-6); padding: 0; }
           .aha-game-grid { grid-template-columns: 1fr; }
         }
         @media (max-width: 540px) {

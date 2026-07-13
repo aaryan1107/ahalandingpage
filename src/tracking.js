@@ -201,8 +201,8 @@ export function trackLead(eventName, data = {}) {
   Leads submit the conversion event AW-18243205076/UYYRCM7u18AcENTvhPtD.
 
   First-party dashboard:
-  Set VITE_AHA_TRACK_ENDPOINT to the dashboard endpoint, for example
-  https://dashboard.ahaautomotive.in/api/track/event, and set
+  Set VITE_AHA_TRACK_ENDPOINT to the live dashboard endpoint
+  https://ahadigitalmarketingpage.onrender.com/api/track/event, and set
   VITE_AHA_TRACK_KEY only if the dashboard uses TRACK_API_KEY. Do not hardcode
   private dashboard keys in source control.
 */

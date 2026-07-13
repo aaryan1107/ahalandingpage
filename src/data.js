@@ -3,6 +3,8 @@ const iconBase = "https://cdn.simpleicons.org";
 export const carBrands = [
   {
     name: "Tata",
+    confidence: "93%",
+    fit: "High fit",
     initials: "TA",
     logo: `${iconBase}/tata/111318`,
     accent: "#2f6fed",
@@ -12,6 +14,8 @@ export const carBrands = [
   },
   {
     name: "Mahindra",
+    confidence: "91%",
+    fit: "High fit",
     initials: "MA",
     logo: `${iconBase}/mahindra/111318`,
     accent: "#c51f32",
@@ -21,6 +25,8 @@ export const carBrands = [
   },
   {
     name: "Hyundai",
+    confidence: "92%",
+    fit: "High fit",
     initials: "HY",
     logo: `${iconBase}/hyundai/111318`,
     accent: "#1f5fbf",
@@ -30,6 +36,8 @@ export const carBrands = [
   },
   {
     name: "Kia",
+    confidence: "90%",
+    fit: "High fit",
     initials: "KI",
     logo: `${iconBase}/kia/111318`,
     accent: "#3c4658",
@@ -39,6 +47,8 @@ export const carBrands = [
   },
   {
     name: "Maruti Suzuki",
+    confidence: "94%",
+    fit: "High fit",
     initials: "MS",
     logo: `${iconBase}/suzuki/111318`,
     accent: "#1d67d2",
@@ -48,6 +58,8 @@ export const carBrands = [
   },
   {
     name: "Toyota",
+    confidence: "87%",
+    fit: "Medium+ fit",
     initials: "TO",
     logo: `${iconBase}/toyota/111318`,
     accent: "#d21f32",
@@ -57,6 +69,8 @@ export const carBrands = [
   },
   {
     name: "Honda",
+    confidence: "89%",
+    fit: "High fit",
     initials: "HO",
     logo: `${iconBase}/honda/111318`,
     accent: "#2452a4",
@@ -66,6 +80,8 @@ export const carBrands = [
   },
   {
     name: "MG",
+    confidence: "86%",
+    fit: "Medium+ fit",
     initials: "MG",
     logo: `${iconBase}/mg/111318`,
     accent: "#8f7b55",
@@ -214,14 +230,14 @@ export const productVariants = [
     name: "NexCruise Basic",
     price: "Rs 19,990",
     demoId: "8D1yLErzi_c",
-    features: ["Cruise control from 15 km/h", "One-touch Resume", "Brake override", "iCAT certified", "Car-specific cable included"]
+    features: ["Cruise control", "OTA firmware updates", "Brake override", "Car-specific cable included", "Move to another compatible car"]
   },
   {
     name: "NexCruise Smart",
     price: "Rs 27,490",
     demoId: "rH7ape15Dq0",
     featured: true,
-    features: ["Everything in Basic", "Eco, City and Sport modes", "Speed limiter / governor", "Wireless steering dial", "OTA firmware updates"]
+    features: ["Everything in Basic", "Wireless steering dial", "Resume cruise", "Speed governor", "Eco, City and Sport modes", "Steering-mounted dial"]
   }
 ];
 
@@ -246,4 +262,76 @@ export const mediaMentions = [
   ["New Indian Express", "https://www.newindianexpress.com/business/2021/Jan/13/have-range-anxiety-jaipur-man-who-drove-electric-vehicle-to-indo-pak-border-has-some-tips-2249595.html"],
   ["Nexon EV Owners Club", "https://www.nexonevowners.club/the-aha-nexcruise-saga"],
   ["AHA YouTube", "https://www.youtube.com/@ahainnovations"]
+];
+
+// Partners and media logos as they appear on aha.store ("Trusted by users" /
+// featured row). Image logos were pulled from aha.store/res; the rest render
+// as typographic marks so no fake logo is ever shown.
+export const partners = [
+  { name: "Team-BHP", image: "/brand/team-bhp-logo.png", href: "https://www.team-bhp.com/news/installed-aha-nexcruise-cruise-control-device-my-maruti-swift" },
+  { name: "The Better India", image: "/brand/better_india_logo.png", href: "https://thebetterindia.com/279528/aha-nexacruise-plug-and-play-tata-nexon-ev-increases-battery-range/" },
+  { name: "Alibaba", image: "/brand/alibaba_logo_updated.png", href: "https://aha.store/" },
+  { name: "New Indian Express", image: null, href: "https://www.newindianexpress.com/business/2021/Jan/13/have-range-anxiety-jaipur-man-who-drove-electric-vehicle-to-indo-pak-border-has-some-tips-2249595.html" },
+  { name: "Nexon EV Owners Club", image: null, href: "https://www.nexonevowners.club/the-aha-nexcruise-saga" },
+  { name: "iCAT Certified", image: null, href: "https://aha.store/" },
+  { name: "AHA YouTube", image: null, href: "https://www.youtube.com/@ahainnovations" }
+];
+
+// Owner reviews sourced from the aha.store "Trusted by users" video
+// testimonials API (all 5-star). Quotes are the published review titles.
+export const storeReviews = [
+  {
+    quote: "Sunil ji drove 58,000 km with NexCruise.",
+    name: "Sunil",
+    car: "Long-term owner / 58,000 km",
+    source: "aha.store - Trusted by users",
+    href: "https://youtu.be/qGRwGCNGKB0"
+  },
+  {
+    quote: "How NexCruise changed an 11-hour drive.",
+    name: "Alok",
+    car: "Highway touring review",
+    source: "aha.store - Trusted by users",
+    href: "https://youtu.be/xUkcbduRzQ4"
+  },
+  {
+    quote: "Tiago EV range jumps to 185 km with NexCruise.",
+    name: "Tiago EV owner",
+    car: "Tata Tiago EV",
+    source: "aha.store - Trusted by users",
+    href: "https://youtu.be/vyXJp40dDm8"
+  },
+  {
+    quote: "Swift diesel mileage boosted to 33 kmpl with Aha NexCruise.",
+    name: "Swift owner",
+    car: "Maruti Swift diesel",
+    source: "aha.store - Trusted by users",
+    href: "https://youtu.be/mN4Nb3DL8Fo"
+  },
+  {
+    quote: "Taxi owner's 16,000 km test: real results and fuel savings.",
+    name: "Fleet owner",
+    car: "Commercial taxi / 16,000 km",
+    source: "aha.store - Trusted by users",
+    href: "https://youtu.be/ZBnZXrRdVLA"
+  },
+  {
+    quote: "Baleno owner buys a second NexCruise system.",
+    name: "Baleno owner",
+    car: "Maruti Baleno - repeat buyer",
+    source: "aha.store - Trusted by users",
+    href: "https://youtu.be/IAbqYsFZLbY"
+  }
+];
+
+// Aligned Basic vs Smart comparison rows: [feature, inBasic, inSmart].
+export const compareRows = [
+  ["Cruise control with brake override", true, true],
+  ["Car-specific cable, no wire cutting", true, true],
+  ["OTA firmware updates", true, true],
+  ["Transferable to your next car", true, true],
+  ["Steering-mounted wireless dial", false, true],
+  ["Resume cruise after braking", false, true],
+  ["Eco / City / Sport drive modes", false, true],
+  ["Speed governor for family limits", false, true]
 ];

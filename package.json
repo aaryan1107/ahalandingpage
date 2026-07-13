@@ -6,15 +6,25 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",
-    "preview": "vite preview --host 127.0.0.1"
+    "test": "node --test tests/*.test.mjs",
+    "preview": "vite preview --host 127.0.0.1",
+    "hero:studio": "remotion studio remotion/index.jsx",
+    "hero:still": "remotion still remotion/index.jsx NexCruiseHeroFilm public/hero/hero-poster.jpg --frame=210 --image-format=jpeg --jpeg-quality=92",
+    "hero:render": "remotion render remotion/index.jsx NexCruiseHeroFilm public/hero/nexcruise-hero.mp4 --codec=h264 --crf=22 --pixel-format=yuv420p"
   },
   "dependencies": {
-    "@vitejs/plugin-react": "^5.0.0",
+    "@gsap/react": "^2.1.2",
+    "gsap": "^3.15.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "vite": "^7.0.0"
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "playwright-core": "^1.60.0"
+    "@remotion/cli": "4.0.489",
+    "@remotion/media": "4.0.489",
+    "@remotion/transitions": "4.0.489",
+    "@vitejs/plugin-react": "5.0.4",
+    "playwright-core": "^1.60.0",
+    "remotion": "4.0.489",
+    "vite": "7.3.5"
   }
 }

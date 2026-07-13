@@ -20,7 +20,7 @@ def render_reason_card(title, body, status="positive"):
         f"""
         <div class="aha-reason-card" style="border-left:3px solid {color}">
           <strong>{title}</strong>
-          <p style="margin:6px 0 0;font-size:12px">{body}</p>
+          <p style="margin:0;font-size:inherit;line-height:inherit">{body}</p>
         </div>
         """,
         unsafe_allow_html=True,
