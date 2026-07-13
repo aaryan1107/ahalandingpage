@@ -32,6 +32,23 @@ export default function CinematicHero() {
           <div className="hero-media-scrim" />
         </div>
 
+        {/* Authentic hardware as true transparent cutouts (Vision subject
+            lift). The dial's knurled ring rotates independently beneath an
+            upright face; the pod sits in a dimensional float. Scroll drives
+            the exit choreography in useAnimations.js. */}
+        <div className="hero-hardware" data-hero-assembly aria-hidden="true">
+          <figure className="hero-pod-card" data-hero-pod>
+            <img className="hero-product-pod" src="/hero/pod-cut.png" alt="" />
+            <figcaption><span>02</span> Control pod</figcaption>
+          </figure>
+          <div className="hero-dial-stack" data-hero-dial-stack>
+            <span className="hero-dial-halo" data-hero-halo />
+            <img className="hero-dial-ring" data-hero-ring src="/hero/dial-cut.png" alt="" />
+            <img className="hero-product-dial hero-dial-face" src="/hero/dial-cut.png" alt="" />
+            <figcaption className="hero-dial-caption"><span>01</span> Steering dial</figcaption>
+          </div>
+        </div>
+
         <div className="hero-shell">
           <div className="hero-copy" data-hero-copy>
             <span className="hero-product-name">AHA NexCruise</span>

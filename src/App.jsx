@@ -5,6 +5,7 @@ import LogoIntro from "./components/LogoIntro";
 import CarStage from "./components/CarStage";
 import {
   WHATSAPP_LINK,
+  WHATSAPP_NUMBER,
   trackCustom,
   trackFunnel,
   trackLead,
@@ -25,14 +26,17 @@ import "./App.css";
 
 // Meet-the-system visuals use the authentic hardware photography: the studio
 // dial and the real pod, not the generic renders they replaced.
+// Meet-the-system visuals: true transparent cutouts of the real hardware
+// (Vision subject lift from the supplied photographs) on dark studio stages.
 const productComponents = [
   {
     id: "module",
     label: "Control pod",
     title: "The compact system behind the drive.",
     body: "NexCruise reads pedal and vehicle data, then maintains the speed you set. Brake input remains the immediate override.",
-    image: "/hero/pod-source.jpg",
+    image: "/hero/pod-cut.png",
     dark: true,
+    cutout: true,
     points: ["Cruise control", "Brake override", "OTA firmware support"]
   },
   {
@@ -42,6 +46,7 @@ const productComponents = [
     body: "AHA matches the accelerator coupler to the selected model, year, fuel type, and transmission before installation.",
     image: "/attached_assets/nexcruise-foot-pedal.png",
     dark: false,
+    cutout: false,
     points: ["No wire cutting", "Reversible fitment", "Model-level verification"]
   },
   {
@@ -49,8 +54,9 @@ const productComponents = [
     label: "Wireless dial",
     title: "The controls live where the driver needs them.",
     body: "NexCruise Smart adds a steering-mounted wireless dial for set, resume, speed adjustment, drive modes, and governor control.",
-    image: "/hero/dial-source.png",
+    image: "/hero/dial-cut.png",
     dark: true,
+    cutout: true,
     points: ["Set and resume", "Eco / City / Sport", "Speed governor"]
   }
 ];
@@ -125,7 +131,7 @@ function ProductSystem() {
       <div className="product-explorer">
         <div className="product-visual">
           {productComponents.map((item, index) => (
-            <div className={item.dark ? "product-panel-visual is-dark" : "product-panel-visual"} key={item.id} data-panel-visual={index}>
+            <div className={["product-panel-visual", item.dark ? "is-dark" : "", item.cutout ? "is-cutout" : ""].filter(Boolean).join(" ")} key={item.id} data-panel-visual={index}>
               <img src={item.image} alt={item.label} />
             </div>
           ))}
@@ -156,7 +162,7 @@ function ProductSystem() {
   );
 }
 
-function Compatibility() {
+function Compatibility({ onChecked }) {
   const [form, setForm] = useState({ brand: "", model: "", fuel: "", transmission: "", year: "" });
   const [compatibilityResult, setCompatibilityResult] = useState(null);
   const selectedBrand = useMemo(() => carBrands.find((brand) => brand.name === form.brand), [form.brand]);
@@ -176,8 +182,9 @@ function Compatibility() {
     setCompatibilityResult({
       type: "success",
       title: `${form.brand} ${form.model} is listed for AHA fitment review.`,
-      body: `${form.year} / ${form.fuel} / ${form.transmission}. AHA will confirm the exact accelerator coupler and cable set before installation.`
+      body: `${form.year} / ${form.fuel} / ${form.transmission}. Add your name and number below — the callback sends everything to AHA on WhatsApp in one message.`
     });
+    onChecked?.({ ...form });
     trackFunnel("CheckCompatibilityClicked", { ...form, location: "compatibility_workspace" });
   }
 
@@ -234,7 +241,14 @@ function Compatibility() {
           {compatibilityResult && (
             <div className="compatibility-result" data-status={compatibilityResult.type} role="status">
               <strong>{compatibilityResult.title}</strong><p>{compatibilityResult.body}</p>
-              {compatibilityResult.type === "success" && <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" onClick={() => trackWhatsApp("compatibility_result")}>Send details on WhatsApp <Arrow /></a>}
+              {compatibilityResult.type === "success" && (
+                <a
+                  href="#callback"
+                  onClick={() => trackFunnel("CompatibilityToCallback", { ...form, location: "compatibility_result" })}
+                >
+                  Add your name and number <Arrow />
+                </a>
+              )}
             </div>
           )}
         </div>
@@ -247,8 +261,8 @@ function Variants({ onChoose }) {
   const [basic, smart] = productVariants;
   const packageImage = "/attached_assets/nexcruise-box.jpeg";
   const cards = [
-    { variant: basic, tag: "Essential cruise package", image: packageImage, smartCard: false },
-    { variant: smart, tag: "Full control package", image: packageImage, smartCard: true }
+    { variant: basic, tag: "Essential cruise package", smartCard: false },
+    { variant: smart, tag: "Full control package", smartCard: true }
   ];
   return (
     <section className="variants-section" id="variants">
@@ -256,13 +270,21 @@ function Variants({ onChoose }) {
         <span>Choose the product</span>
         <h2>Basic when cruise is enough. Smart when you want more control.</h2>
       </div>
-      <div className="compare-grid" data-reveal>
-        {cards.map(({ variant, tag, image, smartCard }) => (
+      {/* One shared product photo (both variants ship as this box), with the
+          two packages compared beside it — no duplicated imagery. */}
+      <div className="compare-shell" data-reveal>
+        <figure className="compare-hero">
+          <img src={packageImage} alt="NexCruise box" />
+          <div className="compare-hero-parts">
+            <span><img src="/hero/pod-cut.png" alt="" loading="lazy" /> Control pod — in every box</span>
+            <span><img src="/hero/dial-cut.png" alt="" loading="lazy" /> Wireless dial — active on Smart</span>
+          </div>
+          <figcaption>Every NexCruise ships as one box with your car-specific cable. Basic and Smart differ in the control you unlock.</figcaption>
+        </figure>
+        <div className="compare-grid">
+        {cards.map(({ variant, tag, smartCard }) => (
           <article key={variant.name} className={smartCard ? "compare-card is-smart" : "compare-card"} data-smart-card={smartCard || undefined}>
             {smartCard && <span className="compare-flag">Most chosen</span>}
-            <div className="compare-visual">
-              <img src={image} alt={variant.name} />
-            </div>
             <div className="compare-head">
               <span>{tag}</span>
               <h3>{variant.name}</h3>
@@ -285,6 +307,45 @@ function Variants({ onChoose }) {
             </div>
           </article>
         ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const FILM_ID = "S3WyAb5QAZg";
+
+function FilmPanel() {
+  const [playing, setPlaying] = useState(false);
+  return (
+    <section className="film-section" id="film">
+      <div className="section-heading" data-reveal>
+        <span>Watch the film</span>
+        <h2>NexCruise, in motion.</h2>
+      </div>
+      <div className="film-frame" data-reveal>
+        {playing ? (
+          <iframe
+            src={`https://www.youtube-nocookie.com/embed/${FILM_ID}?autoplay=1&rel=0`}
+            title="AHA NexCruise film"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        ) : (
+          <button
+            type="button"
+            className="film-poster"
+            aria-label="Play the NexCruise film"
+            onClick={() => {
+              setPlaying(true);
+              trackCustom("Watch_Film_Clicked", { youtube_id: FILM_ID });
+            }}
+          >
+            <img src={`https://i.ytimg.com/vi/${FILM_ID}/maxresdefault.jpg`} alt="" loading="lazy" />
+            <span className="film-play" aria-hidden="true" />
+            <span className="film-label">Play film</span>
+          </button>
+        )}
       </div>
     </section>
   );
@@ -408,7 +469,7 @@ function FAQ() {
   );
 }
 
-function Callback({ preferredPlan }) {
+function Callback({ preferredPlan, carDetails }) {
   const [form, setForm] = useState({ name: "", phone: "", city: "", plan: preferredPlan });
   const [submitted, setSubmitted] = useState(false);
 
@@ -417,19 +478,33 @@ function Callback({ preferredPlan }) {
   function submit(event) {
     event.preventDefault();
     setSubmitted(true);
-    trackLead("RequestCallbackSubmitted", { contactNumber: form.phone, city: form.city, plan: form.plan, lead_source: "aurora_site_callback" });
+    trackLead("RequestCallbackSubmitted", { contactNumber: form.phone, city: form.city, plan: form.plan, ...carDetails, lead_source: "aurora_site_callback" });
+    // The lead lands on AHA's WhatsApp as one complete message: name, number,
+    // city, chosen plan, and the checked car. This is the reliable record —
+    // Pixel/Ads/dashboard events are analytics, not a lead inbox.
+    const car = carDetails
+      ? ` Car: ${carDetails.brand} ${carDetails.model} (${carDetails.year}, ${carDetails.fuel}, ${carDetails.transmission}).`
+      : "";
+    const message = `Hi AHA! I'm ${form.name} from ${form.city}. I want ${form.plan}.${car} Please arrange my fitment callback. My number: ${form.phone}.`;
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, "_blank", "noopener");
   }
 
   return (
     <section className="callback-section" id="callback">
-      <div className="callback-copy" data-reveal><span>Ready for the fitment check?</span><h2>Your car. Your route. The right NexCruise.</h2><p>Send the car details and AHA will confirm compatibility, product choice, and installation support.</p><a className="whatsapp-action" href={WHATSAPP_LINK} target="_blank" rel="noreferrer" onClick={() => trackWhatsApp("callback") }><WhatsAppMark /> WhatsApp AHA <Arrow /></a></div>
+      <div className="callback-copy" data-reveal>
+        <span>Ready for the fitment check?</span>
+        <h2>Your car. Your route. The right NexCruise.</h2>
+        <p>Add your name and number — Request callback opens WhatsApp with your full details{carDetails ? ` including your ${carDetails.brand} ${carDetails.model}` : " (and your checked car, if you used the garage)"} so AHA has everything in one message.</p>
+        <a className="whatsapp-action" href={WHATSAPP_LINK} target="_blank" rel="noreferrer" onClick={() => trackWhatsApp("callback") }><WhatsAppMark /> WhatsApp AHA <Arrow /></a>
+      </div>
       <form className="callback-form" onSubmit={submit} data-reveal>
         <label>Name<input required value={form.name} onChange={(event) => setForm({ ...form, name: event.target.value })} placeholder="Your name" /></label>
         <label>Phone<input required inputMode="tel" value={form.phone} onChange={(event) => setForm({ ...form, phone: event.target.value })} placeholder="10-digit mobile number" /></label>
         <label>City<input required value={form.city} onChange={(event) => setForm({ ...form, city: event.target.value })} placeholder="Your city" /></label>
         <label>Interested in<select value={form.plan} onChange={(event) => setForm({ ...form, plan: event.target.value })}>{productVariants.map((variant) => <option key={variant.name}>{variant.name}</option>)}</select></label>
+        {carDetails && <p className="callback-car-note">Included: {carDetails.brand} {carDetails.model} · {carDetails.year} · {carDetails.fuel} · {carDetails.transmission}</p>}
         <button className="primary-action form-submit" type="submit">Request callback <Arrow /></button>
-        {submitted && <p className="callback-status" role="status">Request recorded. AHA will contact you using the number provided.</p>}
+        {submitted && <p className="callback-status" role="status">WhatsApp is opening with your details — hit send and AHA has everything. The lead is also logged to the AHA marketing dashboard.</p>}
       </form>
     </section>
   );
@@ -458,6 +533,7 @@ function Footer() {
 
 export default function App() {
   const [preferredPlan, setPreferredPlan] = useState("NexCruise Smart");
+  const [carDetails, setCarDetails] = useState(null);
   const pageRef = useRef(null);
   useSiteAnimations(pageRef);
 
@@ -473,7 +549,7 @@ export default function App() {
       <Header />
       <div id="smooth-wrapper">
         <div id="smooth-content">
-          <main><CinematicHero /><PartnersMarquee /><BrandStatement /><ProductSystem /><Compatibility /><Variants onChoose={choosePlan} /><Installation /><VideoProof /><OwnerProof /><FAQ /><Callback preferredPlan={preferredPlan} /></main>
+          <main><CinematicHero /><PartnersMarquee /><BrandStatement /><ProductSystem /><Compatibility onChecked={setCarDetails} /><Variants onChoose={choosePlan} /><Installation /><FilmPanel /><VideoProof /><OwnerProof /><FAQ /><Callback preferredPlan={preferredPlan} carDetails={carDetails} /></main>
           <Footer />
         </div>
       </div>

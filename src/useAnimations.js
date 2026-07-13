@@ -138,6 +138,8 @@ export function useSiteAnimations(scopeRef) {
           .fromTo(".hero-copy h1", { y: 48, autoAlpha: 0 }, { ...end, duration: 1 }, "-=0.35")
           .fromTo(".hero-copy > p", { y: 28, autoAlpha: 0 }, { ...end, duration: 0.8 }, "-=0.55")
           .fromTo(".hero-actions > *", { y: 20, autoAlpha: 0 }, { ...end, duration: 0.6, stagger: 0.1 }, "-=0.45")
+          .fromTo("[data-hero-dial-stack]", { x: 90, autoAlpha: 0, rotate: -14 }, { x: 0, autoAlpha: 1, rotate: 0, duration: 1.1 }, 0.3)
+          .fromTo("[data-hero-pod]", { x: 60, y: 30, autoAlpha: 0 }, { x: 0, y: 0, autoAlpha: 1, duration: 0.9 }, 0.55)
           .fromTo(".hero-proof-strip > div", { yPercent: 100, autoAlpha: 0 }, { ...end, duration: 0.7, stagger: 0.08 }, "-=0.45");
 
         // --- Marquee: partners row accelerates with scroll velocity ----- //
@@ -162,7 +164,7 @@ export function useSiteAnimations(scopeRef) {
         if (smartCard) {
           gsap
             .timeline({ scrollTrigger: { trigger: smartCard, start: "top 72%", once: true } })
-            .fromTo("[data-smart-row]", { x: 16, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.5, stagger: 0.09, ease: "power2.out" }, "-=0.8")
+            .fromTo("[data-smart-row]", { x: 16, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.5, stagger: 0.09, ease: "power2.out" }, 0)
             .add(() => smartCard.classList.add("is-live"));
         }
 
@@ -301,7 +303,14 @@ export function useSiteAnimations(scopeRef) {
                 scrub: 0.6
               }
             })
-            .to(".hero-copy", { filter: "brightness(1)", yPercent: -8, autoAlpha: 0.72 }, 0)
+            .to("[data-hero-ring]", { rotate: 170 }, 0)
+            .to("[data-hero-dial-stack]", { x: "-30vw", y: "16vh", scale: 0.9 }, 0)
+            .to("[data-hero-halo]", { autoAlpha: 0.2, scale: 1.25 }, 0)
+            .to("[data-hero-pod]", { x: "-4vw", y: "-9vh", scale: 1.1, rotateX: 0, rotateZ: 0 }, 0)
+            .to(".hero-copy", { filter: "brightness(1)" }, 0)
+            .to("[data-hero-dial-stack]", { y: "58vh", autoAlpha: 0, ease: "power1.in" }, 0.62)
+            .to("[data-hero-pod]", { y: "30vh", autoAlpha: 0.15, ease: "power1.in" }, 0.72)
+            .to(".hero-copy", { yPercent: -8, autoAlpha: 0.72 }, 0.6)
             .to(".hero-media", { scale: 1.04, filter: "brightness(.8) saturate(.85)" }, 0.2);
         }
 

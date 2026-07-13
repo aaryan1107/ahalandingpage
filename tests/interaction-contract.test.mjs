@@ -38,6 +38,26 @@ test("cinematic hero uses the product film with a stable media fallback", () => 
   assert.doesNotMatch(heroSource, /hero-speed-slider/);
 });
 
+test("hero hardware uses true cutouts with layered dial and dimensional pod", () => {
+  assert.match(heroSource, /data-hero-ring/);
+  assert.match(heroSource, /hero-dial-face/);
+  assert.match(heroSource, /data-hero-pod/);
+  assert.match(heroSource, /dial-cut\.png/);
+  assert.match(heroSource, /pod-cut\.png/);
+});
+
+test("featured film panel embeds the official video lazily", () => {
+  assert.match(source, /S3WyAb5QAZg/);
+  assert.match(source, /youtube-nocookie\.com\/embed/);
+  assert.match(source, /film-poster/);
+});
+
+test("callback opens WhatsApp with the full lead including car details", () => {
+  assert.match(source, /wa\.me\/\$\{WHATSAPP_NUMBER\}\?text=/);
+  assert.match(source, /carDetails/);
+  assert.match(source, /onChecked/);
+});
+
 test("hero has no obsolete speed game controls", () => {
   assert.doesNotMatch(heroSource, /Increase cruise speed/);
   assert.doesNotMatch(heroSource, /Set cruise speed/);

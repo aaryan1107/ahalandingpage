@@ -13,6 +13,10 @@ assert.equal(await page.locator(".hero-product-film").count(), 1);
 assert.match(await page.locator(".hero-product-film").getAttribute("poster"), /hero-poster/);
 assert.equal(await page.locator(".hero-dial-control").count(), 0);
 assert.equal(await page.locator(".hero-product-film").isVisible(), true);
+// Layered cutout dial (independent ring + upright face) and dimensional pod.
+assert.equal(await page.locator("[data-hero-ring]").count(), 1);
+assert.match(await page.locator("[data-hero-ring]").getAttribute("src"), /dial-cut\.png/);
+assert.match(await page.locator(".hero-product-pod").getAttribute("src"), /pod-cut\.png/);
 // Official favicon is the aha.store teal A-mark, not the old placeholder.
 assert.match(await page.locator('link[rel="icon"]').getAttribute("href"), /favicon\.svg/);
 const faviconSvg = await page.evaluate(async () => (await fetch("/favicon.svg")).text());
@@ -57,17 +61,25 @@ await page.getByRole("button", { name: /check fitment path/i }).click();
 assert.match(await page.locator(".compatibility-result strong").textContent(), /Tata Nexon/);
 assert.match(await page.locator(".car-nameplate strong").textContent(), /Tata Nexon/);
 
-// Basic vs Smart side-by-side comparison with per-card choose actions.
-await goTo(".compare-grid");
+// Basic vs Smart: one shared box image, two package cards beside it.
+await goTo(".compare-shell");
 assert.equal(await page.locator(".compare-card").count(), 2);
-assert.equal(await page.locator(".compare-visual img").nth(0).getAttribute("src"), "/attached_assets/nexcruise-box.jpeg");
-assert.equal(await page.locator(".compare-visual img").nth(1).getAttribute("src"), "/attached_assets/nexcruise-box.jpeg");
+assert.equal(await page.locator(".compare-hero > img").count(), 1);
+assert.equal(await page.locator(".compare-hero > img").getAttribute("src"), "/attached_assets/nexcruise-box.jpeg");
+assert.equal(await page.locator(".compare-visual").count(), 0);
 assert.equal(await page.locator(".smart-ring").count(), 0);
 assert.ok((await page.locator(".compare-card.is-smart .compare-rows li.included").count()) >= 8);
 await page.screenshot({ path: "/tmp/aha-compare-desktop.png" });
 await page.getByRole("button", { name: /Choose Basic/ }).click();
 await page.waitForFunction(() => document.querySelector("#callback select")?.value === "NexCruise Basic");
 assert.equal(await page.locator("#callback select").inputValue(), "NexCruise Basic");
+
+// Featured film panel: poster first, iframe only after the play click.
+await goTo(".film-section");
+assert.equal(await page.locator(".film-frame iframe").count(), 0);
+await page.locator(".film-poster").click();
+await page.waitForTimeout(600);
+assert.match(await page.locator(".film-frame iframe").getAttribute("src"), /youtube-nocookie\.com\/embed\/S3WyAb5QAZg/);
 
 await goTo(".owner-controls");
 const firstReview = await page.locator(".owner-quote blockquote").textContent();
@@ -77,11 +89,25 @@ await page.waitForFunction(
   firstReview
 );
 
+// Request callback must open WhatsApp carrying the FULL lead: name, city,
+// plan, phone, and the car checked earlier in the compatibility garage.
 await goTo(".callback-form");
 await page.locator("#callback input").nth(0).fill("Aaryan");
 await page.locator("#callback input").nth(1).fill("8306924400");
 await page.locator("#callback input").nth(2).fill("Jaipur");
+// Capture the WhatsApp URL at window.open itself — no external navigation,
+// so the check is deterministic offline.
+await page.evaluate(() => {
+  window.__waUrl = null;
+  window.open = (url) => { window.__waUrl = url; return null; };
+});
 await page.getByRole("button", { name: /request callback/i }).click();
+const waUrl = decodeURIComponent(await page.evaluate(() => window.__waUrl)).replace(/\+/g, " ");
+assert.match(waUrl, /wa\.me\/918306924400\?text=/);
+assert.match(waUrl, /Aaryan/);
+assert.match(waUrl, /Jaipur/);
+assert.match(waUrl, /Tata Nexon/);
+assert.match(waUrl, /8306924400/);
 await page.locator(".callback-status").waitFor();
 
 const desktopOverflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
