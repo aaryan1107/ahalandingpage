@@ -458,8 +458,10 @@ select:disabled { color: var(--color-fog); background: var(--color-hailstone); }
 .hero-dial-stack { position: absolute; right: 14%; top: 17%; width: min(31vw, 440px); aspect-ratio: 385 / 394; }
 .hero-dial-halo { position: absolute; inset: -14%; border-radius: 50%; background: radial-gradient(circle, rgba(24,220,220,.32) 0%, rgba(0,106,237,.14) 38%, transparent 66%); filter: blur(20px); }
 .hero-dial-ring, .hero-dial-face { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
-.hero-dial-ring { filter: drop-shadow(0 36px 42px rgba(0,0,0,.55)) saturate(1.06); }
-.hero-dial-face { clip-path: circle(31% at 50% 49%); }
+/* The ring layer's centre is masked out so its rotation never drags a
+   second copy of the face around beneath the upright one (no seam). */
+.hero-dial-ring { transform-origin: 50% 49%; -webkit-mask-image: radial-gradient(circle at 50% 49%, transparent 0 30.2%, #000 31.4%); mask-image: radial-gradient(circle at 50% 49%, transparent 0 30.2%, #000 31.4%); filter: drop-shadow(0 36px 42px rgba(0,0,0,.55)) saturate(1.06); }
+.hero-dial-face { clip-path: circle(31.2% at 50% 49%); }
 .hero-dial-caption { position: absolute; left: 0; bottom: -34px; display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,.85); font-size: 12px; font-weight: 500; }
 .hero-dial-caption span, .hero-pod-card figcaption span { color: var(--color-cyan-dawn); font-weight: 600; }
 .hero-pod-card { position: absolute; right: 4%; bottom: 15%; width: min(20vw, 290px); margin: 0; perspective: 900px; }

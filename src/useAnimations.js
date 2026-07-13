@@ -303,11 +303,15 @@ export function useSiteAnimations(scopeRef) {
                 scrub: 0.6
               }
             })
-            .to("[data-hero-ring]", { rotate: 170 }, 0)
-            .to("[data-hero-dial-stack]", { x: "-30vw", y: "16vh", scale: 0.9 }, 0)
-            .to("[data-hero-halo]", { autoAlpha: 0.2, scale: 1.25 }, 0)
-            .to("[data-hero-pod]", { x: "-4vw", y: "-9vh", scale: 1.1, rotateX: 0, rotateZ: 0 }, 0)
-            .to(".hero-copy", { filter: "brightness(1)" }, 0)
+            // Explicit from-values everywhere: the pin is active at scroll 0,
+            // so plain .to() captures starts DURING the entrance animation and
+            // scrolling back would restore those mid-flight values (dial never
+            // returns). fromTo pins the rest state as the true zero.
+            .fromTo("[data-hero-ring]", { rotate: 0 }, { rotate: 170, immediateRender: false }, 0)
+            .fromTo("[data-hero-dial-stack]", { x: 0, y: 0, scale: 1, autoAlpha: 1 }, { x: "-30vw", y: "16vh", scale: 0.9, immediateRender: false }, 0)
+            .fromTo("[data-hero-halo]", { autoAlpha: 1, scale: 1 }, { autoAlpha: 0.2, scale: 1.25, immediateRender: false }, 0)
+            .fromTo("[data-hero-pod]", { x: 0, y: 0, scale: 1 }, { x: "-4vw", y: "-9vh", scale: 1.1, immediateRender: false }, 0)
+            .fromTo(".hero-copy", { filter: "brightness(0.85)" }, { filter: "brightness(1)", immediateRender: false }, 0)
             .to("[data-hero-dial-stack]", { y: "58vh", autoAlpha: 0, ease: "power1.in" }, 0.62)
             .to("[data-hero-pod]", { y: "30vh", autoAlpha: 0.15, ease: "power1.in" }, 0.72)
             .to(".hero-copy", { yPercent: -8, autoAlpha: 0.72 }, 0.6)
