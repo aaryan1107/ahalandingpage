@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { chromium } from "playwright-core";
 
+const BASE_URL = process.env.BASE_URL || "http://127.0.0.1:5180";
 const browser = await chromium.launch({ headless: true });
 const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
 const pageErrors = [];
@@ -36,7 +37,7 @@ await page.route("**/api/payments/verify", (route) => route.fulfill({
   body: JSON.stringify({ status: "captured", orderId: "order_browser_test", paymentId: "pay_browser_test" })
 }));
 
-await page.goto("http://127.0.0.1:5180/", { waitUntil: "domcontentloaded" });
+await page.goto(`${BASE_URL}/`, { waitUntil: "domcontentloaded" });
 await page.waitForFunction(() => !document.querySelector("[data-logo-intro]"));
 await page.waitForTimeout(500);
 
@@ -179,7 +180,7 @@ assert.equal(desktopOverflow, false);
 await page.screenshot({ path: "/tmp/aha-aurora-desktop.png", fullPage: true });
 
 await page.setViewportSize({ width: 390, height: 844 });
-await page.goto("http://127.0.0.1:5180/?viewport=mobile", { waitUntil: "domcontentloaded" });
+await page.goto(`${BASE_URL}/?viewport=mobile`, { waitUntil: "domcontentloaded" });
 await page.waitForTimeout(1500);
 await page.screenshot({ path: "/tmp/aha-hero-mobile.png" });
 await page.getByRole("button", { name: "Menu" }).click();
