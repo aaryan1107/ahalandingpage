@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { scrollToSection, useSiteAnimations } from "./useAnimations";
+import { useSiteAnimations } from "./useAnimations";
 import CinematicHero from "./components/CinematicHero";
 import LogoIntro from "./components/LogoIntro";
 import CarStage from "./components/CarStage";
+import PurchaseFlow from "./components/PurchaseFlow";
 import {
   WHATSAPP_LINK,
   WHATSAPP_NUMBER,
@@ -78,12 +79,12 @@ function WhatsAppMark() {
   );
 }
 
-function Header() {
+function Header({ onBuy }) {
   const [open, setOpen] = useState(false);
   const links = [
     ["Product", "#product"],
     ["Compatibility", "#compatibility"],
-    ["Basic vs Smart", "#variants"],
+    ["Compare plans", "#variants"],
     ["Installation", "#installation"],
     ["Proof", "#proof"]
   ];
@@ -99,8 +100,9 @@ function Header() {
       </button>
       <nav className={open ? "site-nav is-open" : "site-nav"} aria-label="Primary navigation">
         {links.map(([label, href]) => <a key={href} href={href} onClick={() => setOpen(false)}>{label}</a>)}
+        <button className="mobile-buy-action" type="button" onClick={() => { setOpen(false); onBuy("NexCruise Smart"); }}>Buy NexCruise <Arrow /></button>
       </nav>
-      <a className="primary-action header-action" href="#callback">Talk to AHA <Arrow /></a>
+      <button className="primary-action header-action" type="button" onClick={() => onBuy("NexCruise Smart")}>Buy NexCruise <Arrow /></button>
     </header>
   );
 }
@@ -258,17 +260,18 @@ function Compatibility({ onChecked }) {
 }
 
 function Variants({ onChoose }) {
-  const [basic, smart] = productVariants;
+  const [basic, pro, smart] = productVariants;
   const packageImage = "/attached_assets/nexcruise-box.jpeg";
   const cards = [
-    { variant: basic, tag: "Essential cruise package", smartCard: false },
-    { variant: smart, tag: "Full control package", smartCard: true }
+    { variant: basic, tag: "Essential cruise package", featureIndex: 1, smartCard: false },
+    { variant: pro, tag: "Wireless control package", featureIndex: 2, smartCard: false },
+    { variant: smart, tag: "Full control package", featureIndex: 3, smartCard: true }
   ];
   return (
     <section className="variants-section" id="variants">
       <div className="section-heading inverse" data-reveal>
         <span>Choose the product</span>
-        <h2>Basic when cruise is enough. Smart when you want more control.</h2>
+        <h2>Three ways to bring NexCruise into your car.</h2>
       </div>
       {/* One shared product photo (both variants ship as this box), with the
           two packages compared beside it — no duplicated imagery. */}
@@ -277,12 +280,12 @@ function Variants({ onChoose }) {
           <img src={packageImage} alt="NexCruise box" />
           <div className="compare-hero-parts">
             <span><img src="/hero/pod-cut.png" alt="" loading="lazy" /> Control pod — in every box</span>
-            <span><img src="/hero/dial-cut.png" alt="" loading="lazy" /> Wireless dial — active on Smart</span>
+            <span><img src="/hero/dial-cut.png" alt="" loading="lazy" /> Wireless dial - included on Pro and Smart</span>
           </div>
-          <figcaption>Every NexCruise ships as one box with your car-specific cable. Basic and Smart differ in the control you unlock.</figcaption>
+          <figcaption>Every NexCruise ships with the control pod and your car-specific cable. Pro adds wireless control; Smart adds the steering-mounted controller.</figcaption>
         </figure>
         <div className="compare-grid">
-        {cards.map(({ variant, tag, smartCard }) => (
+        {cards.map(({ variant, tag, featureIndex, smartCard }) => (
           <article key={variant.name} className={smartCard ? "compare-card is-smart" : "compare-card"} data-smart-card={smartCard || undefined}>
             {smartCard && <span className="compare-flag">Most chosen</span>}
             <div className="compare-head">
@@ -291,10 +294,12 @@ function Variants({ onChoose }) {
               <strong className="variant-price">{variant.price}</strong>
             </div>
             <ul className="compare-rows">
-              {compareRows.map(([feature, inBasic, inSmart]) => {
-                const included = smartCard ? inSmart : inBasic;
+              {compareRows.map((row) => {
+                const [feature] = row;
+                const included = row[featureIndex];
+                const inPro = row[2];
                 return (
-                  <li key={feature} className={included ? "included" : "excluded"} data-smart-row={smartCard && !inBasic ? "" : undefined}>
+                  <li key={feature} className={included ? "included" : "excluded"} data-smart-row={smartCard && !inPro ? "" : undefined}>
                     <i aria-hidden="true">{included ? "+" : "-"}</i>
                     <span>{feature}</span>
                   </li>
@@ -531,7 +536,7 @@ function Footer() {
         <a className="brand inverse" href="#top"><span className="brand-arc" /><span><strong>AHA</strong><small>NexCruise</small></span></a>
         <p>Cruise control and smarter throttle control for compatible Indian cars.</p>
       </div>
-      <div><strong>Explore</strong><a href="#product">Product</a><a href="#compatibility">Compatibility</a><a href="#variants">Basic vs Smart</a><a href="#installation">Installation</a></div>
+      <div><strong>Explore</strong><a href="#product">Product</a><a href="#compatibility">Compatibility</a><a href="#variants">Compare plans</a><a href="#installation">Installation</a></div>
       <div><strong>Contact</strong><a href={WHATSAPP_LINK} target="_blank" rel="noreferrer">+91 83069 24400</a><a href="mailto:support@aha.store">support@aha.store</a></div>
       <div><strong>Follow AHA</strong>{socials.map(([label, href]) => <a key={label} href={href} target="_blank" rel="noreferrer">{label}</a>)}</div>
       <div className="footer-end"><span>Made in Jaipur.</span><span>Built for Indian roads.</span></div>
@@ -542,25 +547,33 @@ function Footer() {
 export default function App() {
   const [preferredPlan, setPreferredPlan] = useState("NexCruise Smart");
   const [carDetails, setCarDetails] = useState(null);
+  const [purchaseOpen, setPurchaseOpen] = useState(false);
   const pageRef = useRef(null);
   useSiteAnimations(pageRef);
 
   function choosePlan(plan) {
     setPreferredPlan(plan);
-    trackFunnel("BookCallClicked", { plan, location: "variant" });
-    scrollToSection("#callback");
+    setPurchaseOpen(true);
+    trackFunnel("DeviceSelected", { plan, location: "variant" });
+    trackFunnel("PlanSelected", { plan, location: "variant" });
   }
 
   return (
     <div ref={pageRef}>
       <LogoIntro />
-      <Header />
+      <Header onBuy={choosePlan} />
       <div id="smooth-wrapper">
         <div id="smooth-content">
           <main><CinematicHero /><PartnersMarquee /><BrandStatement /><ProductSystem /><Compatibility onChecked={setCarDetails} /><Variants onChoose={choosePlan} /><Installation /><FilmPanel /><VideoProof /><OwnerProof /><FAQ /><Callback preferredPlan={preferredPlan} carDetails={carDetails} /></main>
           <Footer />
         </div>
       </div>
+      <PurchaseFlow
+        open={purchaseOpen}
+        onClose={() => setPurchaseOpen(false)}
+        initialPlan={preferredPlan}
+        carDetails={carDetails}
+      />
     </div>
   );
 }

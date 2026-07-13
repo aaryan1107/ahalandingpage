@@ -5,6 +5,36 @@ const browser = await chromium.launch({ headless: true });
 const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
 const pageErrors = [];
 page.on("pageerror", (error) => pageErrors.push(error.message));
+await page.addInitScript(() => {
+  window.Razorpay = function Razorpay(options) {
+    return {
+      on() {},
+      open() {
+        queueMicrotask(() => options.handler({
+          razorpay_order_id: "order_browser_test",
+          razorpay_payment_id: "pay_browser_test",
+          razorpay_signature: "browser_test_signature"
+        }));
+      }
+    };
+  };
+});
+await page.route("**/api/payments/create-order", (route) => route.fulfill({
+  status: 200,
+  contentType: "application/json",
+  body: JSON.stringify({
+    orderId: "order_browser_test",
+    keyId: "rzp_test_browser",
+    amount: 2709000,
+    currency: "INR",
+    receipt: "aha_browser_test"
+  })
+}));
+await page.route("**/api/payments/verify", (route) => route.fulfill({
+  status: 200,
+  contentType: "application/json",
+  body: JSON.stringify({ status: "captured", orderId: "order_browser_test", paymentId: "pay_browser_test" })
+}));
 
 await page.goto("http://127.0.0.1:5180/", { waitUntil: "domcontentloaded" });
 await page.waitForFunction(() => !document.querySelector("[data-logo-intro]"));
@@ -64,18 +94,33 @@ await page.getByRole("button", { name: /check fitment path/i }).click();
 assert.match(await page.locator(".compatibility-result strong").textContent(), /Tata Nexon/);
 assert.match(await page.locator(".car-nameplate strong").textContent(), /Tata Nexon/);
 
-// Basic vs Smart: one shared box image, two package cards beside it.
+// Basic, Pro, and Smart: one shared box image, three sourced plan cards.
 await goTo(".compare-shell");
-assert.equal(await page.locator(".compare-card").count(), 2);
+assert.equal(await page.locator(".compare-card").count(), 3);
 assert.equal(await page.locator(".compare-hero > img").count(), 1);
 assert.equal(await page.locator(".compare-hero > img").getAttribute("src"), "/attached_assets/nexcruise-box.jpeg");
 assert.equal(await page.locator(".compare-visual").count(), 0);
 assert.equal(await page.locator(".smart-ring").count(), 0);
 assert.ok((await page.locator(".compare-card.is-smart .compare-rows li.included").count()) >= 8);
 await page.screenshot({ path: "/tmp/aha-compare-desktop.png" });
-await page.getByRole("button", { name: /Choose Basic/ }).click();
-await page.waitForFunction(() => document.querySelector("#callback select")?.value === "NexCruise Basic");
-assert.equal(await page.locator("#callback select").inputValue(), "NexCruise Basic");
+await page.getByRole("button", { name: /Choose Pro/ }).click();
+assert.equal(await page.getByRole("dialog", { name: /Buy NexCruise/ }).isVisible(), true);
+assert.equal(await page.locator(".purchase-choice").count(), 3);
+assert.match(await page.locator(".purchase-summary-head strong").textContent(), /NexCruise Pro/);
+await page.getByRole("button", { name: /AHA-assisted technician install/ }).click();
+await page.getByRole("button", { name: /Continue to billing/ }).click();
+const purchaseDialog = page.getByRole("dialog");
+await purchaseDialog.getByLabel("Full name").fill("Aaryan Kansal");
+await purchaseDialog.getByLabel("Mobile number").fill("8306924400");
+await purchaseDialog.getByLabel("Email address").fill("aaryan@example.com");
+await purchaseDialog.getByLabel("Billing and delivery address").fill("Malviya Nagar, Jaipur");
+await purchaseDialog.getByLabel("City").fill("Jaipur");
+await purchaseDialog.getByLabel("State").fill("Rajasthan");
+await purchaseDialog.getByLabel("PIN code").fill("302017");
+await page.getByRole("button", { name: /Pay .* securely/ }).click();
+await page.waitForFunction(() => document.querySelector(".purchase-complete"));
+assert.match(await page.locator(".purchase-complete h3").textContent(), /Payment verified/);
+await page.getByRole("button", { name: /Return to NexCruise/ }).click();
 
 // Featured film panel: poster first, iframe only after the play click.
 await goTo(".film-section");
@@ -137,6 +182,19 @@ await page.setViewportSize({ width: 390, height: 844 });
 await page.goto("http://127.0.0.1:5180/?viewport=mobile", { waitUntil: "domcontentloaded" });
 await page.waitForTimeout(1500);
 await page.screenshot({ path: "/tmp/aha-hero-mobile.png" });
+await page.getByRole("button", { name: "Menu" }).click();
+await page.getByLabel("Primary navigation").getByRole("button", { name: "Buy NexCruise" }).click();
+const mobileDialog = page.getByRole("dialog", { name: /Buy NexCruise/ });
+assert.equal(await mobileDialog.isVisible(), true);
+assert.equal(await mobileDialog.locator(".purchase-choice").count(), 3);
+const mobileCheckoutOverflow = await mobileDialog.evaluate((element) => element.scrollWidth > element.clientWidth);
+assert.equal(mobileCheckoutOverflow, false);
+await page.screenshot({ path: "/tmp/aha-purchase-mobile.png" });
+await mobileDialog.getByRole("button", { name: /Continue to billing/ }).click();
+assert.equal(await mobileDialog.locator(".billing-form").isVisible(), true);
+const mobileBillingOverflow = await mobileDialog.evaluate((element) => element.scrollWidth > element.clientWidth);
+assert.equal(mobileBillingOverflow, false);
+await page.getByRole("button", { name: "Close checkout" }).click();
 await page.getByRole("button", { name: "Menu" }).click();
 await page.getByLabel("Primary navigation").getByRole("link", { name: "Compatibility" }).click();
 await page.waitForTimeout(1400);

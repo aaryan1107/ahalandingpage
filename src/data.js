@@ -229,15 +229,24 @@ export const productVariants = [
   {
     name: "NexCruise Basic",
     price: "Rs 19,990",
+    amount: 19990,
     demoId: "8D1yLErzi_c",
-    features: ["Cruise control", "OTA firmware updates", "Brake override", "Car-specific cable included", "Move to another compatible car"]
+    features: ["Cruise control", "OTA firmware updates", "Migrate to another car"]
+  },
+  {
+    name: "NexCruise Pro",
+    price: "Rs 25,990",
+    amount: 25990,
+    demoId: "S3WyAb5QAZg",
+    features: ["Cruise control", "OTA firmware updates", "Wireless dial", "Resume cruise", "Dial driving", "Speed governor", "Eco, City and Sport modes", "Migrate to another car"]
   },
   {
     name: "NexCruise Smart",
     price: "Rs 27,490",
+    amount: 27490,
     demoId: "rH7ape15Dq0",
     featured: true,
-    features: ["Everything in Basic", "Wireless steering dial", "Resume cruise", "Speed governor", "Eco, City and Sport modes", "Steering-mounted dial"]
+    features: ["Cruise control", "OTA firmware updates", "Wireless dial", "Resume cruise", "Dial driving", "Speed governor", "Eco, City and Sport modes", "Migrate to another car", "Steering-mounted dial"]
   }
 ];
 
@@ -324,14 +333,15 @@ export const storeReviews = [
   }
 ];
 
-// Aligned Basic vs Smart comparison rows: [feature, inBasic, inSmart].
+// Plan claims supplied by AHA: [feature, inBasic, inPro, inSmart].
 export const compareRows = [
-  ["Cruise control with brake override", true, true],
-  ["Car-specific cable, no wire cutting", true, true],
-  ["OTA firmware updates", true, true],
-  ["Transferable to your next car", true, true],
-  ["Steering-mounted wireless dial", false, true],
-  ["Resume cruise after braking", false, true],
-  ["Eco / City / Sport drive modes", false, true],
-  ["Speed governor for family limits", false, true]
+  ["Cruise control", true, true, true],
+  ["OTA firmware updates", true, true, true],
+  ["Wireless dial", false, true, true],
+  ["Resume cruise", false, true, true],
+  ["Dial driving", false, true, true],
+  ["Speed governor", false, true, true],
+  ["Eco, City and Sport modes", false, true, true],
+  ["Migrate to another car", true, true, true],
+  ["Steering-mounted dial", false, false, true]
 ];

@@ -5,6 +5,7 @@ import test from "node:test";
 const source = await readFile(new URL("../src/App.jsx", import.meta.url), "utf8");
 const heroSource = await readFile(new URL("../src/components/CinematicHero.jsx", import.meta.url), "utf8").catch(() => "");
 const dataSource = await readFile(new URL("../src/data.js", import.meta.url), "utf8");
+const purchaseSource = await readFile(new URL("../src/components/PurchaseFlow.jsx", import.meta.url), "utf8");
 
 test("compatibility action produces a visible result", () => {
   assert.match(source, /className="compatibility-result/);
@@ -73,6 +74,16 @@ test("callback opens WhatsApp with the full lead including car details", () => {
   assert.match(source, /onChecked/);
 });
 
+test("purchase flow includes billing, three sourced plans, and Razorpay verification", () => {
+  assert.match(dataSource, /NexCruise Pro/);
+  assert.match(dataSource, /Rs 25,990/);
+  assert.match(purchaseSource, /Billing & delivery/);
+  assert.match(purchaseSource, /\/api\/payments\/create-order/);
+  assert.match(purchaseSource, /\/api\/payments\/verify/);
+  assert.match(purchaseSource, /checkout\.razorpay\.com\/v1\/checkout\.js/);
+  assert.match(purchaseSource, /PurchaseCompletedRazorpay/);
+});
+
 test("hero has no obsolete speed game controls", () => {
   assert.doesNotMatch(heroSource, /Increase cruise speed/);
   assert.doesNotMatch(heroSource, /Set cruise speed/);
@@ -91,9 +102,10 @@ test("compatibility renders the selected car side profile", () => {
   assert.match(carSource, /compatibility-lower/);
 });
 
-test("basic vs smart comparison uses aligned rows and a smart card", () => {
+test("basic, pro, and smart comparison uses aligned rows and a smart card", () => {
   assert.match(source, /compare-grid/);
   assert.match(source, /compareRows/);
+  assert.match(source, /featureIndex: 2/);
   assert.match(source, /data-smart-card/);
   assert.match(source, /const packageImage = "\/attached_assets\/nexcruise-box\.jpeg"/);
   assert.doesNotMatch(source, /nexcruise-product-still\.png/);

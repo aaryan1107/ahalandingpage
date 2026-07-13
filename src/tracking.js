@@ -11,6 +11,12 @@ export const FIRST_PARTY_TRACKING_KEY = import.meta.env.VITE_AHA_TRACK_KEY || ""
 const FIRST_PARTY_EVENT_IDS = {
   BrandSelected: "web.insight_button_click",
   CheckCompatibilityClicked: "web.check_compatibility_click",
+  DeviceSelected: "web.device_selection_clicked",
+  PlanSelected: "web.plan_section_clicked",
+  ControllerSelected: "web.dial_selection_clicked",
+  InstallationSelected: "web.installation_type_clicked",
+  BillingDetailsSubmitted: "web.billing_details_clicked",
+  PurchaseCompletedRazorpay: "web.purchase_wizard_completion_razorpay",
   RequestCallbackSubmitted: "web.callback_form_completion",
   WhatsAppClicked: "web.connect_with_aha_dost_click",
   CruiseSpeedGameLocked: "web.insight_button_click"
@@ -19,6 +25,12 @@ const FIRST_PARTY_EVENT_IDS = {
 const FIRST_PARTY_PATH_TYPES = {
   BrandSelected: "website_widget",
   CheckCompatibilityClicked: "website_widget",
+  DeviceSelected: "website_widget",
+  PlanSelected: "website_widget",
+  ControllerSelected: "website_widget",
+  InstallationSelected: "website_widget",
+  BillingDetailsSubmitted: "website_widget",
+  PurchaseCompletedRazorpay: "website_widget",
   RequestCallbackSubmitted: "website_callback",
   WhatsAppClicked: "website_callback",
   CruiseSpeedGameLocked: "website_widget"
@@ -157,6 +169,12 @@ export function trackFunnel(eventName, data = {}) {
       properties: {
         brand: data.brand,
         model: data.model,
+        plan: data.plan,
+        controller: data.controller,
+        installation: data.installation,
+        amount: data.amount,
+        order_id: data.order_id,
+        payment_id: data.payment_id,
         city: data.city,
         location: data.location,
         lead_source: data.lead_source,
