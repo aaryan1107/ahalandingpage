@@ -139,7 +139,7 @@ export function useSiteAnimations(scopeRef) {
           .fromTo(".hero-copy > p", { y: 28, autoAlpha: 0 }, { ...end, duration: 0.8 }, "-=0.55")
           .fromTo(".hero-actions > *", { y: 20, autoAlpha: 0 }, { ...end, duration: 0.6, stagger: 0.1 }, "-=0.45")
           .fromTo("[data-hero-dial-stack]", { x: 90, autoAlpha: 0, rotate: -14 }, { x: 0, autoAlpha: 1, rotate: 0, duration: 1.1 }, 0.3)
-          .fromTo("[data-hero-pod]", { x: 60, y: 30, autoAlpha: 0 }, { x: 0, y: 0, autoAlpha: 1, duration: 0.9 }, 0.55)
+          .fromTo("[data-hero-pod-entry]", { x: 60, y: 30, autoAlpha: 0 }, { x: 0, y: 0, autoAlpha: 1, duration: 0.9 }, 0.55)
           .fromTo(".hero-proof-strip > div", { yPercent: 100, autoAlpha: 0 }, { ...end, duration: 0.7, stagger: 0.08 }, "-=0.45");
 
         // --- Marquee: partners row accelerates with scroll velocity ----- //
@@ -310,7 +310,7 @@ export function useSiteAnimations(scopeRef) {
             .fromTo("[data-hero-ring]", { rotate: 0 }, { rotate: 170, immediateRender: false }, 0)
             .fromTo("[data-hero-dial-stack]", { x: 0, y: 0, scale: 1, autoAlpha: 1 }, { x: "-30vw", y: "16vh", scale: 0.9, immediateRender: false }, 0)
             .fromTo("[data-hero-halo]", { autoAlpha: 1, scale: 1 }, { autoAlpha: 0.2, scale: 1.25, immediateRender: false }, 0)
-            .fromTo("[data-hero-pod]", { x: 0, y: 0, scale: 1 }, { x: "-4vw", y: "-9vh", scale: 1.1, immediateRender: false }, 0)
+            .fromTo("[data-hero-pod]", { x: 0, y: 0, scale: 1, autoAlpha: 1 }, { x: "-4vw", y: "-9vh", scale: 1.1, autoAlpha: 1, immediateRender: false }, 0)
             .fromTo(".hero-copy", { filter: "brightness(0.85)" }, { filter: "brightness(1)", immediateRender: false }, 0)
             .to("[data-hero-dial-stack]", { y: "58vh", autoAlpha: 0, ease: "power1.in" }, 0.62)
             .to("[data-hero-pod]", { y: "30vh", autoAlpha: 0.15, ease: "power1.in" }, 0.72)

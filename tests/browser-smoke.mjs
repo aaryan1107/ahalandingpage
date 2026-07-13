@@ -7,7 +7,8 @@ const pageErrors = [];
 page.on("pageerror", (error) => pageErrors.push(error.message));
 
 await page.goto("http://127.0.0.1:5180/", { waitUntil: "domcontentloaded" });
-await page.waitForTimeout(1500);
+await page.waitForFunction(() => !document.querySelector("[data-logo-intro]"));
+await page.waitForTimeout(500);
 
 assert.equal(await page.locator(".hero-product-film").count(), 1);
 assert.match(await page.locator(".hero-product-film").getAttribute("poster"), /hero-poster/);
@@ -17,6 +18,8 @@ assert.equal(await page.locator(".hero-product-film").isVisible(), true);
 assert.equal(await page.locator("[data-hero-ring]").count(), 1);
 assert.match(await page.locator("[data-hero-ring]").getAttribute("src"), /dial-cut\.png/);
 assert.match(await page.locator(".hero-product-pod").getAttribute("src"), /pod-cut\.png/);
+assert.equal(await page.locator("[data-hero-pod-entry]").count(), 1);
+assert.equal(await page.locator("[data-hero-pod]").count(), 1);
 // Official favicon is the aha.store teal A-mark, not the old placeholder.
 assert.match(await page.locator('link[rel="icon"]').getAttribute("href"), /favicon\.svg/);
 const faviconSvg = await page.evaluate(async () => (await fetch("/favicon.svg")).text());
@@ -76,10 +79,26 @@ assert.equal(await page.locator("#callback select").inputValue(), "NexCruise Bas
 
 // Featured film panel: poster first, iframe only after the play click.
 await goTo(".film-section");
+assert.equal(await page.locator(".film-theatre").count(), 1);
 assert.equal(await page.locator(".film-frame iframe").count(), 0);
 await page.locator(".film-poster").click();
 await page.waitForTimeout(600);
 assert.match(await page.locator(".film-frame iframe").getAttribute("src"), /youtube-nocookie\.com\/embed\/S3WyAb5QAZg/);
+
+// Reverse the pinned hero story: the pod must return instead of inheriting
+// the entrance timeline's hidden state.
+await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+await page.waitForTimeout(1800);
+assert.equal(await page.locator("[data-hero-pod-entry]").evaluate((el) => getComputedStyle(el).visibility), "visible");
+assert.ok(Number(await page.locator("[data-hero-pod-entry]").evaluate((el) => getComputedStyle(el).opacity)) > 0.95);
+
+// Every installation step uses either real AHA footage or a real product cutout.
+await goTo(".installation-stage");
+for (let index = 0; index < 5; index += 1) {
+  await page.locator(".step-nav button").nth(index).click();
+  const src = await page.locator(".step-image img").getAttribute("src");
+  assert.match(src, /^\/(installation|hero)\//);
+}
 
 await goTo(".owner-controls");
 const firstReview = await page.locator(".owner-quote blockquote").textContent();

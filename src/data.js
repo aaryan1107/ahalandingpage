@@ -218,11 +218,11 @@ export const officialVideos = [
 ];
 
 export const installSteps = [
-  ["01", "Unbox NexCruise + your car's cable set", "Each order includes a car-specific accelerator pedal cable. No universal connectors, no guessing.", "/attached_assets/nexcruise-foot-pedal.png"],
-  ["02", "Connect to the accelerator pedal", "Unplug the existing connector, plug in the NexCruise coupler in-line. Snap-fit, no cuts.", "/attached_assets/nexcruise-step1-pedal.png"],
-  ["03", "Plug into the OBD port", "Found under the dashboard on the driver's side. Every car made after 2010 has one.", "/attached_assets/nexcruise-step2-obd.png"],
-  ["04", "Mount the dial + pair via Bluetooth", "Stick the control dial on the steering column. Bluetooth pairing takes around 30 seconds.", "/attached_assets/nexcruise-step3-dial.png"],
-  ["05", "Drive. Set your speed. Done.", "Hit 40 km/h, press Set on the dial, lift your foot. NexCruise holds the speed.", "/attached_assets/nexcruise-install-video.png"]
+  ["01", "Unbox NexCruise + your car's cable set", "AHA packs the system with the accelerator harness selected for your exact car. No universal connector and no guesswork.", "/installation/unbox-real.jpg"],
+  ["02", "Connect the car-specific harness", "The original accelerator connector is unplugged and the matched NexCruise coupler is fitted in-line. No wire cutting.", "/installation/harness-real.jpg"],
+  ["03", "Secure the pod and OBD lead", "The control pod and diagnostic lead are connected under the dashboard, then secured away from the pedals.", "/installation/obd-real.jpg"],
+  ["04", "Mount and pair the wireless dial", "NexCruise Smart adds the steering-mounted dial for set, resume, speed adjustment, modes, and governor control.", "/hero/dial-cut.png"],
+  ["05", "Road test and verify every override", "The installer checks set and resume behavior, then confirms that brake input immediately returns control to the driver.", "/hero/hero-poster.jpg"]
 ];
 
 export const productVariants = [

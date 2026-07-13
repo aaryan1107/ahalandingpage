@@ -44,7 +44,7 @@ const productComponents = [
     label: "Car-specific harness",
     title: "Built around the exact car, not a universal splice.",
     body: "AHA matches the accelerator coupler to the selected model, year, fuel type, and transmission before installation.",
-    image: "/attached_assets/nexcruise-foot-pedal.png",
+    image: "/installation/harness-real.jpg",
     dark: false,
     cutout: false,
     points: ["No wire cutting", "Reversible fitment", "Model-level verification"]
@@ -319,33 +319,41 @@ function FilmPanel() {
   const [playing, setPlaying] = useState(false);
   return (
     <section className="film-section" id="film">
-      <div className="section-heading" data-reveal>
-        <span>Watch the film</span>
-        <h2>NexCruise, in motion.</h2>
-      </div>
-      <div className="film-frame" data-reveal>
-        {playing ? (
-          <iframe
-            src={`https://www.youtube-nocookie.com/embed/${FILM_ID}?autoplay=1&rel=0`}
-            title="AHA NexCruise film"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
-        ) : (
-          <button
-            type="button"
-            className="film-poster"
-            aria-label="Play the NexCruise film"
-            onClick={() => {
-              setPlaying(true);
-              trackCustom("Watch_Film_Clicked", { youtube_id: FILM_ID });
-            }}
-          >
-            <img src={`https://i.ytimg.com/vi/${FILM_ID}/maxresdefault.jpg`} alt="" loading="lazy" />
-            <span className="film-play" aria-hidden="true" />
-            <span className="film-label">Play film</span>
-          </button>
-        )}
+      <div className="film-theatre">
+        <div className="film-heading" data-reveal>
+          <span>Watch the film</span>
+          <h2>NexCruise,<br />in motion.</h2>
+          <p>Step inside the product story: the controls, the fitment, and the thinking behind a calmer long drive.</p>
+        </div>
+        <div className="film-frame" data-reveal>
+          {playing ? (
+            <iframe
+              src={`https://www.youtube-nocookie.com/embed/${FILM_ID}?autoplay=1&rel=0`}
+              title="AHA NexCruise film"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          ) : (
+            <button
+              type="button"
+              className="film-poster"
+              aria-label="Play the NexCruise film"
+              onClick={() => {
+                setPlaying(true);
+                trackCustom("Watch_Film_Clicked", { youtube_id: FILM_ID });
+              }}
+            >
+              <img src="/hero/hero-poster.jpg" alt="" loading="lazy" />
+              <span className="film-title-card"><strong>Understanding NexCruise</strong><small>Features, benefits, and how it works</small></span>
+              <span className="film-play" aria-hidden="true" />
+              <span className="film-label">AHA Film / 16:41</span>
+            </button>
+          )}
+        </div>
+        <div className="film-exit-note" data-reveal>
+          <div><span>Back in the driver's seat</span><strong>Now check the exact fitment path for your car.</strong></div>
+          <a className="text-action light" href="#compatibility">Open compatibility garage <Arrow /></a>
+        </div>
       </div>
     </section>
   );
@@ -376,7 +384,7 @@ function Installation() {
     <section className="installation-section" id="installation">
       <div className="section-heading" data-reveal><span>Installation</span><h2>See every connection before the car is touched.</h2></div>
       <div className="installation-stage" data-reveal>
-        <div className="step-image"><img src={step[3]} alt={step[1]} data-speed="auto" /></div>
+        <div className={step[3].includes("dial-cut") ? "step-image is-cutout" : "step-image"}><img src={step[3]} alt={step[1]} data-speed="auto" /></div>
         <div className="step-detail"><span>Step {activeStep + 1} of {installSteps.length}</span><h3>{step[1]}</h3><p>{step[2]}</p><div className="step-controls"><button type="button" onClick={() => setActiveStep((activeStep - 1 + installSteps.length) % installSteps.length)} aria-label="Previous installation step"><Arrow direction="left" /></button><button type="button" onClick={() => setActiveStep((activeStep + 1) % installSteps.length)} aria-label="Next installation step"><Arrow /></button></div></div>
       </div>
       <div className="step-nav" data-reveal>{installSteps.map((item, index) => <button key={item[0]} className={index === activeStep ? "active" : ""} type="button" onClick={() => setActiveStep(index)}><span>{String(index + 1).padStart(2, "0")}</span>{item[1]}</button>)}</div>

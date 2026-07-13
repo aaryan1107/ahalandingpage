@@ -4,6 +4,7 @@ import test from "node:test";
 
 const source = await readFile(new URL("../src/App.jsx", import.meta.url), "utf8");
 const heroSource = await readFile(new URL("../src/components/CinematicHero.jsx", import.meta.url), "utf8").catch(() => "");
+const dataSource = await readFile(new URL("../src/data.js", import.meta.url), "utf8");
 
 test("compatibility action produces a visible result", () => {
   assert.match(source, /className="compatibility-result/);
@@ -38,9 +39,10 @@ test("cinematic hero uses the product film with a stable media fallback", () => 
   assert.doesNotMatch(heroSource, /hero-speed-slider/);
 });
 
-test("hero hardware uses true cutouts with layered dial and dimensional pod", () => {
+test("hero hardware uses one seamless dial cutout and split pod animation wrappers", () => {
   assert.match(heroSource, /data-hero-ring/);
-  assert.match(heroSource, /hero-dial-face/);
+  assert.doesNotMatch(heroSource, /hero-dial-face/);
+  assert.match(heroSource, /data-hero-pod-entry/);
   assert.match(heroSource, /data-hero-pod/);
   assert.match(heroSource, /dial-cut\.png/);
   assert.match(heroSource, /pod-cut\.png/);
@@ -50,6 +52,19 @@ test("featured film panel embeds the official video lazily", () => {
   assert.match(source, /S3WyAb5QAZg/);
   assert.match(source, /youtube-nocookie\.com\/embed/);
   assert.match(source, /film-poster/);
+  assert.match(source, /film-theatre/);
+  assert.match(source, /film-exit-note/);
+});
+
+test("installation uses real AHA footage rather than generic illustrations", () => {
+  assert.match(dataSource, /\/installation\/unbox-real\.jpg/);
+  assert.match(dataSource, /\/installation\/harness-real\.jpg/);
+  assert.match(dataSource, /\/installation\/obd-real\.jpg/);
+  assert.match(dataSource, /\/hero\/dial-cut\.png/);
+  assert.match(dataSource, /\/hero\/hero-poster\.jpg/);
+  assert.doesNotMatch(dataSource, /nexcruise-step1-pedal\.png/);
+  assert.doesNotMatch(dataSource, /nexcruise-step2-obd\.png/);
+  assert.doesNotMatch(dataSource, /nexcruise-step3-dial\.png/);
 });
 
 test("callback opens WhatsApp with the full lead including car details", () => {

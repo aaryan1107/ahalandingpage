@@ -60,7 +60,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
    Elements stay visible by default so reduced-motion and no-JS users see full content. */
 [data-reveal] { opacity: 1; transform: none; }
 
-.site-header { position: fixed; inset: 0 0 auto; z-index: 50; height: 72px; display: grid; grid-template-columns: 210px 1fr auto; align-items: center; gap: 32px; padding: 0 max(24px, calc((100vw - var(--page-max-width)) / 2)); border-bottom: 1px solid rgba(230,233,240,.9); background: rgba(255,255,255,.94); backdrop-filter: blur(12px); }
+.site-header { position: fixed; inset: 0 0 auto; z-index: 50; height: 72px; display: grid; grid-template-columns: 210px 1fr auto; align-items: center; gap: 32px; padding: 0 max(24px, calc((100vw - var(--page-max-width)) / 2)); border-bottom: 1px solid rgba(255,255,255,.42); background: rgba(255,255,255,.82); -webkit-backdrop-filter: blur(22px) saturate(150%); backdrop-filter: blur(22px) saturate(150%); box-shadow: 0 8px 30px rgba(0,23,51,.05); }
 .brand { display: inline-flex; align-items: center; gap: 10px; width: fit-content; line-height: 1; }
 .brand > span:last-child { display: grid; }
 .brand strong { font-size: 18px; font-weight: 600; letter-spacing: -.03em; }
@@ -189,8 +189,11 @@ select:disabled { color: var(--color-fog); background: var(--color-hailstone); }
 
 .installation-section { padding: 128px 0; }
 .installation-stage { display: grid; grid-template-columns: 1.1fr .9fr; min-height: 520px; border: 1px solid var(--color-mist); border-radius: var(--radius-lg); overflow: hidden; }
-.step-image { background: var(--color-hailstone); }
+.step-image { position: relative; overflow: hidden; background: var(--color-hailstone); }
+.step-image::after { content: "AHA installation footage"; position: absolute; left: 18px; bottom: 18px; padding: 8px 10px; border: 1px solid rgba(255,255,255,.32); border-radius: var(--radius-md); color: white; background: rgba(0,23,51,.46); -webkit-backdrop-filter: blur(16px) saturate(140%); backdrop-filter: blur(16px) saturate(140%); font-size: 11px; font-weight: 600; text-transform: uppercase; }
 .step-image img { width: 100%; height: 520px; object-fit: cover; }
+.step-image.is-cutout { display: grid; place-items: center; background: radial-gradient(circle at 50% 45%, #16375b, #001733 70%); }
+.step-image.is-cutout img { object-fit: contain; padding: 72px; filter: drop-shadow(0 34px 30px rgba(0,0,0,.48)); }
 .step-detail { align-self: center; padding: 54px; }
 .step-detail > span { font-size: 12px; color: var(--color-slate-whisper); text-transform: uppercase; letter-spacing: .1em; }
 .step-detail h3 { margin: 20px 0; font-size: 44px; line-height: 1.04; letter-spacing: -.038em; }
@@ -457,35 +460,45 @@ select:disabled { color: var(--color-fog); background: var(--color-hailstone); }
 .hero-hardware { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
 .hero-dial-stack { position: absolute; right: 14%; top: 17%; width: min(31vw, 440px); aspect-ratio: 385 / 394; }
 .hero-dial-halo { position: absolute; inset: -14%; border-radius: 50%; background: radial-gradient(circle, rgba(24,220,220,.32) 0%, rgba(0,106,237,.14) 38%, transparent 66%); filter: blur(20px); }
-.hero-dial-ring, .hero-dial-face { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
-/* The ring layer's centre is masked out so its rotation never drags a
-   second copy of the face around beneath the upright one (no seam). */
-.hero-dial-ring { transform-origin: 50% 49%; -webkit-mask-image: radial-gradient(circle at 50% 49%, transparent 0 30.2%, #000 31.4%); mask-image: radial-gradient(circle at 50% 49%, transparent 0 30.2%, #000 31.4%); filter: drop-shadow(0 36px 42px rgba(0,0,0,.55)) saturate(1.06); }
-.hero-dial-face { clip-path: circle(31.2% at 50% 49%); }
-.hero-dial-caption { position: absolute; left: 0; bottom: -34px; display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,.85); font-size: 12px; font-weight: 500; }
+.hero-dial-ring { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; transform-origin: 50% 49%; filter: drop-shadow(0 36px 42px rgba(0,0,0,.55)) saturate(1.06); }
+.hero-dial-caption { position: absolute; left: 0; bottom: -40px; display: flex; align-items: center; gap: 10px; padding: 9px 12px; border: 1px solid rgba(255,255,255,.18); border-radius: var(--radius-md); color: rgba(255,255,255,.88); background: rgba(0,23,51,.32); -webkit-backdrop-filter: blur(18px) saturate(140%); backdrop-filter: blur(18px) saturate(140%); font-size: 12px; font-weight: 500; }
 .hero-dial-caption span, .hero-pod-card figcaption span { color: var(--color-cyan-dawn); font-weight: 600; }
-.hero-pod-card { position: absolute; right: 4%; bottom: 15%; width: min(20vw, 290px); margin: 0; perspective: 900px; }
+.hero-pod-entry { position: absolute; right: 4%; bottom: 15%; width: min(20vw, 290px); perspective: 900px; }
+.hero-pod-card { position: relative; width: 100%; margin: 0; }
 .hero-product-pod { width: 100%; object-fit: contain; transform: rotateX(12deg) rotateZ(-5deg); filter: drop-shadow(0 44px 34px rgba(0,0,0,.55)) drop-shadow(0 8px 12px rgba(0,0,0,.4)); }
 @media (prefers-reduced-motion: no-preference) {
   .hero-product-pod { animation: pod-float 6.5s ease-in-out infinite; }
   @keyframes pod-float { 0%, 100% { transform: rotateX(12deg) rotateZ(-5deg) translateY(0); } 50% { transform: rotateX(14deg) rotateZ(-4deg) translateY(-10px); } }
 }
-.hero-pod-card figcaption { display: flex; gap: 10px; margin-top: 18px; color: rgba(255,255,255,.85); font-size: 12px; font-weight: 500; }
+.hero-pod-card figcaption { display: inline-flex; gap: 10px; margin-top: 18px; padding: 9px 12px; border: 1px solid rgba(255,255,255,.18); border-radius: var(--radius-md); color: rgba(255,255,255,.88); background: rgba(0,23,51,.32); -webkit-backdrop-filter: blur(18px) saturate(140%); backdrop-filter: blur(18px) saturate(140%); font-size: 12px; font-weight: 500; }
 
 /* Cutout stages in the product explorer */
 .product-panel-visual.is-cutout img { padding: 90px; object-fit: contain; filter: drop-shadow(0 40px 36px rgba(0,0,0,.5)); }
 
-/* ========================= Featured film panel ========================= */
-.film-section { width: min(var(--page-max-width), calc(100% - 48px)); margin: 0 auto; padding: 128px 0 0; }
-.film-frame { position: relative; aspect-ratio: 16 / 9; border-radius: var(--radius-lg); overflow: hidden; background: var(--color-horizon-navy); box-shadow: 0 40px 80px -30px rgba(0,23,51,.45); }
+/* ========================= Featured film theatre ======================= */
+.film-section { width: 100%; margin: 0; padding: 120px max(24px, calc((100vw - var(--page-max-width)) / 2)); color: white; background: #02050a; }
+.film-theatre { width: min(var(--page-max-width), 100%); margin: 0 auto; }
+.film-heading { display: grid; grid-template-columns: 180px minmax(0, 760px) minmax(230px, 1fr); gap: 28px 72px; align-items: end; margin-bottom: 48px; }
+.film-heading > span { align-self: start; padding-top: 9px; color: rgba(255,255,255,.56); font-size: 12px; font-weight: 600; text-transform: uppercase; }
+.film-heading h2 { margin: 0; font-size: clamp(50px, 6vw, 78px); line-height: .94; }
+.film-heading p { max-width: 380px; margin: 0 0 4px; color: rgba(255,255,255,.62); line-height: 1.6; }
+.film-frame { position: relative; aspect-ratio: 16 / 8.3; border: 1px solid rgba(255,255,255,.14); border-radius: var(--radius-lg); overflow: hidden; background: #000; box-shadow: 0 52px 110px -36px rgba(0,106,237,.32); }
 .film-frame iframe { width: 100%; height: 100%; border: 0; }
-.film-poster { position: absolute; inset: 0; display: grid; place-items: center; width: 100%; padding: 0; border: 0; background: var(--color-horizon-navy); cursor: pointer; }
-.film-poster img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .85; transition: opacity .3s ease, transform .6s cubic-bezier(.16,1,.3,1); }
-.film-poster:hover img { opacity: 1; transform: scale(1.02); }
-.film-play { position: relative; z-index: 2; width: 88px; height: 88px; border-radius: 50%; background: rgba(0,106,237,.92); box-shadow: 0 20px 44px -10px rgba(0,23,51,.6); transition: transform .3s ease, background .2s ease; }
+.film-poster { position: absolute; inset: 0; display: grid; place-items: center; width: 100%; padding: 0; border: 0; background: #000; cursor: pointer; }
+.film-poster::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,5,12,.82), rgba(0,5,12,.12) 48%, rgba(0,5,12,.32)), linear-gradient(0deg, rgba(0,5,12,.78), transparent 50%); }
+.film-poster img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .78; filter: saturate(.78) contrast(1.08); transition: opacity .3s ease, transform .8s cubic-bezier(.16,1,.3,1), filter .4s ease; }
+.film-poster:hover img { opacity: .92; transform: scale(1.018); filter: saturate(.95) contrast(1.05); }
+.film-title-card { position: absolute; z-index: 2; left: clamp(24px, 4vw, 58px); bottom: clamp(26px, 4vw, 54px); display: grid; gap: 6px; color: white; text-align: left; }
+.film-title-card strong { font-size: clamp(24px, 3vw, 42px); line-height: 1; }
+.film-title-card small { color: rgba(255,255,255,.66); font-size: 14px; }
+.film-play { position: relative; z-index: 3; width: 88px; height: 88px; border: 1px solid rgba(255,255,255,.58); border-radius: 50%; background: rgba(255,255,255,.14); -webkit-backdrop-filter: blur(20px) saturate(150%); backdrop-filter: blur(20px) saturate(150%); box-shadow: 0 20px 44px -10px rgba(0,0,0,.65); transition: transform .3s ease, background .2s ease; }
 .film-play::after { content: ""; position: absolute; left: 55%; top: 50%; transform: translate(-50%, -50%); border-style: solid; border-width: 14px 0 14px 24px; border-color: transparent transparent transparent white; }
-.film-poster:hover .film-play { transform: scale(1.08); background: var(--color-signal-blue); }
-.film-label { position: absolute; z-index: 2; bottom: 26px; left: 28px; color: white; font-size: 14px; font-weight: 600; letter-spacing: .04em; }
+.film-poster:hover .film-play { transform: scale(1.08); background: rgba(0,106,237,.72); }
+.film-label { position: absolute; z-index: 2; top: 26px; right: 28px; color: rgba(255,255,255,.72); font-size: 12px; font-weight: 600; text-transform: uppercase; }
+.film-exit-note { display: flex; justify-content: space-between; align-items: center; gap: 32px; margin-top: 18px; padding: 22px 24px; border: 1px solid rgba(255,255,255,.14); border-radius: var(--radius-lg); background: rgba(255,255,255,.07); -webkit-backdrop-filter: blur(24px) saturate(145%); backdrop-filter: blur(24px) saturate(145%); }
+.film-exit-note div { display: grid; gap: 4px; }
+.film-exit-note span { color: var(--color-cyan-dawn); font-size: 11px; font-weight: 600; text-transform: uppercase; }
+.film-exit-note strong { font-size: 17px; font-weight: 500; }
 
 /* ================= Compare: shared image + two packages ================= */
 .compare-shell { display: grid; grid-template-columns: .85fr 1.5fr; gap: 20px; align-items: stretch; }
@@ -499,9 +512,24 @@ select:disabled { color: var(--color-fog); background: var(--color-hailstone); }
 
 @media (max-width: 980px) {
   .compare-shell { grid-template-columns: 1fr; }
-  .film-section { width: calc(100% - 32px); padding-top: 88px; }
+  .film-section { padding: 88px 16px; }
+  .film-heading { grid-template-columns: 1fr; gap: 16px; }
+  .film-heading > span { padding-top: 0; }
+  .film-heading p { max-width: 560px; }
+  .film-frame { aspect-ratio: 16 / 10; }
+  .film-exit-note { align-items: flex-start; flex-direction: column; }
   .film-play { width: 64px; height: 64px; }
-  .hero-dial-stack { right: -8%; top: 36%; width: 240px; }
+  .hero-dial-stack { right: -8%; top: 43%; width: 240px; }
   .hero-dial-caption { display: none; }
-  .hero-pod-card { display: none; }
+  .hero-pod-entry { display: none; }
+}
+
+@media (max-width: 560px) {
+  .film-section { padding-block: 72px; }
+  .film-heading h2 { font-size: 48px; }
+  .film-frame { aspect-ratio: 4 / 3; }
+  .film-title-card { left: 18px; bottom: 18px; }
+  .film-title-card strong { font-size: 24px; }
+  .film-title-card small { max-width: 220px; }
+  .film-label { top: 16px; right: 16px; }
 }
