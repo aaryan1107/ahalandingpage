@@ -29,7 +29,7 @@ export default function Footer({ onWhatsApp }) {
         </div>
         <div>
           <h3>Social</h3>
-          <a href="https://www.instagram.com/aha.innovations/" target="_blank" rel="noreferrer">Instagram</a>
+          <a href="https://www.instagram.com/nexcruise.aha/" target="_blank" rel="noreferrer">Instagram</a>
           <a href="https://www.facebook.com/aha.nexcruise" target="_blank" rel="noreferrer">Facebook</a>
           <a href="https://www.youtube.com/@ahainnovations" target="_blank" rel="noreferrer">YouTube</a>
         </div>

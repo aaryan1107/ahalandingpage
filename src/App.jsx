@@ -611,7 +611,7 @@ function Callback({ preferredPlan, carDetails }) {
 function Footer() {
   const socials = [
     ["YouTube", "https://www.youtube.com/@ahainnovations"],
-    ["Instagram", "https://www.instagram.com/aha.innovations/"],
+    ["Instagram", "https://www.instagram.com/nexcruise.aha/"],
     ["Facebook", "https://www.facebook.com/aha.nexcruise"],
     ["WhatsApp", WHATSAPP_LINK]
   ];
