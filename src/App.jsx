@@ -299,7 +299,6 @@ function Compatibility({ onChecked }) {
             <span className="brand-logo"><img src={brand.logo} alt="" loading="lazy" /></span>
             <strong>{brand.name}</strong>
             <small>{brand.fleet}</small>
-            <em>{companies.some((company) => company.name === brand.name) ? "Available in NCV2" : "Server lookup required"}</em>
           </button>
         ))}
       </div>

@@ -34,7 +34,8 @@ test("product explorer exposes GSAP-driven panels and tabs", () => {
 test("brand garage renders brand-specific cards", () => {
   assert.match(source, /brand-garage/);
   assert.match(source, /brand-card/);
-  assert.match(source, /Available in NCV2/);
+  assert.doesNotMatch(source, /Available in NCV2/);
+  assert.doesNotMatch(source, /Server lookup required/);
 });
 
 test("cinematic hero uses the product film with a stable media fallback", () => {

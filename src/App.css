@@ -173,7 +173,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .brand-logo img { width: 24px; height: 24px; object-fit: contain; }
 .brand-card strong { font-size: 15px; font-weight: 600; color: var(--color-horizon-navy); }
 .brand-card small { font-size: 12px; color: var(--color-slate-whisper); line-height: 1.4; }
-.brand-card em { margin-top: 6px; padding: 4px 8px; border-radius: var(--radius-md); background: color-mix(in srgb, var(--brand-accent) 10%, white); color: var(--brand-accent); font-size: 11px; font-style: normal; font-weight: 600; }
 .brand-brief { grid-column: 1 / -1; display: grid; gap: 16px; padding: 22px 24px; border-left: 3px solid var(--brand-accent); border-radius: var(--radius-md); background: white; }
 .brand-brief > p { margin: 0; max-width: 720px; color: var(--color-graphite-dim); }
 .brand-models { display: flex; flex-wrap: wrap; gap: 8px; }
