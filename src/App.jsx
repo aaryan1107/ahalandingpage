@@ -76,7 +76,7 @@ function WhatsAppMark() {
   );
 }
 
-function Header({ onBuy }) {
+function Header() {
   const [open, setOpen] = useState(false);
   const links = [
     ["Product", "#product"],
@@ -97,9 +97,9 @@ function Header({ onBuy }) {
       </button>
       <nav className={open ? "site-nav is-open" : "site-nav"} aria-label="Primary navigation">
         {links.map(([label, href]) => <a key={href} href={href} onClick={() => setOpen(false)}>{label}</a>)}
-        <button className="mobile-buy-action" type="button" onClick={() => { setOpen(false); onBuy("NexCruise Smart"); }}>Buy NexCruise <Arrow /></button>
+        <a className="mobile-buy-action" href="#compatibility" onClick={() => { setOpen(false); trackFunnel("CheckCompatibilityClicked", { location: "mobile_header" }); }}>Check my car <Arrow /></a>
       </nav>
-      <button className="primary-action header-action" type="button" onClick={() => onBuy("NexCruise Smart")}>Buy NexCruise <Arrow /></button>
+      <a className="primary-action header-action" href="#compatibility" onClick={() => trackFunnel("CheckCompatibilityClicked", { location: "header" })}>Check my car <Arrow /></a>
     </header>
   );
 }
@@ -646,7 +646,7 @@ export default function App() {
   return (
     <div ref={pageRef}>
       <LogoIntro />
-      <Header onBuy={choosePlan} />
+      <Header />
       <div id="smooth-wrapper">
         <div id="smooth-content">
           <main><CinematicHero /><PartnersMarquee /><BrandStatement /><ProductSystem /><Compatibility onChecked={setCarDetails} /><Variants onChoose={choosePlan} /><Installation /><FilmPanel /><VideoProof /><OwnerProof /><FAQ /><Callback preferredPlan={preferredPlan} carDetails={carDetails} /></main>
