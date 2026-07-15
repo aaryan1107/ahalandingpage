@@ -1,6 +1,9 @@
 import { WHATSAPP_LINK } from "../tracking";
 
 export default function Footer({ onWhatsApp }) {
+  const address = "I/F-2, Solitaire Park, Ajmer Road, Jaipur, Rajasthan 303007";
+  const mapsLink = "https://www.google.com/maps?q=I%2FF-2%2C%20Solitaire%20Park%2C%20Ajmer%20Road%2C%20Jaipur%2C%20Rajasthan%20303007";
+
   return (
     <footer className="site-footer">
       <div className="container footer-grid">
@@ -24,8 +27,14 @@ export default function Footer({ onWhatsApp }) {
         <div>
           <h3>Contact</h3>
           <span>Phone: 80039 44400</span>
-          <span>Email: support@aha.store</span>
+          <span>Email: support@aha3d.in</span>
+          <a href={mapsLink} target="_blank" rel="noreferrer">{address}</a>
           <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" onClick={() => onWhatsApp("footer")}>WhatsApp CTA</a>
+        </div>
+        <div>
+          <h3>Official store</h3>
+          <a href="https://aha.store/" target="_blank" rel="noreferrer">aha.store</a>
+          <a href="https://aha.store/live-data" target="_blank" rel="noreferrer">Live data source</a>
         </div>
         <div>
           <h3>Social</h3>

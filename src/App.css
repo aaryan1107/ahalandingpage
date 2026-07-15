@@ -305,6 +305,8 @@ select:disabled { color: var(--color-fog); background: var(--color-hailstone); }
 .site-footer > div:not(.footer-brand) { display: grid; align-content: start; gap: 10px; }
 .site-footer a, .site-footer span { color: rgba(255,255,255,.68); font-size: 14px; }
 .site-footer strong { margin-bottom: 8px; color: white; font-weight: 500; }
+.site-footer .footer-brand p strong { display: block; margin-bottom: 8px; color: white; }
+.footer-address { max-width: 240px; line-height: 1.45; }
 .footer-end { text-align: right; }
 
 @media (max-width: 980px) {

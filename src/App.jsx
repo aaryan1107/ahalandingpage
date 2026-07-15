@@ -609,6 +609,8 @@ function Callback({ preferredPlan, carDetails }) {
 }
 
 function Footer() {
+  const address = "I/F-2, Solitaire Park, Ajmer Road, Jaipur, Rajasthan 303007";
+  const mapsLink = "https://www.google.com/maps?q=I%2FF-2%2C%20Solitaire%20Park%2C%20Ajmer%20Road%2C%20Jaipur%2C%20Rajasthan%20303007";
   const socials = [
     ["YouTube", "https://www.youtube.com/@ahainnovations"],
     ["Instagram", "https://www.instagram.com/nexcruise.aha/"],
@@ -619,10 +621,11 @@ function Footer() {
     <footer className="site-footer">
       <div className="footer-brand">
         <a className="brand inverse" href="#top"><img className="brand-mark" src="/brand/aha-mark.svg" alt="" /><span><strong>AHA</strong><small>NexCruise</small></span></a>
-        <p>Cruise control and smarter throttle control for compatible Indian cars.</p>
+        <p><strong>Aha! NexCruise®</strong> upgrades cars with next-generation features through simple plug-and-play technology.</p>
       </div>
       <div><strong>Explore</strong><a href="#product">Product</a><a href="#compatibility">Compatibility</a><a href="#variants">Compare plans</a><a href="#installation">Installation</a></div>
-      <div><strong>Contact</strong><a href={WHATSAPP_LINK} target="_blank" rel="noreferrer">+91 83069 24400</a><a href="mailto:support@aha.store">support@aha.store</a></div>
+      <div><strong>Contact</strong><a href={WHATSAPP_LINK} target="_blank" rel="noreferrer">+91 83069 24400</a><a href="mailto:support@aha3d.in">support@aha3d.in</a><a className="footer-address" href={mapsLink} target="_blank" rel="noreferrer">{address}</a></div>
+      <div><strong>Official store</strong><a href="https://aha.store/" target="_blank" rel="noreferrer">aha.store</a><a href="https://aha.store/live-data" target="_blank" rel="noreferrer">Live data source</a></div>
       <div><strong>Follow AHA</strong>{socials.map(([label, href]) => <a key={label} href={href} target="_blank" rel="noreferrer">{label}</a>)}</div>
       <div className="footer-end"><span>Made in Jaipur.</span><span>Built for Indian roads.</span></div>
     </footer>

@@ -133,3 +133,10 @@ test("partners marquee renders aha.store media logos", () => {
   assert.match(source, /data-marquee-track/);
   assert.match(source, /partners\.map|partners,/);
 });
+
+test("footer includes official AHA store contact details", () => {
+  assert.match(source, /Aha! NexCruise®/);
+  assert.match(source, /support@aha3d\.in/);
+  assert.match(source, /Solitaire Park/);
+  assert.match(source, /https:\/\/aha\.store\/live-data/);
+});
