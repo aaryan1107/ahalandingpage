@@ -348,8 +348,8 @@ export function useSiteAnimations(scopeRef) {
           const at = i * 2 - 1;
           tl.to(visuals[i - 1], { autoAlpha: 0, scale: 1.05, duration: 1 }, at)
             .fromTo(visuals[i], { autoAlpha: 0, scale: 0.94 }, { autoAlpha: 1, scale: 1, duration: 1 }, at)
-            .to(copies[i - 1], { autoAlpha: 0, y: -44, duration: 1 }, at)
-            .fromTo(copies[i], { autoAlpha: 0, y: 44 }, { autoAlpha: 1, y: 0, duration: 1 }, at);
+            .to(copies[i - 1], { autoAlpha: 0, y: -24, duration: 0.28 }, at)
+            .fromTo(copies[i], { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.42 }, at + 0.42);
         }
         tl.to({}, { duration: 1 }, EXPLORER_UNITS - 1); // trailing dwell
 

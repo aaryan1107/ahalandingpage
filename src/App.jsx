@@ -134,7 +134,6 @@ function ProductSystem() {
               <img src={item.image} alt={item.label} />
             </div>
           ))}
-          <div className="scan-line" aria-hidden="true" />
           <div className="explorer-progress" aria-hidden="true"><span data-progress-current>01</span> / {String(productComponents.length).padStart(2, "0")}</div>
         </div>
         <div className="product-detail">
