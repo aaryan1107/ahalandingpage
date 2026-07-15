@@ -89,6 +89,14 @@ test("purchase flow includes billing, two sourced plans, and Razorpay verificati
   assert.match(purchaseSource, /\/api\/payments\/verify/);
   assert.match(purchaseSource, /checkout\.razorpay\.com\/v1\/checkout\.js/);
   assert.match(purchaseSource, /PurchaseCompletedRazorpay/);
+  assert.match(purchaseSource, /\/purchase\/controller-magnetic\.png/);
+  assert.match(purchaseSource, /\/purchase\/controller-belt\.png/);
+});
+
+test("header explores product before purchase", () => {
+  assert.match(source, /href="#product"/);
+  assert.match(source, /Explore product/);
+  assert.doesNotMatch(source, /Buy NexCruise <Arrow \/>/);
 });
 
 test("hero has no obsolete speed game controls", () => {

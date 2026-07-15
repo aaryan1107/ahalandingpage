@@ -23,8 +23,18 @@ const INSTALLATION_OPTIONS = [
 ];
 
 const CONTROLLER_OPTIONS = [
-  { id: "magnetic", title: "Magnetic mount", body: "Quick magnetic attachment with a no-scratch grip." },
-  { id: "belt", title: "Belt mount", body: "Secure strap fit for the steering wheel." }
+  {
+    id: "magnetic",
+    title: "Magnetic mount",
+    body: "Quick magnetic attachment with a no-scratch grip.",
+    image: "/purchase/controller-magnetic.png"
+  },
+  {
+    id: "belt",
+    title: "Belt mount",
+    body: "Secure strap fit for the steering wheel.",
+    image: "/purchase/controller-belt.png"
+  }
 ];
 
 const SHIPPING_AMOUNT = 500;
@@ -297,6 +307,7 @@ export default function PurchaseFlow({ open, onClose, initialPlan, carDetails })
                   <div className="purchase-option-grid">
                     {CONTROLLER_OPTIONS.map((item) => (
                       <button key={item.id} className={controller === item.id ? "purchase-option is-selected" : "purchase-option"} type="button" onClick={() => selectController(item.id)} aria-pressed={controller === item.id}>
+                        <img className="purchase-option-image" src={item.image} alt={`${item.title} installed on a steering wheel`} loading="lazy" />
                         <strong>{item.title}</strong><span>{item.body}</span><small>Included</small>
                       </button>
                     ))}

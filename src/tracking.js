@@ -10,6 +10,7 @@ export const FIRST_PARTY_TRACKING_KEY = import.meta.env.VITE_AHA_TRACK_KEY || ""
 
 const FIRST_PARTY_EVENT_IDS = {
   BrandSelected: "web.insight_button_click",
+  ProductExplored: "web.product_section_clicked",
   CheckCompatibilityClicked: "web.check_compatibility_click",
   DeviceSelected: "web.device_selection_clicked",
   PlanSelected: "web.plan_section_clicked",
@@ -24,6 +25,7 @@ const FIRST_PARTY_EVENT_IDS = {
 
 const FIRST_PARTY_PATH_TYPES = {
   BrandSelected: "website_widget",
+  ProductExplored: "website_widget",
   CheckCompatibilityClicked: "website_widget",
   DeviceSelected: "website_widget",
   PlanSelected: "website_widget",

@@ -225,11 +225,11 @@ await page.goto(`${BASE_URL}/?viewport=mobile`, { waitUntil: "domcontentloaded" 
 await page.waitForTimeout(1500);
 await page.screenshot({ path: "/tmp/aha-hero-mobile.png" });
 await page.getByRole("button", { name: "Menu" }).click();
-await page.getByLabel("Primary navigation").getByRole("link", { name: "Check my car" }).click();
+await page.getByLabel("Primary navigation").getByRole("link", { name: "Explore product" }).click();
 await page.waitForTimeout(400);
 assert.equal(await page.getByRole("dialog", { name: /Buy NexCruise/ }).count(), 0);
-assert.equal(await page.locator("#compatibility").count(), 1);
-await page.screenshot({ path: "/tmp/aha-compatibility-mobile.png" });
+assert.equal(await page.locator("#product").count(), 1);
+await page.screenshot({ path: "/tmp/aha-product-mobile.png" });
 await page.getByRole("button", { name: "Menu" }).click();
 await page.getByLabel("Primary navigation").getByRole("link", { name: "Compatibility" }).click();
 await page.waitForTimeout(1400);

@@ -97,9 +97,9 @@ function Header() {
       </button>
       <nav className={open ? "site-nav is-open" : "site-nav"} aria-label="Primary navigation">
         {links.map(([label, href]) => <a key={href} href={href} onClick={() => setOpen(false)}>{label}</a>)}
-        <a className="mobile-buy-action" href="#compatibility" onClick={() => { setOpen(false); trackFunnel("CheckCompatibilityClicked", { location: "mobile_header" }); }}>Check my car <Arrow /></a>
+        <a className="mobile-buy-action" href="#product" onClick={() => { setOpen(false); trackFunnel("ProductExplored", { location: "mobile_header" }); }}>Explore product <Arrow /></a>
       </nav>
-      <a className="primary-action header-action" href="#compatibility" onClick={() => trackFunnel("CheckCompatibilityClicked", { location: "header" })}>Check my car <Arrow /></a>
+      <a className="primary-action header-action" href="#product" onClick={() => trackFunnel("ProductExplored", { location: "header" })}>Explore product <Arrow /></a>
     </header>
   );
 }
