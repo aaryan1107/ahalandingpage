@@ -1,6 +1,5 @@
 export const PAYMENT_CATALOG = {
   "NexCruise Basic": 1999000,
-  "NexCruise Pro": 2599000,
   "NexCruise Smart": 2749000
 };
 

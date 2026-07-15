@@ -89,7 +89,7 @@ function Header({ onBuy }) {
   return (
     <header className="site-header">
       <a className="brand" href="#top" aria-label="AHA NexCruise home">
-        <span className="brand-arc" />
+        <img className="brand-mark" src="/brand/aha-mark.svg" alt="" />
         <span><strong>AHA</strong><small>NexCruise</small></span>
       </a>
       <button className="menu-button" type="button" aria-expanded={open} onClick={() => setOpen((value) => !value)}>
@@ -349,18 +349,17 @@ function Compatibility({ onChecked }) {
 }
 
 function Variants({ onChoose }) {
-  const [basic, pro, smart] = productVariants;
+  const [basic, smart] = productVariants;
   const packageImage = "/attached_assets/nexcruise-box.jpeg";
   const cards = [
     { variant: basic, tag: "Essential cruise package", featureIndex: 1, smartCard: false },
-    { variant: pro, tag: "Wireless control package", featureIndex: 2, smartCard: false },
-    { variant: smart, tag: "Full control package", featureIndex: 3, smartCard: true }
+    { variant: smart, tag: "Full control package", featureIndex: 2, smartCard: true }
   ];
   return (
     <section className="variants-section" id="variants">
       <div className="section-heading inverse" data-reveal>
         <span>Choose the product</span>
-        <h2>Three ways to bring NexCruise into your car.</h2>
+        <h2>Choose the NexCruise that fits your driving.</h2>
       </div>
       {/* One shared product photo (both variants ship as this box), with the
           two packages compared beside it — no duplicated imagery. */}
@@ -369,9 +368,9 @@ function Variants({ onChoose }) {
           <img src={packageImage} alt="NexCruise box" />
           <div className="compare-hero-parts">
             <span><img src="/hero/pod-cut.png" alt="" loading="lazy" /> Control pod — in every box</span>
-            <span><img src="/hero/dial-cut.png" alt="" loading="lazy" /> Wireless dial - included on Pro and Smart</span>
+            <span><img src="/hero/dial-cut.png" alt="" loading="lazy" /> Wireless steering dial — included on Smart</span>
           </div>
-          <figcaption>Every NexCruise ships with the control pod and your car-specific cable. Pro adds wireless control; Smart adds the steering-mounted controller.</figcaption>
+          <figcaption>Every NexCruise ships with the control pod and your car-specific cable. Smart adds the wireless steering dial and advanced drive modes.</figcaption>
         </figure>
         <div className="compare-grid">
         {cards.map(({ variant, tag, featureIndex, smartCard }) => (
@@ -386,9 +385,8 @@ function Variants({ onChoose }) {
               {compareRows.map((row) => {
                 const [feature] = row;
                 const included = row[featureIndex];
-                const inPro = row[2];
                 return (
-                  <li key={feature} className={included ? "included" : "excluded"} data-smart-row={smartCard && !inPro ? "" : undefined}>
+                  <li key={feature} className={included ? "included" : "excluded"} data-smart-row={smartCard && !row[1] ? "" : undefined}>
                     <i aria-hidden="true">{included ? "+" : "-"}</i>
                     <span>{feature}</span>
                   </li>
@@ -622,7 +620,7 @@ function Footer() {
   return (
     <footer className="site-footer">
       <div className="footer-brand">
-        <a className="brand inverse" href="#top"><span className="brand-arc" /><span><strong>AHA</strong><small>NexCruise</small></span></a>
+        <a className="brand inverse" href="#top"><img className="brand-mark" src="/brand/aha-mark.svg" alt="" /><span><strong>AHA</strong><small>NexCruise</small></span></a>
         <p>Cruise control and smarter throttle control for compatible Indian cars.</p>
       </div>
       <div><strong>Explore</strong><a href="#product">Product</a><a href="#compatibility">Compatibility</a><a href="#variants">Compare plans</a><a href="#installation">Installation</a></div>

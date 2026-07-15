@@ -108,8 +108,10 @@ function OrderSummary({ variant, controller, installation, total, compact = fals
 }
 
 export default function PurchaseFlow({ open, onClose, initialPlan, carDetails }) {
+  const normalizePlan = (requestedPlan) =>
+    productVariants.some((item) => item.name === requestedPlan) ? requestedPlan : "NexCruise Smart";
   const [step, setStep] = useState("configure");
-  const [plan, setPlan] = useState(initialPlan);
+  const [plan, setPlan] = useState(normalizePlan(initialPlan));
   const [controller, setController] = useState("magnetic");
   const [installation, setInstallation] = useState("self");
   const [billing, setBilling] = useState(INITIAL_BILLING);
@@ -127,7 +129,7 @@ export default function PurchaseFlow({ open, onClose, initialPlan, carDetails })
 
   useEffect(() => {
     if (!open) return undefined;
-    setPlan(initialPlan);
+    setPlan(normalizePlan(initialPlan));
     setStep("configure");
     setBilling(INITIAL_BILLING);
     setStatus({ type: "idle", message: "", reference: "" });
@@ -202,7 +204,7 @@ export default function PurchaseFlow({ open, onClose, initialPlan, carDetails })
         currency: order.currency,
         name: "AHA NexCruise",
         description: `${plan} purchase`,
-        image: `${window.location.origin}/favicon.svg`,
+        image: `${window.location.origin}/brand/aha-mark.svg`,
         order_id: order.orderId,
         prefill: {
           name: billing.fullName,

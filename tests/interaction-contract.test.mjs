@@ -78,9 +78,11 @@ test("callback opens WhatsApp with the full lead including car details", () => {
   assert.match(source, /onChecked/);
 });
 
-test("purchase flow includes billing, three sourced plans, and Razorpay verification", () => {
-  assert.match(dataSource, /NexCruise Pro/);
-  assert.match(dataSource, /Rs 25,990/);
+test("purchase flow includes billing, two sourced plans, and Razorpay verification", () => {
+  assert.doesNotMatch(dataSource, /NexCruise Pro/);
+  assert.doesNotMatch(dataSource, /Rs 25,990/);
+  assert.match(dataSource, /NexCruise Basic/);
+  assert.match(dataSource, /NexCruise Smart/);
   assert.match(purchaseSource, /Billing & delivery/);
   assert.match(purchaseSource, /\/api\/payments\/create-order/);
   assert.match(purchaseSource, /\/api\/payments\/verify/);
@@ -106,10 +108,11 @@ test("compatibility renders the selected car side profile", () => {
   assert.match(carSource, /compatibility-lower/);
 });
 
-test("basic, pro, and smart comparison uses aligned rows and a smart card", () => {
+test("basic and smart comparison uses aligned rows and a smart card", () => {
   assert.match(source, /compare-grid/);
   assert.match(source, /compareRows/);
   assert.match(source, /featureIndex: 2/);
+  assert.doesNotMatch(source, /featureIndex: 3/);
   assert.match(source, /data-smart-card/);
   assert.match(source, /const packageImage = "\/attached_assets\/nexcruise-box\.jpeg"/);
   assert.doesNotMatch(source, /nexcruise-product-still\.png/);

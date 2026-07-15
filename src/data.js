@@ -234,13 +234,6 @@ export const productVariants = [
     features: ["Cruise control", "OTA firmware updates", "Migrate to another car"]
   },
   {
-    name: "NexCruise Pro",
-    price: "Rs 25,990",
-    amount: 25990,
-    demoId: "S3WyAb5QAZg",
-    features: ["Cruise control", "OTA firmware updates", "Wireless dial", "Resume cruise", "Dial driving", "Speed governor", "Eco, City and Sport modes", "Migrate to another car"]
-  },
-  {
     name: "NexCruise Smart",
     price: "Rs 27,490",
     amount: 27490,
@@ -333,15 +326,15 @@ export const storeReviews = [
   }
 ];
 
-// Plan claims supplied by AHA: [feature, inBasic, inPro, inSmart].
+// Plan claims supplied by AHA: [feature, inBasic, inSmart].
 export const compareRows = [
-  ["Cruise control", true, true, true],
-  ["OTA firmware updates", true, true, true],
-  ["Wireless dial", false, true, true],
-  ["Resume cruise", false, true, true],
-  ["Dial driving", false, true, true],
-  ["Speed governor", false, true, true],
-  ["Eco, City and Sport modes", false, true, true],
-  ["Migrate to another car", true, true, true],
-  ["Steering-mounted dial", false, false, true]
+  ["Cruise control", true, true],
+  ["OTA firmware updates", true, true],
+  ["Wireless dial", false, true],
+  ["Resume cruise", false, true],
+  ["Dial driving", false, true],
+  ["Speed governor", false, true],
+  ["Eco, City and Sport modes", false, true],
+  ["Migrate to another car", true, true],
+  ["Steering-mounted dial", false, true]
 ];

@@ -84,8 +84,8 @@ assert.match(await page.locator(".hero-product-pod").getAttribute("src"), /pod-c
 assert.equal(await page.locator("[data-hero-pod-entry]").count(), 1);
 assert.equal(await page.locator("[data-hero-pod]").count(), 1);
 // Official favicon is the aha.store teal A-mark, not the old placeholder.
-assert.match(await page.locator('link[rel="icon"]').getAttribute("href"), /favicon\.svg/);
-const faviconSvg = await page.evaluate(async () => (await fetch("/favicon.svg")).text());
+assert.match(await page.locator('link[rel="icon"]').getAttribute("href"), /\/brand\/aha-mark\.svg/);
+const faviconSvg = await page.evaluate(async () => (await fetch("/brand/aha-mark.svg")).text());
 assert.match(faviconSvg, /63C3BD/i);
 // Partners marquee renders the aha.store media logos.
 assert.ok((await page.locator(".marquee-item").count()) >= 10);
@@ -130,19 +130,20 @@ assert.match(await page.locator(".car-nameplate strong").textContent(), /Tata Ne
 assert.match(await page.locator(".compatibility-server-status").textContent(), /NCV2/);
 await page.locator(".compatibility-lower").screenshot({ path: "/tmp/aha-compatibility-server.png" });
 
-// Basic, Pro, and Smart: one shared box image, three sourced plan cards.
+// Basic and Smart: one shared box image, two sourced plan cards.
 await goTo(".compare-shell");
-assert.equal(await page.locator(".compare-card").count(), 3);
+assert.equal(await page.locator(".compare-card").count(), 2);
 assert.equal(await page.locator(".compare-hero > img").count(), 1);
 assert.equal(await page.locator(".compare-hero > img").getAttribute("src"), "/attached_assets/nexcruise-box.jpeg");
 assert.equal(await page.locator(".compare-visual").count(), 0);
 assert.equal(await page.locator(".smart-ring").count(), 0);
 assert.ok((await page.locator(".compare-card.is-smart .compare-rows li.included").count()) >= 8);
 await page.screenshot({ path: "/tmp/aha-compare-desktop.png" });
-await page.getByRole("button", { name: /Choose Pro/ }).click();
+assert.equal(await page.getByRole("button", { name: /Choose Pro/ }).count(), 0);
+await page.getByRole("button", { name: /Choose Smart/ }).click();
 assert.equal(await page.getByRole("dialog", { name: /Buy NexCruise/ }).isVisible(), true);
-assert.equal(await page.locator(".purchase-choice").count(), 3);
-assert.match(await page.locator(".purchase-summary-head strong").textContent(), /NexCruise Pro/);
+assert.equal(await page.locator(".purchase-choice").count(), 2);
+assert.match(await page.locator(".purchase-summary-head strong").textContent(), /NexCruise Smart/);
 await page.getByRole("button", { name: /AHA-assisted technician install/ }).click();
 await page.getByRole("button", { name: /Continue to billing/ }).click();
 const purchaseDialog = page.getByRole("dialog");
@@ -227,7 +228,7 @@ await page.getByRole("button", { name: "Menu" }).click();
 await page.getByLabel("Primary navigation").getByRole("button", { name: "Buy NexCruise" }).click();
 const mobileDialog = page.getByRole("dialog", { name: /Buy NexCruise/ });
 assert.equal(await mobileDialog.isVisible(), true);
-assert.equal(await mobileDialog.locator(".purchase-choice").count(), 3);
+assert.equal(await mobileDialog.locator(".purchase-choice").count(), 2);
 const mobileCheckoutOverflow = await mobileDialog.evaluate((element) => element.scrollWidth > element.clientWidth);
 assert.equal(mobileCheckoutOverflow, false);
 await page.screenshot({ path: "/tmp/aha-purchase-mobile.png" });

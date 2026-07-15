@@ -31,7 +31,7 @@ test("payment order endpoint stays disabled until both secrets exist", async () 
   assert.equal((await response.json()).code, "PAYMENT_NOT_CONFIGURED");
 });
 
-test("server calculates Pro, technician installation, and shipping in paise", async () => {
+test("server calculates Smart, technician installation, and shipping in paise", async () => {
   const originalFetch = globalThis.fetch;
   let razorpayBody;
   globalThis.fetch = async (_url, init) => {
@@ -47,7 +47,7 @@ test("server calculates Pro, technician installation, and shipping in paise", as
   try {
     const response = await createOrder({
       request: jsonRequest("/api/payments/create-order", {
-        plan: "NexCruise Pro",
+        plan: "NexCruise Smart",
         controller: "magnetic",
         installation: "technician",
         billing,
@@ -57,9 +57,9 @@ test("server calculates Pro, technician installation, and shipping in paise", as
     });
     const result = await response.json();
     assert.equal(response.status, 200);
-    assert.equal(razorpayBody.amount, 2709000);
-    assert.equal(razorpayBody.notes.plan, "NexCruise Pro");
-    assert.equal(result.amount, 2709000);
+    assert.equal(razorpayBody.amount, 2859000);
+    assert.equal(razorpayBody.notes.plan, "NexCruise Smart");
+    assert.equal(result.amount, 2859000);
   } finally {
     globalThis.fetch = originalFetch;
   }

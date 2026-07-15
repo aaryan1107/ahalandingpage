@@ -223,7 +223,7 @@ export function useSiteAnimations(scopeRef) {
             gsap.utils
               .toArray(".section-heading h2, .compatibility-intro h2, .callback-copy h2")
               .forEach((el) => {
-                const split = SplitText.create(el, { type: "lines", mask: "lines" });
+                const split = SplitText.create(el, { type: "lines", mask: "lines", linesClass: "split-heading-line" });
                 gsap.from(split.lines, {
                   yPercent: 115,
                   duration: 0.95,
