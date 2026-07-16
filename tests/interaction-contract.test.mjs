@@ -121,6 +121,10 @@ test("purchase flow includes billing, two sourced plans, and Razorpay verificati
   assert.match(purchaseSource, /\/api\/payments\/verify/);
   assert.match(purchaseSource, /checkout\.razorpay\.com\/v1\/checkout\.js/);
   assert.match(purchaseSource, /PurchaseCompletedRazorpay/);
+  assert.match(purchaseSource, /PurchaseHandedOffToAhaTeam/);
+  assert.match(purchaseSource, /handOffOrderToAhaTeam/);
+  assert.match(purchaseSource, /AHA Team will contact you/);
+  assert.match(purchaseSource, /Billing \/ contact details/);
   assert.match(purchaseSource, /\/purchase\/controller-magnetic\.png/);
   assert.match(purchaseSource, /\/purchase\/controller-belt\.png/);
 });

@@ -181,10 +181,50 @@ export default function PurchaseFlow({ open, onClose, initialPlan, carDetails })
     setBilling((current) => ({ ...current, [field]: value }));
   }
 
-  function openWhatsAppOrder() {
+  function buildWhatsAppOrderMessage() {
     const car = carDetails ? `${carDetails.brand} ${carDetails.model} (${carDetails.year}, ${carDetails.fuel}, ${carDetails.transmission})` : "Fitment check needed";
-    const message = `Hi AHA! I want to order ${plan}. Installation: ${installation}. Car: ${car}. Total shown: ${formatMoney(total)}. Name: ${billing.fullName || "Not entered"}. Phone: ${billing.phone || "Not entered"}.`;
+    return [
+      "Hi AHA Team, I want to reserve NexCruise.",
+      `Plan: ${plan}`,
+      `Controller: ${plan === "NexCruise Smart" ? (controller === "belt" ? "Belt mount" : "Magnetic mount") : "Not applicable"}`,
+      `Installation: ${installation === "technician" ? "AHA-assisted technician install" : "Self-install with AHA guidance"}`,
+      `Car: ${car}`,
+      `Total shown: ${formatMoney(total)}`,
+      "",
+      "Billing / contact details:",
+      `Name: ${billing.fullName || "Not entered"}`,
+      `Phone: ${billing.phone || "Not entered"}`,
+      `Email: ${billing.email || "Not entered"}`,
+      `Address: ${billing.address || "Not entered"}`,
+      `City: ${billing.city || "Not entered"}`,
+      `State: ${billing.state || "Not entered"}`,
+      `PIN: ${billing.pincode || "Not entered"}`
+    ].join("\n");
+  }
+
+  function openWhatsAppOrder() {
+    const message = buildWhatsAppOrderMessage();
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, "_blank", "noopener");
+  }
+
+  function handOffOrderToAhaTeam(reason = "checkout_unavailable") {
+    openWhatsAppOrder();
+    setStatus({
+      type: "handoff",
+      message: "Your NexCruise details have been prepared for the AHA Team. AHA will contact you on your mobile number to confirm fitment, payment, and delivery.",
+      reference: reason
+    });
+    setStep("complete");
+    setBusy(false);
+    trackFunnel("PurchaseHandedOffToAhaTeam", {
+      plan,
+      controller: plan === "NexCruise Smart" ? controller : "not_applicable",
+      installation,
+      amount: total,
+      contactNumber: billing.phone,
+      reason,
+      ...carDetails
+    });
   }
 
   async function startPayment(event) {
@@ -271,9 +311,12 @@ export default function PurchaseFlow({ open, onClose, initialPlan, carDetails })
       setBusy(false);
       setStatus({
         type: error.code === "PAYMENT_NOT_CONFIGURED" ? "setup" : "error",
-        message: error.code === "PAYMENT_NOT_CONFIGURED" ? "Razorpay is prepared, but the production keys have not been added to Cloudflare yet." : error.message,
+        message: error.code === "PAYMENT_NOT_CONFIGURED" ? "Razorpay is prepared, but checkout is not live yet. Sending your order details to the AHA Team instead." : error.message,
         reference: ""
       });
+      if (error.code === "PAYMENT_NOT_CONFIGURED") {
+        handOffOrderToAhaTeam("razorpay_not_configured");
+      }
     }
   }
 
@@ -337,7 +380,7 @@ export default function PurchaseFlow({ open, onClose, initialPlan, carDetails })
         {step === "billing" && (
           <form className="billing-layout" onSubmit={startPayment}>
             <div className="billing-form">
-              <div className="billing-heading"><span>Billing & delivery</span><h3>Where should AHA send your NexCruise?</h3><p>These details are attached to the Razorpay order so AHA can identify and fulfil it.</p></div>
+              <div className="billing-heading"><span>Billing & delivery</span><h3>Where should AHA send your NexCruise?</h3><p>These details are used to identify your order, confirm fitment, and contact you if online payment is not available.</p></div>
               <div className="billing-grid">
                 <label>Full name<input required autoComplete="name" value={billing.fullName} onChange={(event) => updateBilling("fullName", event.target.value)} /></label>
                 <label>Mobile number<input required autoComplete="tel" inputMode="tel" pattern="[0-9+ ]{10,15}" value={billing.phone} onChange={(event) => updateBilling("phone", event.target.value)} placeholder="10-digit mobile number" /></label>
@@ -347,7 +390,7 @@ export default function PurchaseFlow({ open, onClose, initialPlan, carDetails })
                 <label>State<input required autoComplete="address-level1" value={billing.state} onChange={(event) => updateBilling("state", event.target.value)} /></label>
                 <label>PIN code<input required autoComplete="postal-code" inputMode="numeric" pattern="[0-9]{6}" value={billing.pincode} onChange={(event) => updateBilling("pincode", event.target.value)} placeholder="6-digit PIN" /></label>
               </div>
-              {status.message && <div className={`payment-status is-${status.type}`} role="status"><p>{status.message}</p>{status.type === "setup" && <button type="button" onClick={openWhatsAppOrder}>Send this order on WhatsApp</button>}</div>}
+              {status.message && <div className={`payment-status is-${status.type}`} role="status"><p>{status.message}</p>{status.type === "setup" && <button type="button" onClick={() => handOffOrderToAhaTeam("manual_whatsapp_handoff")}>Send this order to AHA Team</button>}</div>}
               <div className="billing-actions">
                 <button className="text-action" type="button" onClick={() => setStep("configure")} disabled={busy}>&lt;- Change product</button>
                 <button className="primary-action" type="submit" disabled={busy}>{busy ? "Preparing checkout..." : `Pay ${formatMoney(total)} securely`} <span aria-hidden="true">-&gt;</span></button>
@@ -361,9 +404,9 @@ export default function PurchaseFlow({ open, onClose, initialPlan, carDetails })
         {step === "complete" && (
           <div className="purchase-complete">
             <span className="purchase-check" aria-hidden="true">+</span>
-            <h3>{status.type === "success" ? "Payment verified." : "Payment confirmation in progress."}</h3>
+            <h3>{status.type === "success" ? "Payment verified." : status.type === "handoff" ? "AHA Team will contact you." : "Payment confirmation in progress."}</h3>
             <p>{status.message}</p>
-            {status.reference && <dl><dt>Payment reference</dt><dd>{status.reference}</dd></dl>}
+            {status.reference && status.type !== "handoff" && <dl><dt>Payment reference</dt><dd>{status.reference}</dd></dl>}
             <p>AHA will contact {billing.phone} with fitment and delivery details.</p>
             <button className="primary-action" type="button" onClick={onClose}>Return to NexCruise</button>
           </div>
