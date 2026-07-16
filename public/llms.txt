@@ -1,0 +1,36 @@
+# AHA NexCruise
+
+> Plug-and-play cruise control upgrades for Indian cars, with car-specific harness fitment, brake override, OTA firmware support, WhatsApp support, and optional wireless steering dial controls.
+
+## Primary Pages
+
+- Home and product overview: https://ahanexcruise.com/
+- Product system: https://ahanexcruise.com/#product
+- Live compatibility check: https://ahanexcruise.com/#compatibility
+- NexCruise Basic and Smart comparison: https://ahanexcruise.com/#variants
+- Installation flow: https://ahanexcruise.com/#installation
+
+## Product Summary
+
+AHA NexCruise is an aftermarket automotive cruise-control system designed for Indian roads. The site explains two customer-facing packages:
+
+- NexCruise Basic: essential cruise-control package with car-specific fitment and brake override.
+- NexCruise Smart: full control package with wireless steering dial, drive modes, resume control, speed governor, and migration support.
+
+## Important Details
+
+- Compatibility is checked using server-side NCV2 vehicle data.
+- The product uses model-specific harness fitment instead of generic wire cutting.
+- Customer support and lead handoff use WhatsApp at +91 83069 24400.
+- Official support email: support@aha3d.in.
+- Location: I/F-2, Solitaire Park, Ajmer Road, Jaipur, Rajasthan 303007.
+
+## Suggested Search Topics
+
+- cruise control for Indian cars
+- aftermarket cruise control India
+- plug and play cruise control
+- NexCruise Basic
+- NexCruise Smart
+- car-specific harness cruise control
+- wireless steering dial cruise control

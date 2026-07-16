@@ -3,11 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AHA NexCruise - Cruise control for Indian cars</title>
-    <meta name="description" content="Check your car, compare NexCruise Basic and Smart, watch the real installation, and talk to AHA on WhatsApp." />
+    <title>AHA NexCruise - Plug-and-play cruise control for Indian cars</title>
+    <meta name="description" content="AHA NexCruise upgrades Indian cars with plug-and-play cruise control, car-specific harness fitment, wireless steering dial options, WhatsApp support, and NCV2 compatibility checks." />
+    <meta name="keywords" content="AHA NexCruise, NexCruise, cruise control for Indian cars, aftermarket cruise control India, plug and play cruise control, wireless steering dial, car specific harness, Tata Nexon cruise control, Hyundai cruise control, Mahindra cruise control, Kia cruise control, Jaipur car accessories" />
+    <link rel="canonical" href="https://ahanexcruise.com/" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="AHA NexCruise - Plug-and-play cruise control for Indian cars" />
+    <meta property="og:description" content="Check fitment, compare NexCruise Basic and Smart, watch the real installation, and talk to AHA on WhatsApp." />
+    <meta property="og:url" content="https://ahanexcruise.com/" />
+    <meta property="og:image" content="https://ahanexcruise.com/hero/hero-poster.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="AHA NexCruise - Cruise control for Indian cars" />
+    <meta name="twitter:description" content="Plug-and-play cruise control, car-specific harness fitment, and WhatsApp support for Indian drivers." />
+    <meta name="twitter:image" content="https://ahanexcruise.com/hero/hero-poster.jpg" />
     <!-- Official AHA NexCruise teal A-mark, sourced from aha.store -->
     <link rel="icon" href="/brand/aha-mark.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preload" as="image" href="/hero/optimized/hero-poster-lcp.webp" type="image/webp" fetchpriority="high" />
+    <link rel="preload" as="image" href="/hero/optimized/dial-cut.webp" type="image/webp" fetchpriority="high" />
+    <link rel="preload" as="image" href="/hero/optimized/pod-cut.webp" type="image/webp" />
     <meta name="theme-color" content="#001733" />
     <script>
       (function () {
@@ -15,16 +30,11 @@
         document.documentElement.dataset.theme = saved || "dark";
       })();
     </script>
-    <!-- Meta Pixel Code: current live pixel. Retarget PageView, Lead, Purchase, Used_Tool, and custom funnel events in src/tracking.js. -->
+    <!-- Meta Pixel Code: current live pixel. Loaded after first paint so analytics does not compete with hero LCP. -->
     <script>
-      !function(f,b,e,v,n,t,s)
-      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      !function(f,n){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
       n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-      n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t,s)}(window, document,'script',
-      'https://connect.facebook.net/en_US/fbevents.js');
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];}(window);
       fbq('init', '2687561291629470');
       (function () {
         const params = new URLSearchParams(window.location.search);
@@ -35,14 +45,74 @@
         const testEventCode = urlTestCode || localStorage.getItem('meta_test_event_code') || 'TEST40117';
         fbq('track', 'PageView', { test_event_code: testEventCode });
       })();
+      window.__loadAhaPixel = function () {
+        if (window.__ahaPixelLoaded) return;
+        window.__ahaPixelLoaded = true;
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://connect.facebook.net/en_US/fbevents.js';
+        document.head.appendChild(script);
+      };
     </script>
     <!-- Google Ads tag from the NexCruise conversion tracking email. Fires lead conversions from src/tracking.js. -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18243205076"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'AW-18243205076');
+      window.__loadAhaGoogleAds = function () {
+        if (window.__ahaGoogleAdsLoaded) return;
+        window.__ahaGoogleAdsLoaded = true;
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=AW-18243205076';
+        document.head.appendChild(script);
+      };
+    </script>
+    <script>
+      window.addEventListener('load', function () {
+        var startTracking = function () {
+          window.__loadAhaPixel && window.__loadAhaPixel();
+          window.__loadAhaGoogleAds && window.__loadAhaGoogleAds();
+        };
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(startTracking, { timeout: 2200 });
+        } else {
+          setTimeout(startTracking, 1200);
+        }
+      }, { once: true });
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "AHA NexCruise",
+        "brand": { "@type": "Brand", "name": "AHA NexCruise" },
+        "category": "Automotive cruise control",
+        "description": "Plug-and-play aftermarket cruise control for Indian cars with car-specific harness fitment, brake override, OTA firmware support, and optional wireless steering dial.",
+        "image": "https://ahanexcruise.com/hero/hero-poster.jpg",
+        "url": "https://ahanexcruise.com/",
+        "offers": {
+          "@type": "AggregateOffer",
+          "priceCurrency": "INR",
+          "lowPrice": "19990",
+          "highPrice": "27490",
+          "availability": "https://schema.org/InStock"
+        },
+        "manufacturer": {
+          "@type": "Organization",
+          "name": "Aha! NexCruise",
+          "email": "support@aha3d.in",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "I/F-2, Solitaire Park, Ajmer Road",
+            "addressLocality": "Jaipur",
+            "addressRegion": "Rajasthan",
+            "postalCode": "303007",
+            "addressCountry": "IN"
+          }
+        }
+      }
     </script>
     <!-- Google Analytics placeholder: add a GA4 measurement ID here when available. -->
   </head>

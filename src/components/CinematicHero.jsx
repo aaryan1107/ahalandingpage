@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { WHATSAPP_LINK, trackFunnel, trackWhatsApp } from "../tracking";
 
 const proofStats = [
@@ -12,23 +13,61 @@ function Arrow() {
 }
 
 export default function CinematicHero() {
+  const [loadFilm, setLoadFilm] = useState(false);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
+
+    let idleId;
+    const loadAfterFirstPaint = () => {
+      if ("requestIdleCallback" in window) {
+        idleId = window.requestIdleCallback(() => setLoadFilm(true), { timeout: 1800 });
+      } else {
+        idleId = window.setTimeout(() => setLoadFilm(true), 900);
+      }
+    };
+
+    if (document.readyState === "complete") {
+      loadAfterFirstPaint();
+    } else {
+      window.addEventListener("load", loadAfterFirstPaint, { once: true });
+    }
+
+    return () => {
+      window.removeEventListener("load", loadAfterFirstPaint);
+      if ("cancelIdleCallback" in window && typeof idleId === "number") window.cancelIdleCallback(idleId);
+      else window.clearTimeout(idleId);
+    };
+  }, []);
+
   return (
     <>
       <section className="cinematic-hero" id="top">
         {/* Driver-POV film: stable cockpit, road moving through the windshield */}
         <div className="hero-media" aria-hidden="true">
-          <img className="hero-cockpit" src="/hero/hero-poster.jpg" alt="" />
-          <video
-            className="hero-product-film"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            poster="/hero/hero-poster.jpg"
-          >
-            <source src="/hero/nexcruise-hero.mp4" type="video/mp4" />
-          </video>
+          <img
+            className="hero-cockpit"
+            src="/hero/optimized/hero-poster-lcp.webp"
+            alt=""
+            width="1920"
+            height="1080"
+            fetchPriority="high"
+            loading="eager"
+            decoding="sync"
+          />
+          {loadFilm ? (
+            <video
+              className="hero-product-film"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="none"
+              poster="/hero/optimized/hero-poster-lcp.webp"
+            >
+              <source src="/hero/nexcruise-hero.mp4" type="video/mp4" />
+            </video>
+          ) : null}
           <div className="hero-media-scrim" />
         </div>
 
@@ -38,13 +77,13 @@ export default function CinematicHero() {
         <div className="hero-hardware" data-hero-assembly aria-hidden="true">
           <div className="hero-pod-entry" data-hero-pod-entry>
             <figure className="hero-pod-card" data-hero-pod>
-              <img className="hero-product-pod" src="/hero/pod-cut.png" alt="" />
+              <img className="hero-product-pod" src="/hero/optimized/pod-cut.webp" alt="" width="528" height="358" loading="eager" decoding="async" />
               <figcaption><span>02</span> Control pod</figcaption>
             </figure>
           </div>
           <div className="hero-dial-stack" data-hero-dial-stack>
             <span className="hero-dial-halo" data-hero-halo />
-            <img className="hero-product-dial hero-dial-ring" data-hero-ring src="/hero/dial-cut.png" alt="" />
+            <img className="hero-product-dial hero-dial-ring" data-hero-ring src="/hero/optimized/dial-cut.webp" alt="" width="385" height="394" fetchPriority="high" loading="eager" decoding="async" />
             <figcaption className="hero-dial-caption"><span>01</span> Steering dial</figcaption>
           </div>
         </div>

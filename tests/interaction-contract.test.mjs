@@ -6,6 +6,13 @@ const source = await readFile(new URL("../src/App.jsx", import.meta.url), "utf8"
 const heroSource = await readFile(new URL("../src/components/CinematicHero.jsx", import.meta.url), "utf8").catch(() => "");
 const dataSource = await readFile(new URL("../src/data.js", import.meta.url), "utf8");
 const purchaseSource = await readFile(new URL("../src/components/PurchaseFlow.jsx", import.meta.url), "utf8");
+const cssSource = await readFile(new URL("../src/App.css", import.meta.url), "utf8");
+const htmlSource = await readFile(new URL("../index.html", import.meta.url), "utf8");
+const robotsSource = await readFile(new URL("../public/robots.txt", import.meta.url), "utf8");
+const sitemapSource = await readFile(new URL("../public/sitemap.xml", import.meta.url), "utf8");
+const llmsSource = await readFile(new URL("../public/llms.txt", import.meta.url), "utf8");
+const headersSource = await readFile(new URL("../public/_headers", import.meta.url), "utf8");
+const viteSource = await readFile(new URL("../vite.config.js", import.meta.url), "utf8");
 
 test("compatibility action produces a visible result", () => {
   assert.match(source, /className="compatibility-result/);
@@ -40,9 +47,34 @@ test("brand garage renders brand-specific cards", () => {
 
 test("cinematic hero uses the product film with a stable media fallback", () => {
   assert.match(heroSource, /hero-product-film/);
+  assert.match(heroSource, /loadFilm/);
+  assert.match(heroSource, /requestIdleCallback/);
   assert.match(heroSource, /poster=/);
   assert.doesNotMatch(heroSource, /hero-dial-control/);
   assert.doesNotMatch(heroSource, /hero-speed-slider/);
+});
+
+test("first viewport keeps LCP resources on the fast path", () => {
+  assert.doesNotMatch(cssSource, /@import url\("https:\/\/fonts\.googleapis\.com/);
+  assert.match(htmlSource, /rel="preload" as="image" href="\/hero\/optimized\/hero-poster-lcp\.webp" type="image\/webp" fetchpriority="high"/);
+  assert.match(htmlSource, /rel="preload" as="image" href="\/hero\/optimized\/dial-cut\.webp" type="image\/webp" fetchpriority="high"/);
+  assert.match(heroSource, /fetchPriority="high"/);
+  assert.doesNotMatch(htmlSource, /<script async src="https:\/\/www\.googletagmanager\.com\/gtag\/js/);
+  assert.match(htmlSource, /__loadAhaPixel/);
+  assert.match(htmlSource, /__loadAhaGoogleAds/);
+  assert.match(source, /lazy\(\(\) => import\("\.\/components\/AnimationRuntime"\)\)/);
+  assert.match(headersSource, /\/hero\/optimized\/\*/);
+  assert.match(headersSource, /max-age=31536000, immutable/);
+  assert.match(viteSource, /target: "es2020"/);
+});
+
+test("search crawlers and AI agents get explicit product context", () => {
+  assert.match(htmlSource, /rel="canonical" href="https:\/\/ahanexcruise\.com\/"/);
+  assert.match(htmlSource, /aftermarket cruise control India/);
+  assert.match(htmlSource, /application\/ld\+json/);
+  assert.match(robotsSource, /Sitemap: https:\/\/ahanexcruise\.com\/sitemap\.xml/);
+  assert.match(sitemapSource, /https:\/\/ahanexcruise\.com\/#compatibility/);
+  assert.match(llmsSource, /Plug-and-play cruise control upgrades for Indian cars/);
 });
 
 test("hero hardware uses one seamless dial cutout and split pod animation wrappers", () => {
@@ -50,8 +82,8 @@ test("hero hardware uses one seamless dial cutout and split pod animation wrappe
   assert.doesNotMatch(heroSource, /hero-dial-face/);
   assert.match(heroSource, /data-hero-pod-entry/);
   assert.match(heroSource, /data-hero-pod/);
-  assert.match(heroSource, /dial-cut\.png/);
-  assert.match(heroSource, /pod-cut\.png/);
+  assert.match(heroSource, /optimized\/dial-cut\.webp/);
+  assert.match(heroSource, /optimized\/pod-cut\.webp/);
 });
 
 test("featured film panel embeds the official video lazily", () => {

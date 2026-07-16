@@ -1,5 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { useSiteAnimations } from "./useAnimations";
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import CinematicHero from "./components/CinematicHero";
 import LogoIntro from "./components/LogoIntro";
 import CarStage from "./components/CarStage";
@@ -24,6 +23,8 @@ import {
   testimonials
 } from "./data";
 import "./App.css";
+
+const AnimationRuntime = lazy(() => import("./components/AnimationRuntime"));
 
 // Meet-the-system visuals use the authentic hardware photography: the studio
 // dial and the real pod, not the generic renders they replaced.
@@ -637,7 +638,6 @@ export default function App() {
   const [carDetails, setCarDetails] = useState(null);
   const [purchaseOpen, setPurchaseOpen] = useState(false);
   const pageRef = useRef(null);
-  useSiteAnimations(pageRef);
 
   function choosePlan(plan) {
     setPreferredPlan(plan);
@@ -648,6 +648,9 @@ export default function App() {
 
   return (
     <div ref={pageRef}>
+      <Suspense fallback={null}>
+        <AnimationRuntime scopeRef={pageRef} />
+      </Suspense>
       <LogoIntro />
       <Header />
       <div id="smooth-wrapper">

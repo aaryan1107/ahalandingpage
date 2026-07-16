@@ -73,14 +73,16 @@ await page.goto(`${BASE_URL}/`, { waitUntil: "domcontentloaded" });
 await page.waitForFunction(() => !document.querySelector("[data-logo-intro]"));
 await page.waitForTimeout(500);
 
-assert.equal(await page.locator(".hero-product-film").count(), 1);
-assert.match(await page.locator(".hero-product-film").getAttribute("poster"), /hero-poster/);
+assert.equal(await page.locator(".hero-cockpit").count(), 1);
+assert.match(await page.locator(".hero-cockpit").getAttribute("src"), /optimized\/hero-poster-lcp\.webp/);
 assert.equal(await page.locator(".hero-dial-control").count(), 0);
+await page.waitForFunction(() => document.querySelector(".hero-product-film"), null, { timeout: 5000 });
+assert.match(await page.locator(".hero-product-film").getAttribute("poster"), /hero-poster/);
 assert.equal(await page.locator(".hero-product-film").isVisible(), true);
 // Layered cutout dial (independent ring + upright face) and dimensional pod.
 assert.equal(await page.locator("[data-hero-ring]").count(), 1);
-assert.match(await page.locator("[data-hero-ring]").getAttribute("src"), /dial-cut\.png/);
-assert.match(await page.locator(".hero-product-pod").getAttribute("src"), /pod-cut\.png/);
+assert.match(await page.locator("[data-hero-ring]").getAttribute("src"), /optimized\/dial-cut\.webp/);
+assert.match(await page.locator(".hero-product-pod").getAttribute("src"), /optimized\/pod-cut\.webp/);
 assert.equal(await page.locator("[data-hero-pod-entry]").count(), 1);
 assert.equal(await page.locator("[data-hero-pod]").count(), 1);
 // Official favicon is the aha.store teal A-mark, not the old placeholder.
