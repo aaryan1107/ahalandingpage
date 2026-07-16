@@ -162,7 +162,7 @@ function ProductSystem() {
 }
 
 function Compatibility({ onChecked }) {
-  const [form, setForm] = useState({ brand: "", brandUid: "", model: "", modelUid: "", fuel: "", transmission: "", year: "" });
+  const [form, setForm] = useState({ brand: "", brandUid: "", model: "", modelUid: "", modelImage: "", fuel: "", transmission: "", year: "" });
   const [compatibilityResult, setCompatibilityResult] = useState(null);
   const [companies, setCompanies] = useState([]);
   const [models, setModels] = useState([]);
@@ -198,14 +198,14 @@ function Compatibility({ onChecked }) {
   async function selectBrand(company) {
     if (!company) {
       requestRef.current += 1;
-      setForm({ brand: "", brandUid: "", model: "", modelUid: "", fuel: "", transmission: "", year: "" });
+      setForm({ brand: "", brandUid: "", model: "", modelUid: "", modelImage: "", fuel: "", transmission: "", year: "" });
       setModels([]);
       setFitmentOptions({ fuelOptions: [], transmissionOptions: [], years: [], hasFitment: false });
       setCompatibilityResult(null);
       return;
     }
     const requestId = ++requestRef.current;
-    setForm({ brand: company.name, brandUid: company.uid, model: "", modelUid: "", fuel: "", transmission: "", year: "" });
+    setForm({ brand: company.name, brandUid: company.uid, model: "", modelUid: "", modelImage: "", fuel: "", transmission: "", year: "" });
     setModels([]);
     setFitmentOptions({ fuelOptions: [], transmissionOptions: [], years: [], hasFitment: false });
     setCompatibilityResult(null);
@@ -223,13 +223,13 @@ function Compatibility({ onChecked }) {
   async function selectModel(model) {
     if (!model) {
       requestRef.current += 1;
-      setForm((current) => ({ ...current, model: "", modelUid: "", fuel: "", transmission: "", year: "" }));
+      setForm((current) => ({ ...current, model: "", modelUid: "", modelImage: "", fuel: "", transmission: "", year: "" }));
       setFitmentOptions({ fuelOptions: [], transmissionOptions: [], years: [], hasFitment: false });
       setCompatibilityResult(null);
       return;
     }
     const requestId = ++requestRef.current;
-    setForm((current) => ({ ...current, model: model.name, modelUid: model.uid, fuel: "", transmission: "", year: "" }));
+    setForm((current) => ({ ...current, model: model.name, modelUid: model.uid, modelImage: model.image || "", fuel: "", transmission: "", year: "" }));
     setFitmentOptions({ fuelOptions: [], transmissionOptions: [], years: [], hasFitment: false });
     setCompatibilityResult(null);
     setServerState({ type: "loading", message: `Loading ${model.name} fitment options from NCV2...` });
@@ -317,7 +317,7 @@ function Compatibility({ onChecked }) {
         </div>
       )}
       <div className="compatibility-lower">
-        <CarStage brand={form.brand} model={form.model} accent={selectedBrand?.accent} />
+        <CarStage brand={form.brand} model={form.model} image={form.modelImage} accent={selectedBrand?.accent} />
         <div className="compatibility-workspace" data-reveal>
           <div className={`compatibility-server-status is-${serverState.type}`} role="status"><i />{serverState.message}</div>
           <form onSubmit={checkCompatibility}>

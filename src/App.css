@@ -135,7 +135,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   opacity: 0;
   animation: product-sheen 7s ease-in-out infinite;
 }
-.product-panel-visual img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: contain; padding: 54px; }
+.product-panel-visual img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover; padding: 0; }
 .explorer-progress { position: absolute; left: 24px; bottom: 20px; z-index: 2; font-size: 12px; letter-spacing: .12em; color: var(--color-slate-whisper); }
 .explorer-progress [data-progress-current] { color: var(--color-signal-blue); font-weight: 600; }
 @keyframes product-sheen {
@@ -357,7 +357,7 @@ select:disabled { color: var(--color-fog); background: var(--color-hailstone); }
   .section-heading > span { grid-row: auto; }
   .section-heading h2 { font-size: 44px; }
   .product-visual { min-height: 340px; }
-  .product-panel-visual img { padding: 28px; }
+  .product-panel-visual.is-cutout img { padding: 28px; }
   .component-tabs { grid-template-columns: 1fr; }
   .component-tabs button { min-height: 54px; border-right: 0; border-bottom: 1px solid var(--color-mist); }
   .component-stage { min-height: 560px; }
@@ -434,6 +434,9 @@ select:disabled { color: var(--color-fog); background: var(--color-hailstone); }
 .car-stage { position: relative; min-height: 300px; margin-top: 36px; border: 1px solid var(--color-mist); border-radius: var(--radius-lg); background: linear-gradient(180deg, #f8fafd 0%, #e9edf5 100%); overflow: hidden; }
 .car-stage-inner { position: absolute; inset: 0; }
 .car-figure { position: absolute; left: 10%; right: 10%; top: 26%; height: 170px; }
+
+.car-photo-card { left: 8%; right: 8%; top: 18%; height: 220px; margin: 0; border-radius: var(--radius-lg); overflow: hidden; background: white; box-shadow: 0 28px 70px rgba(0,23,51,.16); }
+.car-photo-card img { width: 100%; height: 100%; display: block; object-fit: cover; }
 .car-platform { position: absolute; left: 4%; right: 4%; bottom: -46px; height: 60px; border-radius: 50%; background: radial-gradient(ellipse, rgba(0,23,51,.1), transparent 70%); }
 .car-shadow { position: absolute; left: 10%; right: 2%; bottom: -28px; height: 34px; border-radius: 50%; background: radial-gradient(ellipse, rgba(6,10,18,.3), transparent 68%); filter: blur(4px); }
 .car-body { position: absolute; left: 3%; right: 3%; bottom: 0; height: 108px; border-radius: 56px 84px 34px 42px; background: linear-gradient(115deg, rgba(255,255,255,.38), transparent 32%), linear-gradient(180deg, color-mix(in srgb, var(--brand-accent, #2f6fed) 62%, #eaf3ff) 0%, color-mix(in srgb, var(--brand-accent, #2f6fed) 78%, #05070d) 100%); box-shadow: inset 0 16px 24px rgba(255,255,255,.26), inset 0 -22px 32px rgba(5,10,20,.42), 0 30px 60px rgba(0,0,0,.28); }
@@ -487,7 +490,7 @@ select:disabled { color: var(--color-fog); background: var(--color-hailstone); }
 .product-panel-visual.is-dark::after {
   background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,.12) 44%, rgba(24,220,220,.16) 54%, transparent 100%);
 }
-.product-panel-visual.is-dark img { padding: 70px; }
+.product-panel-visual.is-dark img { padding: 70px; object-fit: contain; }
 
 @media (max-width: 980px) {
   .compare-grid { grid-template-columns: 1fr; }

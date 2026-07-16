@@ -6,6 +6,8 @@ const source = await readFile(new URL("../src/App.jsx", import.meta.url), "utf8"
 const heroSource = await readFile(new URL("../src/components/CinematicHero.jsx", import.meta.url), "utf8").catch(() => "");
 const dataSource = await readFile(new URL("../src/data.js", import.meta.url), "utf8");
 const purchaseSource = await readFile(new URL("../src/components/PurchaseFlow.jsx", import.meta.url), "utf8");
+const carStageSource = await readFile(new URL("../src/components/CarStage.jsx", import.meta.url), "utf8");
+const modelsEndpointSource = await readFile(new URL("../functions/api/compatibility/models.js", import.meta.url), "utf8");
 const cssSource = await readFile(new URL("../src/App.css", import.meta.url), "utf8");
 const htmlSource = await readFile(new URL("../index.html", import.meta.url), "utf8");
 const robotsSource = await readFile(new URL("../public/robots.txt", import.meta.url), "utf8");
@@ -146,11 +148,17 @@ test("owner proof auto-advances and pulls aha.store reviews", () => {
   assert.match(source, /setPaused/);
 });
 
-test("compatibility renders the selected car side profile", () => {
-  assert.match(source, /CarStage/);
-  const carSource = source;
-  assert.match(carSource, /form\.brand/);
-  assert.match(carSource, /compatibility-lower/);
+test("compatibility renders selected cars as optimized image cards", () => {
+  assert.match(source, /<CarStage brand={form\.brand} model={form\.model} image={form\.modelImage}/);
+  assert.match(source, /modelImage: model\.image \|\| ""/);
+  assert.match(carStageSource, /modelPhotoCandidate/);
+  assert.match(carStageSource, /\/vehicles\/\$\{brandSlug\}\/\$\{modelSlug\}\.webp/);
+  assert.match(carStageSource, /data:image\/svg\+xml/);
+  assert.match(carStageSource, /<img/);
+  assert.doesNotMatch(carStageSource, /<div className="car-body">/);
+  assert.match(modelsEndpointSource, /firstImageUrl/);
+  assert.match(modelsEndpointSource, /thumbnail_url/);
+  assert.match(source, /compatibility-lower/);
 });
 
 test("basic and smart comparison uses aligned rows and a smart card", () => {
