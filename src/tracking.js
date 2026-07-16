@@ -10,16 +10,22 @@ export const FIRST_PARTY_TRACKING_KEY = import.meta.env.VITE_AHA_TRACK_KEY || ""
 
 const FIRST_PARTY_EVENT_IDS = {
   BrandSelected: "web.insight_button_click",
-  ProductExplored: "web.product_section_clicked",
+  ProductExplored: "web.product_view",
   CheckCompatibilityClicked: "web.check_compatibility_click",
+  CompatibilityToCallback: "web.connect_with_aha_dost_click",
   DeviceSelected: "web.device_selection_clicked",
   PlanSelected: "web.plan_section_clicked",
   ControllerSelected: "web.dial_selection_clicked",
   InstallationSelected: "web.installation_type_clicked",
   BillingDetailsSubmitted: "web.billing_details_clicked",
+  PurchaseHandedOffToAhaTeam: "web.purchase_wizard_completion_bank",
   PurchaseCompletedRazorpay: "web.purchase_wizard_completion_razorpay",
   RequestCallbackSubmitted: "web.callback_form_completion",
   WhatsAppClicked: "web.connect_with_aha_dost_click",
+  FAQOpened: "web.insight_button_click",
+  AhaDostRequested: "web.connect_with_aha_dost_click",
+  MiniGameCompleted: "web.insight_button_click",
+  InstallCallbackClicked: "web.connect_with_aha_dost_click",
   CruiseSpeedGameLocked: "web.insight_button_click"
 };
 
@@ -27,16 +33,26 @@ const FIRST_PARTY_PATH_TYPES = {
   BrandSelected: "website_widget",
   ProductExplored: "website_widget",
   CheckCompatibilityClicked: "website_widget",
+  CompatibilityToCallback: "website_callback",
   DeviceSelected: "website_widget",
   PlanSelected: "website_widget",
   ControllerSelected: "website_widget",
   InstallationSelected: "website_widget",
   BillingDetailsSubmitted: "website_widget",
+  PurchaseHandedOffToAhaTeam: "website_widget",
   PurchaseCompletedRazorpay: "website_widget",
   RequestCallbackSubmitted: "website_callback",
   WhatsAppClicked: "website_callback",
+  FAQOpened: "website_callback",
+  AhaDostRequested: "website_callback",
+  MiniGameCompleted: "website_widget",
+  InstallCallbackClicked: "website_callback",
   CruiseSpeedGameLocked: "website_widget"
 };
+
+const ATTRIBUTION_KEY = "aha_attribution";
+const META_REQUIRED_UTMS = ["utmSource", "utmMedium", "utmCampaign"];
+let pageSessionTracked = false;
 
 function getSessionId() {
   if (typeof window === "undefined") return "";
@@ -54,25 +70,85 @@ export function getAttributionContext() {
   if (typeof window === "undefined") return {};
 
   const params = new URLSearchParams(window.location.search);
-  return {
-    sessionId: getSessionId(),
-    siteHost: window.location.hostname,
-    pagePath: window.location.pathname,
+  const now = new Date().toISOString();
+  const current = compactObject({
     utmSource: params.get("utm_source") || undefined,
     utmMedium: params.get("utm_medium") || undefined,
     utmCampaign: params.get("utm_campaign") || undefined,
     utmContent: params.get("utm_content") || undefined,
     utmTerm: params.get("utm_term") || undefined,
+    utmId: params.get("utm_id") || undefined,
     campaignId: params.get("campaign_id") || params.get("utm_id") || undefined,
     campaignName: params.get("campaign_name") || undefined,
-    swimlane: params.get("swimlane") || undefined
-  };
+    adsetId: params.get("adset_id") || undefined,
+    adsetName: params.get("adset_name") || undefined,
+    adId: params.get("ad_id") || undefined,
+    adName: params.get("ad_name") || undefined,
+    fbclid: params.get("fbclid") || undefined,
+    gclid: params.get("gclid") || undefined,
+    swimlane: params.get("swimlane") || undefined,
+    landingPage: window.location.href,
+    referrer: document.referrer || undefined,
+    firstSeenAt: now
+  });
+  const stored = readStoredAttribution();
+  const hasFreshAttribution = Boolean(
+    current.utmSource ||
+    current.utmMedium ||
+    current.utmCampaign ||
+    current.campaignId ||
+    current.campaignName ||
+    current.fbclid ||
+    current.gclid
+  );
+
+  const attribution = hasFreshAttribution
+    ? compactObject({
+      ...stored,
+      ...current,
+      firstSeenAt: stored.firstSeenAt || current.firstSeenAt,
+      landingPage: stored.landingPage || current.landingPage,
+      referrer: stored.referrer || current.referrer
+    })
+    : stored;
+
+  if (hasFreshAttribution) writeStoredAttribution(attribution);
+
+  const missingUtmFields = META_REQUIRED_UTMS.filter((field) => !attribution[field]);
+
+  return compactObject({
+    sessionId: getSessionId(),
+    siteHost: window.location.hostname,
+    pagePath: window.location.pathname,
+    pageUrl: window.location.href,
+    ...attribution,
+    utmPresent: missingUtmFields.length === 0,
+    missingUtmFields: missingUtmFields.length ? missingUtmFields.join(",") : undefined
+  });
 }
 
 function compactObject(object = {}) {
   return Object.fromEntries(
     Object.entries(object).filter(([, value]) => value !== undefined && value !== null && value !== "")
   );
+}
+
+function readStoredAttribution() {
+  if (typeof window === "undefined") return {};
+  try {
+    return JSON.parse(window.sessionStorage.getItem(ATTRIBUTION_KEY) || "{}") || {};
+  } catch {
+    return {};
+  }
+}
+
+function writeStoredAttribution(attribution) {
+  if (typeof window === "undefined") return;
+  try {
+    window.sessionStorage.setItem(ATTRIBUTION_KEY, JSON.stringify(attribution));
+  } catch {
+    // Storage can be blocked in private contexts; tracking should still continue.
+  }
 }
 
 export function getMetaTestEventCode() {
@@ -133,6 +209,19 @@ export function trackFirstParty(eventId, data = {}) {
     contactNumber: data.contactNumber,
     properties: compactObject({
       site_host: attributionContext.siteHost,
+      landing_page: attributionContext.landingPage,
+      page_url: attributionContext.pageUrl,
+      referrer: attributionContext.referrer,
+      utm_present: attributionContext.utmPresent,
+      missing_utm_fields: attributionContext.missingUtmFields,
+      utm_term: attributionContext.utmTerm,
+      utm_id: attributionContext.utmId,
+      adset_id: attributionContext.adsetId,
+      adset_name: attributionContext.adsetName,
+      ad_id: attributionContext.adId,
+      ad_name: attributionContext.adName,
+      fbclid: attributionContext.fbclid,
+      gclid: attributionContext.gclid,
       ...data.properties
     })
   });
@@ -149,6 +238,30 @@ export function trackFirstParty(eventId, data = {}) {
     keepalive: true
   }).catch(() => {
     // Analytics should never block the website experience.
+  });
+}
+
+export function trackPageSession() {
+  if (pageSessionTracked || typeof window === "undefined") return;
+  pageSessionTracked = true;
+
+  const attributionContext = getAttributionContext();
+  trackFirstParty("web.session", {
+    pathType: "website_widget",
+    stepId: "LandingPageViewed",
+    properties: {
+      source_event: "LandingPageViewed",
+      page_title: document.title,
+      user_agent: navigator.userAgent
+    }
+  });
+  trackCustom("LandingPageViewed", {
+    source: "aha_automobiles_funnel",
+    ...attributionContext
+  });
+  trackGoogle("LandingPageViewed", {
+    source: "aha_automobiles_funnel",
+    ...attributionContext
   });
 }
 
@@ -186,6 +299,11 @@ export function trackFunnel(eventName, data = {}) {
         challenge: data.challenge,
         speed: data.speed,
         matched: data.matched,
+        fuel: data.fuel,
+        transmission: data.transmission,
+        year: data.year,
+        order_total: data.orderTotal,
+        checkout_status: data.checkout_status,
         source_event: eventName
       }
     });

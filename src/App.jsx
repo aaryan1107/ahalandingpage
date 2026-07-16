@@ -9,6 +9,7 @@ import {
   trackCustom,
   trackFunnel,
   trackLead,
+  trackPageSession,
   trackWhatsApp
 } from "./tracking";
 import {
@@ -638,6 +639,10 @@ export default function App() {
   const [carDetails, setCarDetails] = useState(null);
   const [purchaseOpen, setPurchaseOpen] = useState(false);
   const pageRef = useRef(null);
+
+  useEffect(() => {
+    trackPageSession();
+  }, []);
 
   function choosePlan(plan) {
     setPreferredPlan(plan);
