@@ -222,6 +222,7 @@ export default function PurchaseFlow({ open, onClose, initialPlan, carDetails })
       installation,
       amount: total,
       contactNumber: billing.phone,
+      ...billing,
       reason,
       ...carDetails
     });
@@ -237,6 +238,7 @@ export default function PurchaseFlow({ open, onClose, initialPlan, carDetails })
       installation,
       amount: total,
       contactNumber: billing.phone,
+      ...billing,
       ...carDetails
     });
 
@@ -290,6 +292,7 @@ export default function PurchaseFlow({ open, onClose, initialPlan, carDetails })
               installation,
               amount: total,
               contactNumber: billing.phone,
+              ...billing,
               order_id: result.orderId,
               payment_id: result.paymentId
             });
